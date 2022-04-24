@@ -1,15 +1,15 @@
 /**
- * Add margin support to core/separator
+ * Add margin support to any block!
  */
 const { addFilter } = wp.hooks;
 const { createHigherOrderComponent } = wp.compose;
-const {
-	getColorClassName,
-	__experimentalUseColorProps: useColorProps,
-} = wp.blockEditor;
 
+// List of blocks to add margin support to
+const affectsBlocks = [ 'core/separator' ];
+
+// add attributes and supports to block metadata
 const addSpacingSupportToSeparator = ( settings, name ) => {
-	if ( name !== 'core/separator' ) {
+	if ( ! affectsBlocks.includes( name ) ) {
 		return settings;
 	}
 	settings.supports = {
@@ -33,7 +33,7 @@ addFilter(
 );
 
 const addMarginStyleToSeparator = ( props, blockType, attributes ) => {
-	if ( blockType.name !== 'core/separator' ) {
+	if ( ! affectsBlocks.includes( blockType.name ) ) {
 		return props;
 	}
 	if ( attributes?.style?.spacing ) {
@@ -54,15 +54,11 @@ wp.hooks.addFilter(
 const addSpacingStyleToSeparator = createHigherOrderComponent(
 	( BlockListBlock ) => {
 		return ( props ) => {
-			if ( props.name !== 'core/separator' ) {
+			if ( ! affectsBlocks.includes( props.name ) ) {
 				return <BlockListBlock { ...props } />;
 			}
 			const { attributes } = props;
-			const colorProps = useColorProps( attributes );
-			const currentColor = colorProps?.style?.backgroundColor;
 			const styles = {
-				color: currentColor,
-				backgroundColor: currentColor,
 				marginTop: attributes?.style?.spacing?.margin?.top,
 				marginBottom: attributes?.style?.spacing?.margin?.bottom,
 			};

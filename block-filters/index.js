@@ -3,4 +3,8 @@
  */
 
 import './post-terms';
-import './separator';
+
+/**
+ * Multi-block filters
+ */
+import './add-margin-support';
