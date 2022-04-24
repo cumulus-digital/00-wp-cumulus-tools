@@ -3,3 +3,4 @@
  */
 
 import './post-terms';
+import './separator';

@@ -56,3 +56,4 @@ composer upgrade
 Filters extending blocks include:
 
 * core/post-terms: Added support for custom taxonoomies
+* core/separator: Added margin support

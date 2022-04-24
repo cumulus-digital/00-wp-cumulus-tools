@@ -38,6 +38,24 @@ require BASEDIR . 'helpers.php';
 	);
 } );
 
+/**
+ * Install global block filter assets
+ * Nearly all of this can work in the widgets editor!
+ */
+\add_action('enqueue_block_editor_assets', function() {
+	if ( ! \is_admin()) {
+		return;
+	}
+	$assets = include BASEDIR . 'build/block-filters.asset.php';
+	\wp_enqueue_script(
+		'wp-cumulus-block-filters',
+		\plugins_url( 'build/block-filters.js', __FILE__ ),
+		$assets['dependencies'],
+		$assets['version'],
+		true
+	);
+});
+
 /*
  * Register our block category
  */

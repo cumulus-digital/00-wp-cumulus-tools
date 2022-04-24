@@ -168,6 +168,6 @@ const withTaxTypeSelector = createHigherOrderComponent( ( BlockEdit ) => {
 
 addFilter(
 	'editor.BlockEdit',
-	'cmls/block-extentions/post-types',
+	'cmls/block-filters/post-types/taxonomies',
 	withTaxTypeSelector
 );

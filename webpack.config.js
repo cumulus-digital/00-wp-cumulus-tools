@@ -71,6 +71,7 @@ module.exports = [
 		...resolves,
 		entry: {
 			editor: './global/editor.js',
+			'block-filters': './global/block-filters.js',
 		},
 		stats:
 			defaultConfig.mode == 'production' ? 'normal' : 'errors-warnings',
