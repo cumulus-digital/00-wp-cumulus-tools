@@ -1,0 +1,162 @@
+{
+	"_#": "_# is used in this document as a comment.",
+
+	"apiVersion": 2,
+	"name": "cumulus-gutenberg/donut-graph",
+	"title": "Donut Graph",
+	"description": "A simple donut graph block",
+	"keywords": ["cumulus","cmls","graph","chart","donut"],
+	"icon": "star-filled",
+	"category": "cmls",
+
+	"_#": "▼▼▼ REMOVE ANY INCLUDES BELOW THAT DON'T EXIST! ▼▼▼",
+
+	"_#": "Scripts used only in editor",
+	"editorScript": "file:./assets/block.js",
+
+	"_#": "Global styles",
+	"style": "file:./assets/block.css",
+
+	"_#": "▲▲▲ REMOVE ANY INCLUDES ABOVE THAT DON'T EXIST! ▲▲▲",
+
+
+	"_#": "Attributes stored by block",
+	"attributes": {
+		"blockId": {
+			"type": "string",
+			"default": null
+		},
+		"width": {
+			"type": "string",
+			"default": "100px"
+		},
+		"percent": {
+			"type": "number",
+			"default": 35
+		},
+		"rotation": {
+			"type": "number",
+			"default": 0
+		},
+		"strokeWidth": {
+			"type": "number",
+			"default": 20
+		},
+		"colorActive": {
+			"type": "string",
+			"default": "#00588d"
+		},
+		"colorInactive": {
+			"type": "string",
+			"default": "#eeeeee"
+		},
+		"showPercentLabel": {
+			"type": "boolean",
+			"default": true
+		},
+		"percentLabelColor": {
+			"type": "string",
+			"default": null
+		},
+		"percentLabelFontSize": {
+			"type": "string",
+			"default": "1em"
+		},
+		"percentLabelFontWeight": {
+			"type": "string",
+			"default": null
+		},
+		"percentLabelFontStyle": {
+			"type": "string",
+			"default": null
+		}
+	},
+
+	"_#": "Wordpress features support",
+	"supports": {
+		"_#": "Allow align left,right,center",
+		"align": true,
+
+		"_#": "Allow align wide",
+		"alignWide": false,
+
+		"_#": "Give block default wp-block-name class",
+		"className": true,
+
+		"_#": "Allow custom colors",
+		"color": {
+			"background": true,
+			"__experimentalDuotone": false,
+			"gradients": true,
+			"link": true,
+			"text": true
+		},
+
+		"_#": "Allow custom class names",
+		"customClassName": false,
+
+		"_#": "Allow setting default style for all blocks of this type",
+		"defaultStylePicker": true,
+
+		"_#": "Allow editing raw html of block",
+		"html": false,
+
+		"_#": "Show this block in the inserter",
+		"inserter": true,
+
+		"_#": "Allow multiples of this block in a single post",
+		"multiple": true,
+
+		"_#": "Allow block to be included in reusable blocks",
+		"reusable": true,
+
+		"_#": "Allow locking of this block",
+		"lock": true,
+
+		"_#": "Allow adding custom margin or padding",
+		"spacing": {
+			"margin": true,
+			"padding": true,
+			"blockGap": true
+		},
+
+		"_#": "Allow custom typography",
+		"typography": {
+			"align": false,
+			"fontSize": true,
+			"lineHeight": false,
+			"fontWeight": true,
+			"fontStyle": true,
+			"textTransform": false,
+			"__experimentalFontWeight": true,
+			"__experimentalFontStyle": true,
+			"__experimentalTextTransform": false
+		},
+
+		"_#": "Allow customizing border",
+		"border": {
+			"color": false,
+			"radius": false,
+			"style": false,
+			"width": false,
+			"defaultControls": {
+				"color": false,
+				"radius": false,
+				"style": false,
+				"width": false
+			}
+		},
+		"__experimentalBorder": {
+			"color": false,
+			"radius": false,
+			"style": false,
+			"width": false,
+			"__experimentalDefaultControls": {
+				"color": false,
+				"radius": false,
+				"style": false,
+				"width": false
+			}
+		}
+	}
+}

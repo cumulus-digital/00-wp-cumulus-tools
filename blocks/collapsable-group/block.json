@@ -1,0 +1,196 @@
+{
+	"_#": "_# is used in this document as a comment.",
+
+	"apiVersion": 2,
+	"name": "cumulus-gutenberg/collapsable-group",
+	"title": "Mobile Collapsable Group",
+	"description": "A group block which can 'collapse' on mobile as well as 'stick' to a bounding container on scroll.",
+	"keywords": ["cumulus","cmls","group","stick","sticky","mobile"],
+	"icon": "star-filled",
+	"category": "cmls",
+
+	"_#": "▼▼▼ REMOVE ANY INCLUDES BELOW THAT DON'T EXIST! ▼▼▼",
+
+	"_#": "Scripts used only in editor",
+	"editorScript": "file:./assets/editor.js",
+
+	"_#": "Scripts used only on frontend",
+	"viewScript": "file:./assets/frontend.js",
+
+	"_#": "Global styles",
+	"style": "file:./assets/frontend.css",
+
+	"_#": "Styles used only in editor",
+	"editorStyle": "file:./assets/editor.css",
+
+	"_#": "▲▲▲ REMOVE ANY INCLUDES ABOVE THAT DON'T EXIST! ▲▲▲",
+
+
+	"_#": "Attributes stored by block",
+	"attributes": {
+
+		"tagName": {
+			"type": "string",
+			"enum": [ "div", "section", "aside" ],
+			"default": "div"
+		},
+		"collapseOnMobile": {
+			"type": "boolean",
+			"default": true
+		},
+		"alwaysShowHeader": {
+			"type": "boolean",
+			"default": false
+		},
+		"mobileExpandIcon": {
+			"type": "string",
+			"default": "plus"
+		},
+		"mobileExpandIconColor": {
+			"type": "string"
+		},
+		"separatorColor": {
+			"type": "string",
+			"default": "lightgrey"
+		},
+		"bodyId": {
+			"type": "string",
+			"default": ""
+		},
+		"hasStickyPosition": {
+			"type": "boolean",
+			"default": false
+		},
+		"hasOnlyStickOnMobile": {
+			"type": "boolean",
+			"default": false
+		},
+		"stickyPosition": {
+			"type": "string",
+			"default": "calc( var(--cmls_base-masthead-height) + var(--wp_admin_bar_height) + 1em )"
+		},
+		"stickyZIndex": {
+			"type": "integer",
+			"default": 20
+		},
+		"stickyDesktopContainer": {
+			"type": "string",
+			"default": ".body"
+		},
+		"stickyMobileContainer": {
+			"type": "string",
+			"default": ".body"
+		},
+
+		"style": {
+			"type": "object",
+			"default": {
+				"spacing": {
+					"padding": {
+						"top": ".75em",
+						"right": ".75em",
+						"bottom": ".75em",
+						"left": ".75em"
+					}
+				},
+				"border": {
+					"width": "7px",
+					"style": "solid"
+				}
+			}
+		},
+		"borderColor": {
+			"type": "string",
+			"default": "lightgrey"
+		}
+
+	},
+
+	"_#": "Wordpress features support",
+	"supports": {
+		"_#": "Allow align left,right,center",
+		"align": true,
+
+		"_#": "Allow align wide",
+		"alignWide": false,
+
+		"_#": "Give block default wp-block-name class",
+		"className": true,
+
+		"_#": "Allow custom colors",
+		"color": {
+			"background": true,
+			"__experimentalDuotone": false,
+			"gradients": true,
+			"link": true,
+			"text": true
+		},
+
+		"_#": "Allow custom class names",
+		"customClassName": true,
+
+		"_#": "Allow setting default style for all blocks of this type",
+		"defaultStylePicker": true,
+
+		"_#": "Allow editing raw html of block",
+		"html": false,
+
+		"_#": "Show this block in the inserter",
+		"inserter": true,
+
+		"_#": "Allow multiples of this block in a single post",
+		"multiple": true,
+
+		"_#": "Allow block to be included in reusable blocks",
+		"reusable": true,
+
+		"_#": "Allow locking of this block",
+		"lock": true,
+
+		"_#": "Allow adding custom margin or padding",
+		"spacing": {
+			"margin": true,
+			"padding": true,
+			"blockGap": true
+		},
+
+		"_#": "Allow custom typography",
+		"typography": {
+			"align": true,
+			"fontSize": true,
+			"lineHeight": true,
+			"fontWeight": true,
+			"fontStyle": true,
+			"textTransform": true,
+			"__experimentalFontWeight": true,
+			"__experimentalFontStyle": true,
+			"__experimentalTextTransform": true
+		},
+
+		"_#": "Allow customizing border",
+		"border": {
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true,
+			"defaultControls": {
+				"color": true,
+				"radius": true,
+				"style": true,
+				"width": true
+			}
+		},
+		"__experimentalBorder": {
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true,
+			"__experimentalDefaultControls": {
+				"color": true,
+				"radius": true,
+				"style": true,
+				"width": true
+			}
+		}
+	}
+}

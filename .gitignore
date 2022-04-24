@@ -1,0 +1,21 @@
+# php-cs-fixer wordpress tokens
+phpcs-tokens/**/*.csv
+
+# Composer
+vendor/
+# Scoped vendors for distribution
+!vendor.dist/
+
+# npm
+node_modules/
+
+*.log
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

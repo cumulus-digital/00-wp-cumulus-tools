@@ -1,0 +1,127 @@
+{
+	"_#": "_# is used in this document as a comment.",
+
+	"apiVersion": 2,
+	"name": "cumulus-gutenberg/block-skeleton",
+	"title": "Block Skeleton",
+	"description": "This is not a block!",
+	"keywords": ["cumulus","cmls"],
+	"icon": "star-filled",
+	"category": "cmls",
+
+	"_#": "▼▼▼ REMOVE ANY INCLUDES BELOW THAT DON'T EXIST! ▼▼▼",
+
+	"_#": "Global script used for front and back end",
+	"script": "file:./assets/global.js",
+
+	"_#": "Scripts used only in editor",
+	"editorScript": "file:./assets/editor.js",
+
+	"_#": "Scripts used only on frontend",
+	"viewScript": "file:./assets/frontend.js",
+
+	"_#": "Global styles",
+	"style": "file:./assets/frontend.css",
+
+	"_#": "Styles used only in editor",
+	"editorStyle": "file:./assets/editor.css",
+
+	"_#": "▲▲▲ REMOVE ANY INCLUDES ABOVE THAT DON'T EXIST! ▲▲▲",
+
+
+	"_#": "Attributes stored by block",
+	"attributes": {
+
+	},
+
+	"_#": "Wordpress features support",
+	"supports": {
+		"_#": "Allow setting a custom html tag ID on this block",
+		"anchor": true,
+
+		"_#": "Allow align left,right,center",
+		"align": true,
+
+		"_#": "Allow align wide",
+		"alignWide": false,
+
+		"_#": "Give block default wp-block-name class",
+		"className": true,
+
+		"_#": "Allow custom colors",
+		"color": {
+			"background": true,
+			"__experimentalDuotone": false,
+			"gradients": true,
+			"link": true,
+			"text": true
+		},
+
+		"_#": "Allow custom class names",
+		"customClassName": false,
+
+		"_#": "Allow setting default style for all blocks of this type",
+		"defaultStylePicker": true,
+
+		"_#": "Allow editing raw html of block",
+		"html": false,
+
+		"_#": "Show this block in the inserter",
+		"inserter": true,
+
+		"_#": "Allow multiples of this block in a single post",
+		"multiple": true,
+
+		"_#": "Allow block to be included in reusable blocks",
+		"reusable": true,
+
+		"_#": "Allow locking of this block",
+		"lock": true,
+
+		"_#": "Allow adding custom margin or padding",
+		"spacing": {
+			"margin": true,
+			"padding": true,
+			"blockGap": true
+		},
+
+		"_#": "Allow custom typography",
+		"typography": {
+			"align": true,
+			"fontSize": true,
+			"lineHeight": false,
+			"fontWeight": true,
+			"fontStyle": true,
+			"textTransform": true,
+			"__experimentalFontWeight": true,
+			"__experimentalFontStyle": true,
+			"__experimentalTextTransform": true
+		},
+
+		"_#": "Allow customizing border",
+		"border": {
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true,
+			"defaultControls": {
+				"color": true,
+				"radius": true,
+				"style": true,
+				"width": true
+			}
+		},
+		"__experimentalBorder": {
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true,
+			"__experimentalDefaultControls": {
+				"color": true,
+				"radius": true,
+				"style": true,
+				"width": true
+			}
+		}
+	}
+}

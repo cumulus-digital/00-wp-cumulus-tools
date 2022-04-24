@@ -1,0 +1,27 @@
+{
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "cumulus-digital/wp-php-cs-fixer",
+                "version": "1.0.2",
+                "type": "library",
+                "source": {
+                    "url": "https://github.com/cumulus-digital/wp-php-cs-fixer.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        }
+    ],
+    "require": {
+        "johnbillion/extended-cpts": "^4.5",
+        "tgmpa/tgm-plugin-activation": "^2.6",
+        "vena/acf-json": "^1.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "paulthewalton/acf-stubs": "^5.8",
+        "cumulus-digital/wp-php-cs-fixer": "^1"
+    }
+}

@@ -1,0 +1,40 @@
+.wp-block-cumulus-gutenberg-donut-graph .donut-graph {
+	width: var( --width );
+	height: var( --width );
+	position: relative;
+	border-radius: 100%;
+
+	svg {
+		width: 100%;
+		height: 100%;
+		transform: rotate( calc( var( --rotation ) - 90deg ) );
+
+		.dg-visible {
+			fill: transparent;
+			stroke-dasharray: 314.159;
+			stroke-dashoffset: 0;
+			transition: stroke-dashoffset 1s linear;
+			stroke: var( --color-inactive );
+			stroke-width: calc( var( --stroke-width ) * 2 * 1% );
+		}
+		.dg-bar {
+			stroke: var( --color-active );
+			stroke-dashoffset: calc(
+				( ( 100 - var( --percent ) ) / 100 ) * 314.159
+			);
+		}
+	}
+
+	&.show-label::after {
+		position: absolute;
+		display: inline-block;
+		left: 50%;
+		top: 50%;
+		transform: translate( -50%, -50% );
+		color: inherit;
+		font-size: inherit;
+		font-weight: inherit;
+		font-style: inherit;
+		content: attr( data-percent ) '%';
+	}
+}

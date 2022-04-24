@@ -1,0 +1,26 @@
+{
+	"_#": "_# is used in this document as a comment.",
+
+	"apiVersion": 2,
+	"name": "cumulus-gutenberg/anchor",
+	"title": "Anchor",
+	"description": "A simple, standalone anchor tag",
+	"keywords": ["cumulus","cmls"],
+	"icon": "admin-links",
+	"category": "cmls",
+
+	"_#": "▼▼▼ REMOVE ANY INCLUDES BELOW THAT DON'T EXIST! ▼▼▼",
+
+	"_#": "Scripts used only in editor",
+	"editorScript": "file:./assets/editor.js",
+
+	"_#": "Styles used only in editor",
+	"editorStyle": "file:./assets/editor.css",
+
+	"_#": "▲▲▲ REMOVE ANY INCLUDES ABOVE THAT DON'T EXIST! ▲▲▲",
+
+	"_#": "Wordpress features support",
+	"supports": {
+		"anchor": true
+	}
+}

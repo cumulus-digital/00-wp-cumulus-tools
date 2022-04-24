@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2022 by original authors @ fontello.com</metadata>
+<defs>
+<font id="cumulus_gutenberg-collapsable_group-icons" horiz-adv-x="1000" >
+<font-face font-family="cumulus_gutenberg-collapsable_group-icons" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="plus" unicode="&#xe802;" d="M0 209l0 282 359 0 0 359 282 0 0-359 359 0 0-282-359 0 0-359-282 0 0 359-359 0z" horiz-adv-x="1000" />
+
+<glyph glyph-name="minus" unicode="&#xe803;" d="M0 209l0 282 1000 0 0-282-1000 0z" horiz-adv-x="1000" />
+
+<glyph glyph-name="down-open" unicode="&#xe804;" d="M0 526l148 148 352-351 352 351 148-148-352-352-148-148-148 148z" horiz-adv-x="1000" />
+
+<glyph glyph-name="up-open" unicode="&#xe805;" d="M0 174l352 352 148 148 148-148 352-352-148-148-352 351-352-351z" horiz-adv-x="1000" />
+</font>
+</defs>
+</svg>

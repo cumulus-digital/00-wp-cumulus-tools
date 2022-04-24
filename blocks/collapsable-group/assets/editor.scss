@@ -1,0 +1,127 @@
+.is-desktop-preview {
+
+	.wp-block-cumulus-gutenberg-collapsable-group {
+
+		// Visual indication if header is hidden on desktop
+		&:not(.has-always-show-header,.is-selected,.has-child-selected) {
+			.wp-block-cumulus-gutenberg-collapsable-group-header {
+				&:not(.has-background, .is-selected, .has-child-selected) {
+					background-image: linear-gradient(
+						45deg,
+						rgba(0,0,0,0.4) 12.50%,
+						transparent 12.50%,
+						transparent 50%,
+						rgba(0,0,0,0.4) 50%,
+						rgba(0,0,0,0.4) 62.50%,
+						transparent 62.50%,
+						transparent 100%
+					);
+					background-size: 5.66px 5.66px;
+				}
+				&:not(.is-selected, .has-child-selected)::before {
+					content: 'Header hidden on desktop';
+					position: absolute;
+					top: 0;
+					left: 0;
+					background-color: rgba(230,230,230,1);
+					color: rgba(0,0,0,0.75);
+					padding: .25em .75em;
+					font-size: 7px;
+					font-weight: bold;
+					letter-spacing: .15em;
+					text-transform: uppercase;
+					z-index: 20;
+				}
+			}
+		}
+
+	}
+}
+
+.wp-block-cumulus-gutenberg-collapsable-group-header {
+	display: block;
+	opacity: 0.35;
+
+	.wp-block-cumulus-gutenberg-collapsable-group:is(.has-always-show-header,.is-selected,.has-child-selected) & {
+		opacity: 1;
+	}
+
+
+	.block-editor-block-list__layout > & {
+		&:first-child {
+			border-bottom-width: 1px;
+			margin-bottom: var(--padding-bottom, .75em);
+		}
+		&:not(:first-child) {
+			border-top-width: 1px;
+			margin-top: var(--padding-bottom, .75em);
+		}
+	}
+
+	> .wp-block-cumulus-gutenberg-collapsable-group-header-content {
+		*:only-child,
+		*:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.wp-block-cumulus-gutenberg-collapsable-group-body {
+	max-height: none !important;
+}
+
+
+/*
+.wp-block-cumulus-gutenberg-collapsable-group-header {
+	display: block !important;
+	opacity: 0.35;
+
+
+	.wp-block-cumulus-gutenberg-collapsable-group:not(.has-always-show-header,.is-selected,.has-child-selected) &:not(.has-background, .is-selected, .has-child-selected) {
+		background-image: linear-gradient(
+			45deg,
+			rgba(0,0,0,0.4) 12.50%,
+			transparent 12.50%,
+			transparent 50%,
+			rgba(0,0,0,0.4) 50%,
+			rgba(0,0,0,0.4) 62.50%,
+			transparent 62.50%,
+			transparent 100%
+		);
+		background-size: 5.66px 5.66px;
+	}
+	.wp-block-cumulus-gutenberg-collapsable-group:not(.has-always-show-header,.is-selected,.has-child-selected) &:not(.is-selected, .has-child-selected) {
+		&::before {
+			content: 'Header hidden on desktop';
+			position: absolute;
+			top: 0;
+			left: 0;
+			background-color: rgba(230,230,230,1);
+			color: rgba(0,0,0,0.75);
+			padding: .25em .75em;
+			font-size: 7px;
+			font-weight: bold;
+			letter-spacing: .15em;
+			text-transform: uppercase;
+			z-index: 20;
+		}
+	}
+
+	> .wp-block-cumulus-gutenberg-collapsable-group-header-content {
+		*:only-child,
+		*:last-child {
+			margin-bottom: 0;
+		}
+	}
+	> .wp-block-cumulus-gutenberg-collapsable-group-header-icon {
+		display: flex;
+	}
+}
+.wp-block-cumulus-gutenberg-collapsable-group-body {
+	display: block;
+	overflow: hidden;
+	.is-desktop-preview & {
+		max-height: none;
+	}
+}
+*/
