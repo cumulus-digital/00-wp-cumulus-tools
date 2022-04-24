@@ -9,6 +9,10 @@ const resolves = {
 			...defaultConfig?.resolve?.alias,
 			Icons: path.resolve( __dirname, 'global/icons' ),
 			Utilities: path.resolve( __dirname, 'global/utilities' ),
+			wpBlockLibrary: path.resolve(
+				__dirname,
+				'node_modules/@wordpress/block-library'
+			),
 		},
 	},
 };
@@ -47,6 +51,17 @@ const blockModuleRules = defaultConfig.module.rules.map( ( rule ) => {
 	return rule;
 } );
 
+// Allow direct importing from node_modules
+const allowNodeModulesRule = defaultConfig.module.rules.filter( ( rule ) => {
+	if (
+		rule?.test.toString() === '/\\.(j|t)sx?$/' &&
+		rule?.exclude.toString().includes( 'node_modules' )
+	) {
+		delete rule.exclude;
+	}
+	return rule;
+} );
+
 module.exports = [
 	// Blocks
 	{
@@ -65,13 +80,27 @@ module.exports = [
 	},
 	// CPTs
 
+	// Block filters get a special entry since they may directly include node_modules stuff...
+	{
+		...defaultConfig,
+		module: {
+			...defaultConfig.module,
+			rules: [ ...allowNodeModulesRule ],
+		},
+		...resolves,
+		entry: {
+			'block-filters': './global/block-filters.js',
+		},
+		stats:
+			defaultConfig.mode == 'production' ? 'normal' : 'errors-warnings',
+	},
+
 	// Plugin core
 	{
 		...defaultConfig,
 		...resolves,
 		entry: {
 			editor: './global/editor.js',
-			'block-filters': './global/block-filters.js',
 		},
 		stats:
 			defaultConfig.mode == 'production' ? 'normal' : 'errors-warnings',

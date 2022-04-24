@@ -34,6 +34,7 @@
   },
   "homepage": "https://github.com/cumulus-digital/wp-cumulus-tools/#readme",
   "devDependencies": {
+    "@wordpress/block-library": "^7.4.0",
     "@wordpress/icons": "^8.3.0",
     "@wordpress/scripts": "^22.5.0",
     "jquery": "^3.6.0",

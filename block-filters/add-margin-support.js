@@ -23,6 +23,7 @@ const addSpacingSupportToSeparator = ( settings, name ) => {
 		...settings?.attributes,
 		style: { type: 'object' },
 	};
+	console.log( `Added margin support to ${ name }` );
 	return settings;
 };
 
