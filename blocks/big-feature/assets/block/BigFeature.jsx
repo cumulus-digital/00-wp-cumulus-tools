@@ -1,12 +1,16 @@
 import BlockIcon from './icon.jsx';
 import metadata from '../../block.json';
 
-import './Column.jsx';
-import './Square.jsx';
-import './SmallCluster.jsx';
+import './Column';
+import './Square';
+import './SmallCluster';
 
 import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import {
+	useBlockProps,
+	InnerBlocks,
+	useInnerBlocksProps,
+} from '@wordpress/block-editor';
 
 const globalBlockProps = { className: 'g-big-feature' };
 

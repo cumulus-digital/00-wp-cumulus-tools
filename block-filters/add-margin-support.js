@@ -33,15 +33,24 @@ const addSpacingSupportToSeparator = ( settings, name ) => {
 		return settings;
 	}
 
-	if ( settings?.supports?.spacing?.margin === true ) {
+	if (
+		settings?.supports?.spacing?.margin === true ||
+		( Array.isArray( settings?.supports?.spacing?.margin ) &&
+			settings?.supports?.spacing?.margin.includes( 'top' ) &&
+			settings?.supports?.spacing?.margin.includes( 'bottom' ) )
+	) {
 		return settings;
 	}
 
+	let newMargin = [ 'top', 'bottom' ];
+	if ( settings?.supports?.spacing?.margin ) {
+		newMargin = [ settings?.supports?.spacing?.margin, ...newMargin ];
+	}
 	settings.supports = {
 		...settings?.supports,
 		spacing: {
 			...settings?.supports?.spacing,
-			margin: [ ...settings?.supports?.spacing?.margin, 'top', 'bottom' ],
+			margin: [ newMargin ],
 		},
 	};
 	settings.attributes = {

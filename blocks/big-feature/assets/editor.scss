@@ -1,65 +1,33 @@
-$icon_linked: '\f103';
-$icon_unlinked: '\f225';
-$icon_inaccessable: '\f534';
-$icon_placeholder: '\f128';
+$icon_placeholder: "\f128";
 
 .wp-block-cumulus-gutenberg-big-feature-square {
 	position: relative;
 
-	&:where( .is-unlinked, .is-placeholder )::before {
+	.g-bf-notice-icons {
 		display: block;
-		background-color: rgba( 255, 255, 255, 0.5 );
-		color: rgba( 0, 0, 0, 0.15 );
-		font-family: 'dashicons';
-		font-size: 1em;
+		background-color: rgba(255, 255, 255, 0.5);
+		color: rgba(255, 0, 0, 0.75);
+		font-size: 1rem;
 		line-height: 1;
-		font-weight: 400;
-		font-style: normal;
-		speak: never;
-		text-decoration: inherit;
-		text-transform: none;
-		text-rendering: auto;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-align: center;
 		padding: 5px;
 		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate( -50%, -50% );
+		right: 5px;
+		bottom: 5px;
 		pointer-events: none;
 	}
 
-	&:where( .is-linked, .is-unlinked )::before {
-		transform: none;
-		top: auto;
-		left: auto;
-		bottom: 5px;
-		right: 5px;
-	}
-	&.is-inaccessable::before {
-		content: $icon_inaccessable;
-	}
-	&.is-unlinked::before {
-		content: $icon_unlinked;
-		color: rgba( 255, 0, 0, 0.6 );
-	}
-	&.is-inaccessable.is-unlinked::before {
-		content: $icon_inaccessable + $icon_unlinked;
-	}
-
 	&.is-placeholder {
-		img {
+		.g-bf-placeholder {
 			margin: 1px;
-			width: calc( 100% - 2px );
-			height: calc( 100% - 2px );
+			width: calc(100% - 2px);
+			height: calc(100% - 2px);
 			background-image: linear-gradient(
 				45deg,
-				rgba( 0, 0, 0, 0.15 ) 12.5%,
+				rgba(0, 0, 0, 0.15) 12.5%,
 				transparent 12.5%,
 				transparent 50%,
-				rgba( 0, 0, 0, 0.15 ) 50%,
-				rgba( 0, 0, 0, 0.15 ) 62.5%,
+				rgba(0, 0, 0, 0.15) 50%,
+				rgba(0, 0, 0, 0.15) 62.5%,
 				transparent 62.5%,
 				transparent 100%
 			);
@@ -68,6 +36,27 @@ $icon_placeholder: '\f128';
 
 		&::before {
 			content: $icon_placeholder;
+			display: block;
+			background-color: rgba(255, 255, 255, 0.5);
+			color: rgba(0, 0, 0, 0.15);
+			font-family: "dashicons";
+			font-size: 1em;
+			line-height: 1;
+			font-weight: 400;
+			font-style: normal;
+			speak: never;
+			text-decoration: inherit;
+			text-transform: none;
+			text-rendering: auto;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			text-align: center;
+			padding: 5px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			pointer-events: none;
 		}
 	}
 }
