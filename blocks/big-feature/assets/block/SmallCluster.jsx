@@ -1,8 +1,12 @@
 import { foreground as iconForeground } from './icon.jsx';
 import metadata from '../../children.json';
 
-const { registerBlockType } = wp.blocks;
-const { InnerBlocks, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
+import { registerBlockType } from '@wordpress/blocks';
+import {
+	useBlockProps,
+	InnerBlocks,
+	useInnerBlocksProps,
+} from '@wordpress/block-editor';
 
 const globalBlockProps = { className: 'g-bf-cluster' };
 
@@ -21,7 +25,7 @@ registerBlockType( 'cumulus-gutenberg/big-feature-small-cluster', {
 		const innerBlockProps = useInnerBlocksProps(
 			{},
 			{
-				orientation: 'horizoontal',
+				orientation: 'horizontal',
 				template: [
 					[
 						'cumulus-gutenberg/big-feature-square',

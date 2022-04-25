@@ -5,37 +5,24 @@ import './group-header.jsx';
 import './group-body.jsx';
 import { generateId } from 'Utilities/shortrandom.js';
 
-const { registerBlockType } = wp.blocks;
-const {
+import { registerBlockType } from '@wordpress/blocks';
+import {
 	useBlockProps,
-	//BlockControls,
 	InspectorControls,
 	InspectorAdvancedControls,
 	InnerBlocks,
 	ColorPaletteControl,
-} = wp.blockEditor;
-const { useEffect, useState, Platform } = wp.element;
-const {
+} from '@wordpress/block-editor';
+import {
 	Panel,
 	PanelBody,
 	PanelRow,
-	//BaseControl,
 	ToggleControl,
 	SelectControl,
-	//RangeControl,
-	//__experimentalUnitControl: UnitControl,
-	//__experimentalBoxControl: BoxControl,
-	//__experimentalToolsPanel: ToolsPanel,
-	//__experimentalToolsPanelItem: ToolsPanelItem,
-	//Flex,
-	//FlexItem,
-	//Button,
 	TextControl,
-	//Dropdown,
-	//Icon,
-	//Spinner,
 	ExternalLink,
-} = wp.components;
+} from '@wordpress/components';
+import { useEffect, useState, Platform } from '@wordpress/element';
 
 const generateStyles = ( attributes ) => {
 	const cssStyles = {

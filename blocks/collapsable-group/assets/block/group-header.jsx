@@ -1,26 +1,9 @@
 import metadata from '../../children.json';
 
-const { registerBlockType } = wp.blocks;
-const {
-	useBlockProps,
-	BlockControls,
-	InspectorControls,
-	InnerBlocks,
-} = wp.blockEditor;
-const { Flex, FlexItem, Dashicon } = wp.components;
-const { useEffect, useState } = wp.element;
-const { useSelect } = wp.data;
-
-const Icons = {
-	plus: {
-		expand: 'plus',
-		collapse: 'minus',
-	},
-	arrows: {
-		expand: 'arrow-down-alt2',
-		collapse: 'arrow-up-alt2',
-	},
-};
+import { registerBlockType } from '@wordpress/blocks';
+import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
+import { useEffect } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
 registerBlockType( 'cumulus-gutenberg/collapsable-group-header', {
 	...metadata,

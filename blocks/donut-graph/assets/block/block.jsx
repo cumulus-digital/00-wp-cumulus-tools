@@ -4,24 +4,24 @@ import metadata from '../../block.json';
 import { generateId } from 'Utilities/shortrandom.js';
 
 import { formatBold, formatItalic } from '@wordpress/icons';
-const { registerBlockType } = wp.blocks;
-const {
-	Panel,
-	PanelBody,
-	ToggleControl,
-	RangeControl,
-	__experimentalUnitControl: UnitControl,
-	AnglePickerControl,
-	ToolbarGroup,
-	ToolbarButton,
-} = wp.components;
-const {
+import { registerBlockType } from '@wordpress/blocks';
+import {
 	useBlockProps,
 	BlockControls,
 	ColorPaletteControl,
 	InspectorControls,
-} = wp.blockEditor;
-const { useEffect, useState, Platform } = wp.element;
+} from '@wordpress/block-editor';
+import {
+	Panel,
+	PanelBody,
+	ToggleControl,
+	RangeControl,
+	__experimentalUnitControl as UnitControl,
+	AnglePickerControl,
+	ToolbarGroup,
+	ToolbarButton,
+} from '@wordpress/components';
+import { useEffect } from '@wordpress/element';
 
 const setDonutProps = ( attributes ) => {
 	let ret = {};

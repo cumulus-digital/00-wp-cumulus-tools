@@ -1,14 +1,12 @@
 import { foreground as iconForeground } from './icon.jsx';
 import metadata from '../../children.json';
 
-const { registerBlockType } = wp.blocks;
-const {
+import { registerBlockType } from '@wordpress/blocks';
+import {
 	useBlockProps,
 	InnerBlocks,
 	useInnerBlocksProps,
-	BlockControls,
-	InspectorControls,
-} = wp.blockEditor;
+} from '@wordpress/block-editor';
 
 const globalBlockProps = { className: 'g-bf-column' };
 

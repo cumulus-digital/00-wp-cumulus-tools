@@ -1,7 +1,7 @@
 import './fontello/css/cumulus_gutenberg-collapsable_group-icons.css';
 import './frontend.scss';
 
-import debounce from 'lodash/debounce';
+import { debounce } from 'lodash';
 import supportsPassive from 'Utilities/detect.passive.js';
 import jQuery from 'jquery';
 

@@ -166,7 +166,7 @@ const withTaxTypeSelector = createHigherOrderComponent( ( BlockEdit ) => {
 								<p>
 									Restrict searches to a simple post category,
 									or a more complex filter with other post
-									types and taxoonomy terms.
+									types and taxonomy terms.
 								</p>
 								<SelectControl
 									label="Post Type"

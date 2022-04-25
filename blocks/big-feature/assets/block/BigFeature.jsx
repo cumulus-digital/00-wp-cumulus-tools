@@ -5,14 +5,8 @@ import './Column.jsx';
 import './Square.jsx';
 import './SmallCluster.jsx';
 
-const { registerBlockType } = wp.blocks;
-const {
-	useBlockProps,
-	InnerBlocks,
-	useInnerBlocksProps,
-	BlockControls,
-	InspectorControls,
-} = wp.blockEditor;
+import { registerBlockType } from '@wordpress/blocks';
+import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 
 const globalBlockProps = { className: 'g-big-feature' };
 

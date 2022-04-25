@@ -1,13 +1,8 @@
 import metadata from '../../children.json';
 
-const { registerBlockType } = wp.blocks;
-const {
-	useBlockProps,
-	BlockControls,
-	InspectorControls,
-	InnerBlocks,
-} = wp.blockEditor;
-const { useEffect, useState } = wp.element;
+import { registerBlockType } from '@wordpress/blocks';
+import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
+import { useEffect } from '@wordpress/element';
 
 registerBlockType( 'cumulus-gutenberg/collapsable-group-body', {
 	...metadata,

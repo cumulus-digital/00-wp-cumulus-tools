@@ -7,8 +7,8 @@ import {
 	image as imageIcon,
 } from '@wordpress/icons';
 
-const { registerBlockType } = wp.blocks;
-const {
+import { registerBlockType } from '@wordpress/blocks';
+import {
 	Panel,
 	PanelBody,
 	PanelRow,
@@ -22,8 +22,8 @@ const {
 	Icon,
 	IconButton,
 	ExternalLink,
-} = wp.components;
-const {
+} from '@wordpress/components';
+import {
 	useBlockProps,
 	BlockControls,
 	InspectorControls,
@@ -31,17 +31,17 @@ const {
 	MediaPlaceholder,
 	MediaUpload,
 	MediaUploadCheck,
-	__experimentalLinkControl: LinkControl,
-} = wp.blockEditor;
-const {
+	__experimentalLinkControl as LinkControl,
+} from '@wordpress/blockEditor';
+import {
 	filterURLForDisplay,
 	safeDecodeURI,
 	getAuthority,
 	getPathAndQueryString,
 	getFragment,
-} = wp.url;
-const { __unstableStripHTML: stripHTML } = wp.dom;
-const { useState, useEffect } = wp.element;
+} from '@wordpress/url';
+import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
+import { useState, useEffect } from '@wordpress/element';
 
 const stripDomain = ( url ) => {
 	if (

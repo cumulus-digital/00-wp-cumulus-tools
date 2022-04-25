@@ -1,11 +1,20 @@
 import AnchorIcon from './icon.jsx';
 import metadata from '../../block.json';
-
-const { registerBlockType } = wp.blocks;
-const { TextControl, ExternalLink, PanelBody, PanelRow } = wp.components;
-const { __ } = wp.i18n;
-const { useBlockProps, InspectorControls } = wp.blockEditor;
-const { Platform } = wp.element;
+import { registerBlockType } from '@wordpress/blocks';
+import {
+	TextControl,
+	ExternalLink,
+	PanelBody,
+	PanelRow,
+} from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
+import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import { Platform } from '@wordpress/element';
+//const { registerBlockType } = wp.blocks;
+//const { TextControl, ExternalLink, PanelBody, PanelRow } = wp.components;
+//const { __ } = wp.i18n;
+//const { useBlockProps, InspectorControls } = wp.blockEditor;
+//const { Platform } = wp.element;
 
 /**
  * Regular expression matching invalid anchor characters for replacement.
@@ -21,7 +30,7 @@ const ANCHOR_SCHEMA = {
 	selector: '*',
 };
 
-registerBlockType(metadata.name, {
+registerBlockType( metadata.name, {
 	icon: AnchorIcon,
 	edit: ( props ) => {
 		const blockProps = useBlockProps();
@@ -77,16 +86,16 @@ registerBlockType(metadata.name, {
 				</InspectorControls>
 
 				<div>
-					{AnchorIcon.src}
-					<div>{anchor && <em>{anchor}</em>}</div>
+					{ AnchorIcon.src }
+					<div>{ anchor && <em>{ anchor }</em> }</div>
 				</div>
 			</div>
 		);
 	},
 	save: () => {
-		const blockProps = useBlockProps.save({
-			className: 'cmls-anchor'
-		});
+		const blockProps = useBlockProps.save( {
+			className: 'cmls-anchor',
+		} );
 		return <div { ...blockProps }></div>;
 	},
 } );
