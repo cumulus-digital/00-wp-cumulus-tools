@@ -9,9 +9,18 @@ const resolves = {
 			...defaultConfig?.resolve?.alias,
 			Icons: path.resolve( __dirname, 'global/icons' ),
 			Utilities: path.resolve( __dirname, 'global/utilities' ),
+			Components: path.resolve( __dirname, 'global/components' ),
 			wpBlockLibrary: path.resolve(
 				__dirname,
 				'node_modules/@wordpress/block-library'
+			),
+			wpEditor: path.resolve(
+				__dirname,
+				'node_modules/@wordpress/editor'
+			),
+			wpBlockEditor: path.resolve(
+				__dirname,
+				'node_modules/@wordpress/block-editor'
 			),
 		},
 	},

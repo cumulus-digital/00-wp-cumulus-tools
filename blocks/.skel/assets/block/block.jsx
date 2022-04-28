@@ -5,6 +5,7 @@ const { registerBlockType } = wp.blocks;
 const { useBlockProps, BlockControls, InspectorControls } = wp.blockEditor;
 
 registerBlockType( metadata.name, {
+	...metadata,
 	icon: BlockIcon,
 	edit: ( props ) => {
 		const blockProps = useBlockProps();

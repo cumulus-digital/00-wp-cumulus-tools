@@ -1,0 +1,113 @@
+:root body .wp-block-cumulus-gutenberg-family-links,
+:root body .wp-block-cumulus-gutenberg-family-links nav {
+	ul,
+	li,
+	li li {
+		margin-top: 0;
+		margin-right: 0;
+		margin-bottom: 0;
+		margin-left: 0;
+		padding-top: 0;
+		padding-right: 0;
+		padding-bottom: 0;
+		padding-left: 0;
+	}
+	ul.children {
+		font-size: 0.95em;
+		margin-top: var(--children-margin-top, 0);
+		margin-right: var(--children-margin-right, 0);
+		margin-bottom: var(--children-margin-bottom, 0);
+		margin-left: var(--children-margin-left, 0);
+	}
+	ul li {
+		margin-top: var(--item-margin-top, 0);
+		margin-right: var(--item-margin-right, 0);
+		margin-bottom: var(--item-margin-bottom, 0);
+		margin-left: var(--item-margin-left, 0);
+	}
+	ul li::marker {
+		color: var(--bullet-color);
+	}
+	&.text-align-right ul.children {
+		margin-left: 0;
+		margin-right: var(--child-indent);
+	}
+
+	&.is-style-bullets ul,
+	&.is-style-square ul,
+	&.is-style-numbered ul {
+		//padding-inline-start: .6ch;
+	}
+
+	&.is-style-bullets ul {
+		list-style-type: disc;
+	}
+	&.is-style-square ul {
+		list-style-type: square;
+	}
+	&.is-style-numbered ul {
+		list-style-type: decimal;
+	}
+	&.is-style-plain ul {
+		list-style-type: none;
+	}
+	&.is-style-custom li {
+		list-style-type: var(--custom-bullet);
+		padding-inline-start: 0.5ch;
+		&::marker {
+			line-height: 1;
+		}
+	}
+
+	&.has-text-align {
+		text-align: var(--text-align);
+	}
+
+	&.has-link-color a {
+		color: var(--link-color);
+	}
+	&.has-link-color-hover a:hover {
+		color: var(--link-color-hover);
+	}
+	&.has-underline-links a {
+		text-decoration: underline;
+	}
+	&.has-underline-links-hover a:hover {
+		text-decoration: underline;
+	}
+	&.has-no-underline-links a {
+		text-decoration: none;
+	}
+	&.has-no-underline-links-hover a:hover {
+		text-decoration: none;
+	}
+
+	li.current_page_item > a {
+		font-weight: var(--current-font-weight, inherit);
+		font-size: var(--current-font-size, inherit);
+		font-style: var(--current-font-style, inherit);
+	}
+	&.has-current-link-color li.current_page_item > a {
+		color: var(--current-link-color);
+	}
+	&.has-current-link-color-hover li.current_page_item > a:hover {
+		color: var(--current-link-color-hover);
+	}
+	&.has-link-color-hover:not(.has-current-link-color-hover)
+		li.current_page_item
+		> a:hover {
+		color: var(--link-color-hover);
+	}
+	&.has-current-underline-link li.current_page_item > a {
+		text-decoration: underline;
+	}
+	&.has-current-underline-link-hover li.current_page_item > a:hover {
+		text-decoration: underline;
+	}
+	&.has-current-no-underline-link li.current_page_item > a {
+		text-decoration: none;
+	}
+	&.has-current-no-underline-link-hover li.current_page_item > a:hover {
+		text-decoration: none;
+	}
+}

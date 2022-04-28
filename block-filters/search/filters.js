@@ -1,15 +1,14 @@
 /**
  * Add base path, post type, and taxonomy filters to core search block
  */
-import { set } from 'lodash';
 import TaxonomyControls from 'wpBlockLibrary/src/query/edit/inspector-controls/taxonomy-controls';
-import { usePostTypes, getEntitiesInfo } from 'wpBlockLibrary/src/query/utils';
+import { usePostTypes } from 'wpBlockLibrary/src/query/utils';
 
 const { addFilter } = wp.hooks;
 const { createHigherOrderComponent } = wp.compose;
 const { Panel, PanelBody, SelectControl } = wp.components;
 const { InspectorControls } = wp.blockEditor;
-const { useState, useEffect, useMemo } = wp.element;
+const { useState, useEffect } = wp.element;
 const { useSelect } = wp.data;
 
 const addAttributesToSearch = ( settings, name ) => {
@@ -72,7 +71,7 @@ const withTaxTypeSelector = createHigherOrderComponent( ( BlockEdit ) => {
 		useEffect( () => {
 			setPostTypesSelectOptions( [
 				{
-					value: null,
+					value: '',
 					label: 'None',
 				},
 				...availablePostTypes,
@@ -100,6 +99,7 @@ const withTaxTypeSelector = createHigherOrderComponent( ( BlockEdit ) => {
 				: undefined;
 
 			updateQuery.sticky = '';
+			setAttributes( { baseCategory: '' } );
 			setQuery( updateQuery );
 		};
 
@@ -125,19 +125,19 @@ const withTaxTypeSelector = createHigherOrderComponent( ( BlockEdit ) => {
 					] ),
 				};
 			},
-			[ attributes.query ]
+			[ attributes.query, attributes.baseCategory ]
 		);
 		useEffect( () => {
 			const noneAvailable = [
 				{
 					label: 'None available',
-					value: null,
+					value: '',
 				},
 			];
 			if ( postCategoriesLoading ) {
 				setPostCategoriesSelectOptions( [
 					{
-						value: null,
+						value: '',
 						label: 'Loading categories…',
 					},
 				] );
@@ -149,7 +149,7 @@ const withTaxTypeSelector = createHigherOrderComponent( ( BlockEdit ) => {
 				} );
 				setPostCategoriesSelectOptions( [
 					{
-						value: null,
+						value: '',
 						label: 'None',
 					},
 					...options,

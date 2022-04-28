@@ -28,7 +28,7 @@ const affectsBlocks = [
 ];
 
 // add attributes and supports to block metadata
-const addSpacingSupportToSeparator = ( settings, name ) => {
+const addSpacingSupportToBlocks = ( settings, name ) => {
 	if ( ! affectsBlocks.includes( name ) ) {
 		return settings;
 	}
@@ -57,17 +57,19 @@ const addSpacingSupportToSeparator = ( settings, name ) => {
 		...settings?.attributes,
 		style: { type: 'object' },
 	};
-	console.debug( `Added margin support to ${ name }` );
+	console.debug(
+		`wp-cumulus-tools/block-filters/add-margin-support - Added margin support to ${ name }`
+	);
 	return settings;
 };
 
 addFilter(
 	'blocks.registerBlockType',
-	'cmls/block-filters/separator/spacing',
-	addSpacingSupportToSeparator
+	'cmls/block-filters/add-margin-support',
+	addSpacingSupportToBlocks
 );
 
-const addMarginStyleToSeparator = ( props, blockType, attributes ) => {
+const addMarginStyleToBlocks = ( props, blockType, attributes ) => {
 	if ( ! affectsBlocks.includes( blockType.name ) ) {
 		return props;
 	}
@@ -82,11 +84,11 @@ const addMarginStyleToSeparator = ( props, blockType, attributes ) => {
 };
 wp.hooks.addFilter(
 	'blocks.getSaveContent.extraProps',
-	'cmls/block-filters/separator/spacing',
-	addMarginStyleToSeparator
+	'cmls/block-filters/add-margin-support',
+	addSpacingSupportToBlocks
 );
 
-const addSpacingStyleToSeparator = createHigherOrderComponent(
+const addSpacingStyleToBlocks = createHigherOrderComponent(
 	( BlockListBlock ) => {
 		return ( props ) => {
 			if ( ! affectsBlocks.includes( props.name ) ) {
@@ -111,6 +113,6 @@ const addSpacingStyleToSeparator = createHigherOrderComponent(
 
 wp.hooks.addFilter(
 	'editor.BlockListBlock',
-	'cmls/block-filters/separator/spacing',
-	addSpacingStyleToSeparator
+	'cmls/block-filters/add-margin-support',
+	addSpacingStyleToBlocks
 );
