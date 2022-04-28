@@ -4,17 +4,17 @@ namespace CUMULUS\Gutenberg\Tools\Blocks\BigFeature;
 
 use function CUMULUS\Gutenberg\Tools\contains_block;
 
-// Frontend stuff is getting enqueued when not needed for some reason
-\add_action( 'enqueue_block_assets', function () {
-	// We never need view script for this block, it's only in block.json
-	// for @wordpress/scripts webpack pipeline.
-	$args = ['view_script' => null];
+\register_block_type(
+	BASEDIR . '/build/blocks/big-feature',
+	[
+		'view_script' => null,
+	]
+);
 
+// Frontend stuff is getting enqueued when not needed for some reason
+function frontend_block_assets() {
 	if ( ! \is_admin() && ! contains_block( 'cumulus-gutenberg/big-feature' ) ) {
-		$args['style'] = null;
+		\wp_dequeue_style( 'cumulus-gutenberg-big-feature-style' );
 	}
-	\register_block_type(
-		BASEDIR . '/build/blocks/big-feature',
-		$args
-	);
-} );
+}
+\add_action( 'wp_head', __NAMESPACE__ . '\\frontend_block_assets', 1 );
