@@ -225,7 +225,7 @@ const ChildPageSelector = ( props ) => {
 				tree: [
 					{
 						id: 0,
-						name: 'None',
+						name: '• None',
 					},
 					...childPageOptions,
 				],
