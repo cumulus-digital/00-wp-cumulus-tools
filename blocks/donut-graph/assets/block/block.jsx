@@ -125,7 +125,6 @@ registerBlockType( metadata.name, {
 			if ( ! val ) {
 				delete newAttr.style.typography[ key ];
 			}
-			console.log( newAttr );
 			setAttributes( newAttr );
 		};
 

@@ -9,7 +9,9 @@ const $ = jQuery;
 const init = () => {
 	// Don't load in the editor
 	if ( document.body.classList.contains( 'block-editor-page' ) ) {
-		//console.log( 'Editor detected, exiting' );
+		console.debug(
+			'wp-cumulus-tools/collapsable-group - Editor detected, exiting'
+		);
 		return;
 	}
 
