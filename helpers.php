@@ -36,9 +36,11 @@ function contains_block( $block_names = false, $post_id = null ) {
 		return false;
 	}
 
-	if ( $post_id === false ) {
+	if ( $post_id === null ) {
 		$post_id = \get_the_ID();
 	}
+
+	\do_action( 'qm/debug', [$block_names, $post_id] );
 
 	if ( $post_id !== false ) {
 		// Handle posts without blocks
@@ -47,12 +49,8 @@ function contains_block( $block_names = false, $post_id = null ) {
 		}
 
 		// Generate block names array if necessary
-		if (
-			! \is_array( $block_names ) && (
-				\mb_strpos( $block_names, ',' ) || \mb_strpos( $block_names, ' ' )
-			)
-		) {
-			$block_names = \preg_split( '/[,\s]/', $block_names, -1, \PREG_SPLIT_NO_EMPTY );
+		if ( ! \is_array( $block_names ) ) {
+			$block_names = (array) \preg_split( '/[,\s]/', $block_names, -1, \PREG_SPLIT_NO_EMPTY );
 		}
 
 		// Assume shorthand block names are core blocks
@@ -60,7 +58,11 @@ function contains_block( $block_names = false, $post_id = null ) {
 			if ( ! \mb_strpos( $name, '/' ) ) {
 				$name = 'core/' . $name;
 			}
+
+			return $name;
 		}, $block_names );
+
+		\do_action( 'qm/debug', $block_names );
 
 		// Handle regular blocks quickly
 		foreach ( $block_names as $block_name ) {

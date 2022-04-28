@@ -4,7 +4,7 @@ import {
 	getFragment,
 } from '@wordpress/url';
 
-import metadata from './block.json';
+import metadata from './square.block.json';
 
 export const stripDomain = ( url ) => {
 	const authority = getAuthority( url );

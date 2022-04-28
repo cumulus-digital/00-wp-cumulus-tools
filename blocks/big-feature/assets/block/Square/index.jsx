@@ -1,5 +1,5 @@
 import { foreground as iconForeground } from '../icon.jsx';
-import metadata from './block.json';
+import metadata from './square.block.json';
 import edit from './edit';
 import save from './save';
 
