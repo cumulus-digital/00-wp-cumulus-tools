@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = ( object, onChange ) => {
 	const handler = {
 		get( target, property, receiver ) {

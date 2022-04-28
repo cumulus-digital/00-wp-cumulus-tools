@@ -1,3 +1,6 @@
+/**
+ * Detect if the broowser supports passive event listeners
+ */
 var supportsPassive = false;
 try {
 	var opts = Object.defineProperty( {}, 'passive', {

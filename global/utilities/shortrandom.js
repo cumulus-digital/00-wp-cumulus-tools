@@ -36,7 +36,7 @@ export const generateId = ( opts ) => {
 	return options.attributes.bodyId;
 };
 /**
- *
+ * Generate a short, random string
  * @param {string} prefix
  * @returns
  */

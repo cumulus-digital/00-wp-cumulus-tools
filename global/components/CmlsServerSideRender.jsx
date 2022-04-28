@@ -27,6 +27,30 @@ export function sanitizeBlockAttributes( name, attributes ) {
 		throw new Error( `Block type '${ name }' is not registered.` );
 	}
 
+	const ret = Object.entries( blockType.attributes ).reduce(
+		( accumulator, [ key, schema ] ) => {
+			const value = attributes[ key ];
+
+			if ( undefined !== value ) {
+				accumulator[ key ] = value;
+			} else if ( schema.hasOwnProperty( 'default' ) ) {
+				accumulator[ key ] = schema.default;
+			}
+
+			if ( [ 'node', 'children' ].indexOf( schema.soource ) !== -1 ) {
+				if ( typeof accumulator[ key ] === 'string' ) {
+					accumulator[ key ] = [ accumulator[ key ] ];
+				} else if ( ! Array.isArray( accumulator[ key ] ) ) {
+					accumulator[ key ] = [];
+				}
+			}
+			return accumulator;
+		},
+		{}
+	);
+
+	return ret;
+
 	return reduce(
 		blockType.attributes,
 		( accumulator, schema, key ) => {
