@@ -56,32 +56,39 @@ const edit = ( props ) => {
 
 	return (
 		<li { ...blockProps }>
-			<SquareBlockControls { ...props } />
-			<SquareInspectorControls { ...props } alerts={ toolTips } />
-			{ ! isDefault( attributes, 'mediaUrl' ) ? (
-				<>
-					<img src={ attributes.mediaUrl } alt={ attributes.alt } />
-					{ noticeIcons.length ? (
-						<div className="g-bf-notice-icons">{ noticeIcons }</div>
-					) : null }
-				</>
-			) : (
-				<MediaUploader
-					{ ...props }
-					render={ ( { open } ) => {
-						return (
-							<img
-								className="g-bf-placeholder"
-								src={ attributes.mediaUrl }
-								alt="Click to add an image"
-								title="Click to add an image"
-								onClick={ open }
-								style={ { cursor: 'pointer' } }
-							/>
-						);
-					} }
-				/>
-			) }
+			<div className="g-bf-square_container">
+				<SquareBlockControls { ...props } />
+				<SquareInspectorControls { ...props } alerts={ toolTips } />
+				{ ! isDefault( attributes, 'mediaUrl' ) ? (
+					<>
+						<img
+							src={ attributes.mediaUrl }
+							alt={ attributes.alt }
+						/>
+						{ noticeIcons.length ? (
+							<div className="g-bf-notice-icons">
+								{ noticeIcons }
+							</div>
+						) : null }
+					</>
+				) : (
+					<MediaUploader
+						{ ...props }
+						render={ ( { open } ) => {
+							return (
+								<img
+									className="g-bf-placeholder"
+									src={ attributes.mediaUrl }
+									alt="Click to add an image"
+									title="Click to add an image"
+									onClick={ open }
+									style={ { cursor: 'pointer' } }
+								/>
+							);
+						} }
+					/>
+				) }
+			</div>
 		</li>
 	);
 };
