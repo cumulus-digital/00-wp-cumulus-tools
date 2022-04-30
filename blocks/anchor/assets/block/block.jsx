@@ -1,12 +1,8 @@
 import AnchorIcon from './icon.jsx';
 import metadata from '../../block.json';
 import { registerBlockType } from '@wordpress/blocks';
-import {
-	TextControl,
-	ExternalLink,
-	PanelBody,
-	PanelRow,
-} from '@wordpress/components';
+import PanelRow from 'Components/PanelRow';
+import { TextControl, ExternalLink, PanelBody } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { Platform } from '@wordpress/element';

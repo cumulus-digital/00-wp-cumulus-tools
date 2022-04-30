@@ -163,7 +163,7 @@
 			"__experimentalDuotone": false,
 			"gradients": true,
 			"link": false,
-			"text": true
+			"text": false
 		},
 
 		"_#": "Allow custom class names",

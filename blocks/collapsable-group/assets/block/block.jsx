@@ -4,6 +4,8 @@ import metadata from '../../block.json';
 import './group-header.jsx';
 import './group-body.jsx';
 import { generateId } from 'Utilities/shortrandom.js';
+import ColorControl from 'Components/ColorControl';
+import PanelRow from 'Components/PanelRow';
 
 import { registerBlockType } from '@wordpress/blocks';
 import {
@@ -11,12 +13,10 @@ import {
 	InspectorControls,
 	InspectorAdvancedControls,
 	InnerBlocks,
-	ColorPaletteControl,
 } from '@wordpress/block-editor';
 import {
 	Panel,
 	PanelBody,
-	PanelRow,
 	ToggleControl,
 	SelectControl,
 	TextControl,
@@ -92,10 +92,7 @@ const generateClassNames = ( attributes ) => {
 		attributes?.hasStickyPosition ? 'has-sticky-position' : null,
 		attributes?.hasOnlyStickOnMobile ? 'has-only-stick-on-mobile' : null,
 	];
-	return classNames.filter( ( v ) => v !== null );
-	return Object.fromEntries(
-		Object.entries( classNames ).filter( ( [ _, v ] ) => v != null )
-	);
+	return classNames.filter( ( v ) => v );
 };
 
 const htmlElementMessages = {
@@ -179,49 +176,63 @@ registerBlockType( metadata.name, {
 
 							{ ( attributes.collapseOnMobile ||
 								attributes.alwaysShowHeader ) && (
-								<ColorPaletteControl
-									label="Header Separator Color"
-									value={ attributes.separatorColor }
-									onChange={ ( val ) =>
-										setAttributes( {
-											separatorColor: val,
-										} )
-									}
-								/>
+								<PanelRow>
+									<ColorControl
+										settings={ [
+											{
+												label: 'Header Separator',
+												colorValue:
+													attributes.separatorColor,
+												onColorChange: ( val ) =>
+													setAttributes( {
+														separatorColor: val,
+													} ),
+											},
+										] }
+									/>
+								</PanelRow>
 							) }
 
 							{ attributes.collapseOnMobile && (
 								<>
-									<SelectControl
-										label="Mobile Expand Icon"
-										value={ attributes.mobileExpandIcon }
-										options={ [
-											{
-												value: 'plus',
-												label: 'Plus/Minus',
-											},
-											{
-												value: 'arrows',
-												label: 'Arrows',
-											},
-										] }
-										onChange={ ( val ) =>
-											setAttributes( {
-												mobileExpandIcon: val,
-											} )
-										}
-									/>
-									<ColorPaletteControl
-										label="Mobile Expand Icon Color"
-										value={
-											attributes.mobileExpandIconColor
-										}
-										onChange={ ( val ) =>
-											setAttributes( {
-												mobileExpandIconColor: val,
-											} )
-										}
-									/>
+									<PanelRow>
+										<SelectControl
+											label="Expand Icon"
+											value={
+												attributes.mobileExpandIcon
+											}
+											options={ [
+												{
+													value: 'plus',
+													label: 'Plus/Minus',
+												},
+												{
+													value: 'arrows',
+													label: 'Arrows',
+												},
+											] }
+											onChange={ ( val ) =>
+												setAttributes( {
+													mobileExpandIcon: val,
+												} )
+											}
+										/>
+									</PanelRow>
+									<PanelRow>
+										<ColorControl
+											settings={ [
+												{
+													label: 'Icon Color',
+													colorValue:
+														attributes.mobileExpandIconColor,
+													onColorChange: ( val ) =>
+														setAttributes( {
+															mobileExpandIconColor: val,
+														} ),
+												},
+											] }
+										/>
+									</PanelRow>
 								</>
 							) }
 						</PanelBody>

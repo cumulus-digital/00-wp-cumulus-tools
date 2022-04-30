@@ -242,7 +242,20 @@ const ChildPageSelector = ( props ) => {
 	return (
 		<>
 			{ ! isLoaded ? (
-				<Flex direction="row" justify="left" align="center">
+				<Flex
+					direction="row"
+					justify="left"
+					align="center"
+					style={
+						options.multiple
+							? {
+									height: 'auto',
+									minHeight: '6em',
+									padding: '8px',
+							  }
+							: {}
+					}
+				>
 					<Spinner />
 					{ `Loading ${
 						selectedPostType?.labels?.plural_name || 'pages'

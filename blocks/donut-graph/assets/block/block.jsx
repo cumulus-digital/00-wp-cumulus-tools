@@ -3,6 +3,7 @@ import DonutIcon from './icon.jsx';
 import metadata from '../../block.json';
 import { generateId } from 'Utilities/shortrandom.js';
 import GraphSVG from './GraphSVG';
+import PanelRow from 'Components/PanelRow';
 
 import { formatBold, formatItalic } from '@wordpress/icons';
 import { registerBlockType } from '@wordpress/blocks';
@@ -47,10 +48,7 @@ const getDonutProps = ( { attributes, textColor } ) => {
 	ret.className = [
 		textClass,
 		textClass || attributes?.style?.color?.text ? 'has-text-color' : null,
-	]
-		.filter( Boolean )
-		?.join( ' ' );
-	console.log( ret.className );
+	].filter( ( v ) => v );
 
 	return ret;
 };
@@ -128,15 +126,19 @@ registerBlockType( metadata.name, {
 					/>
 					<Panel>
 						<PanelBody title="Graph Attributes">
-							<ToggleControl
-								label="Show Label"
-								checked={ attributes.showPercentLabel }
-								onChange={ ( val ) =>
-									setAttributes( { showPercentLabel: val } )
-								}
-							/>
+							<PanelRow>
+								<ToggleControl
+									label="Show Label"
+									checked={ attributes.showPercentLabel }
+									onChange={ ( val ) =>
+										setAttributes( {
+											showPercentLabel: val,
+										} )
+									}
+								/>
+							</PanelRow>
 
-							<div>
+							<PanelRow>
 								<UnitControl
 									label="Graph Size"
 									labelPosition="side"
@@ -168,24 +170,25 @@ registerBlockType( metadata.name, {
 										setAttributes( { width: val } )
 									}
 								/>
-							</div>
+							</PanelRow>
+							<PanelRow>
+								<RangeControl
+									label="Stroke Width"
+									help="Percentage of the graph size."
+									withInputField={ true }
+									value={ attributes.strokeWidth }
+									resetFallbackValue={
+										defaults.strokeWidth?.default
+									}
+									min={ 1 }
+									max={ 50 }
+									onChange={ ( val ) =>
+										setAttributes( { strokeWidth: val } )
+									}
+								/>
+							</PanelRow>
 
-							<RangeControl
-								label="Stroke Width"
-								help="Percentage of the graph size."
-								withInputField={ true }
-								value={ attributes.strokeWidth }
-								resetFallbackValue={
-									defaults.strokeWidth?.default
-								}
-								min={ 1 }
-								max={ 50 }
-								onChange={ ( val ) =>
-									setAttributes( { strokeWidth: val } )
-								}
-							/>
-
-							<div>
+							<PanelRow>
 								<AnglePickerControl
 									label="Angle"
 									value={ attributes.rotation }
@@ -193,19 +196,23 @@ registerBlockType( metadata.name, {
 										setAttributes( { rotation: val } )
 									}
 								/>
-							</div>
+							</PanelRow>
 
-							<RangeControl
-								label="Percent Active"
-								value={ attributes.percent }
-								withInputField={ true }
-								resetFallbackValue={ defaults.percent.default }
-								min={ 1 }
-								max={ 100 }
-								onChange={ ( val ) =>
-									setAttributes( { percent: val } )
-								}
-							/>
+							<PanelRow>
+								<RangeControl
+									label="Percent Active"
+									value={ attributes.percent }
+									withInputField={ true }
+									resetFallbackValue={
+										defaults.percent.default
+									}
+									min={ 1 }
+									max={ 100 }
+									onChange={ ( val ) =>
+										setAttributes( { percent: val } )
+									}
+								/>
+							</PanelRow>
 						</PanelBody>
 					</Panel>
 				</InspectorControls>

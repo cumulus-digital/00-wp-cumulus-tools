@@ -2,6 +2,7 @@ import { isDefault, formatMedia, resetAttributes } from './utils';
 import AltInput from './alt-input';
 import PostSearch from './post-search';
 import { MediaUploader } from './media-uploader';
+import PanelRow from 'Components/PanelRow';
 
 import {
 	link as linkIcon,
@@ -10,9 +11,7 @@ import {
 } from '@wordpress/icons';
 import {
 	Panel,
-	PanelHeader,
 	PanelBody,
-	PanelRow,
 	Flex,
 	FlexItem,
 	Button,

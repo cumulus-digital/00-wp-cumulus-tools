@@ -2,23 +2,23 @@ import metadata from '../../block.json';
 import PageSelectorControl from './PageSelectorControl';
 import ChildPageSelector from './PageSelectorControl/child-page-selector';
 import FontAppearanceControl from 'wpBlockEditor/src/components/font-appearance-control/index.js';
+import ColorControl from 'Components/ColorControl';
+import PanelRow from 'Components/PanelRow';
+
+//import ColorGradientSettingsDropdown from '../../../../node_modules/@wordpress/block-editor/src/components/colors-gradients/dropdown';
 import {
-	PanelRow,
-	BaseControl,
 	ToggleControl,
 	SelectControl,
 	RangeControl,
 	Flex,
 	TextControl,
-	Spinner,
 	__experimentalBoxControl as BoxControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
-import { ColorPaletteControl, FontSizePicker } from '@wordpress/block-editor';
-import { useRef, useEffect, useState } from '@wordpress/element';
+import { FontSizePicker } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
-import { isEqual, find } from 'lodash';
+import { isEqual } from 'lodash';
 import searchRecursive from 'Utilities/searchRecursive';
 
 const Inspector = ( props ) => {
@@ -302,16 +302,18 @@ const Inspector = ( props ) => {
 								/>
 							</PanelRow>
 						) }
-
 						<PanelRow>
-							<ColorPaletteControl
-								label="Bullet Color"
-								value={ attributes.bulletColor }
-								onChange={ ( val ) =>
-									setAttributes( {
-										bulletColor: val,
-									} )
-								}
+							<ColorControl
+								settings={ [
+									{
+										label: 'Bullet Color',
+										colorValue: attributes.bulletColor,
+										onColorChange: ( val ) =>
+											setAttributes( {
+												bulletColor: val,
+											} ),
+									},
+								] }
 							/>
 						</PanelRow>
 					</ToolsPanelItem>
@@ -382,16 +384,6 @@ const Inspector = ( props ) => {
 					}
 				>
 					<PanelRow>
-						<ColorPaletteControl
-							label="Link Color"
-							value={ attributes.linkColor }
-							onChange={ ( val ) =>
-								setAttributes( { linkColor: val } )
-							}
-						/>
-					</PanelRow>
-
-					<PanelRow>
 						<ToggleControl
 							label="Underline Links"
 							checked={ attributes.underlineLinks }
@@ -400,17 +392,6 @@ const Inspector = ( props ) => {
 							}
 						/>
 					</PanelRow>
-
-					<PanelRow>
-						<ColorPaletteControl
-							label="Hover Link Color"
-							value={ attributes.linkColorHover }
-							onChange={ ( val ) =>
-								setAttributes( { linkColorHover: val } )
-							}
-						/>
-					</PanelRow>
-
 					<PanelRow>
 						<ToggleControl
 							label="Underline Links on Hover"
@@ -418,6 +399,29 @@ const Inspector = ( props ) => {
 							onChange={ ( val ) =>
 								setAttributes( { underlineOnHover: val } )
 							}
+						/>
+					</PanelRow>
+
+					<PanelRow>
+						<ColorControl
+							settings={ [
+								{
+									label: 'Link Color',
+									colorValue: attributes.linkColor,
+									onColorChange: ( val ) =>
+										setAttributes( {
+											linkColor: val,
+										} ),
+								},
+								{
+									label: 'Hover Color',
+									colorValue: attributes.linkColorHover,
+									onColorChange: ( val ) =>
+										setAttributes( {
+											linkColorHover: val,
+										} ),
+								},
+							] }
 						/>
 					</PanelRow>
 				</ToolsPanelItem>
@@ -462,45 +466,32 @@ const Inspector = ( props ) => {
 					{ attributes.highlightCurrent && (
 						<>
 							<PanelRow>
-								<Flex direction="column">
-									<FontSizePicker
-										label="Current Page Font Size"
-										value={ attributes.currentFontSize }
-										onChange={ ( val ) =>
-											setAttributes( {
-												currentFontSize: val,
-											} )
-										}
-									/>
-									<FontAppearanceControl
-										value={ {
-											fontStyle:
-												attributes.currentFontStyle,
-											fontWeight:
-												attributes.currentFontWeight,
-										} }
-										onChange={ ( val ) =>
-											setAttributes( {
-												currentFontStyle: val.fontStyle,
-												currentFontWeight:
-													val.fontWeight,
-											} )
-										}
-									/>
-								</Flex>
-							</PanelRow>
-
-							<PanelRow>
-								<ColorPaletteControl
-									label="Current Page Link Color"
-									value={ attributes.currentLinkColor }
+								<FontSizePicker
+									label="Current Page Font Size"
+									value={ attributes.currentFontSize }
 									onChange={ ( val ) =>
 										setAttributes( {
-											currentLinkColor: val,
+											currentFontSize: val,
 										} )
 									}
 								/>
 							</PanelRow>
+							<PanelRow>
+								<FontAppearanceControl
+									value={ {
+										fontStyle: attributes.currentFontStyle,
+										fontWeight:
+											attributes.currentFontWeight,
+									} }
+									onChange={ ( val ) =>
+										setAttributes( {
+											currentFontStyle: val.fontStyle,
+											currentFontWeight: val.fontWeight,
+										} )
+									}
+								/>
+							</PanelRow>
+
 							<PanelRow>
 								<ToggleControl
 									label="Underline Current Page Link"
@@ -508,18 +499,6 @@ const Inspector = ( props ) => {
 									onChange={ ( val ) =>
 										setAttributes( {
 											currentUnderlineLinks: val,
-										} )
-									}
-								/>
-							</PanelRow>
-
-							<PanelRow>
-								<ColorPaletteControl
-									label="Current Page Link Hover Color"
-									value={ attributes.currentLinkColorHover }
-									onChange={ ( val ) =>
-										setAttributes( {
-											currentLinkColorHover: val,
 										} )
 									}
 								/>
@@ -535,6 +514,31 @@ const Inspector = ( props ) => {
 											currentUnderlineOnHover: val,
 										} )
 									}
+								/>
+							</PanelRow>
+
+							<PanelRow>
+								<ColorControl
+									settings={ [
+										{
+											label: 'Link Color',
+											colorValue:
+												attributes.currentLinkColor,
+											onColorChange: ( val ) =>
+												setAttributes( {
+													currentLinkColor: val,
+												} ),
+										},
+										{
+											label: 'Hover Color',
+											colorValue:
+												attributes.currentLinkColorHover,
+											onColorChange: ( val ) =>
+												setAttributes( {
+													currentLinkColorHover: val,
+												} ),
+										},
+									] }
 								/>
 							</PanelRow>
 						</>
