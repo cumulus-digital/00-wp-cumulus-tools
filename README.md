@@ -1,14 +1,24 @@
 # Cumulus Wordpress Blocks
 
-A collection of custom Wordpress blocks for use with Cumulus Media websites.
+A collection of custom Wordpress blocks, filters, and utilities for use with Cumulus Media websites.
+
+*This plugin is not licensed or for use outside of Cumulus Media, and no warranty or support is offered.*
 
 ## Project Structure
 
+Structure is fairly self-explanatory...
 
+* block-filters
+* blocks
+* cpts
+* global - Helpers, custom components, icon SVGs
+* phpcs-tokens - Used by PHPCS for automatically root-namespacing WP functions/classes
+
+This project uses [@wordpress/scripts](https://github.com/WordPress/gutenberg/tree/trunk/packages/scripts) webpack config, with some customization (mainly for output paths).
 
 ## Installation
 
-Download the latest release zip file and install plugin manually. This plugin uses Git Updater for updates.
+Download the a zip file and install plugin manually. This plugin uses [Git Updater](https://github.com/afragen/git-updater) for updates.
 
 ## Development
 
@@ -39,9 +49,9 @@ composer upgrade
 
 	A separate block for in-page anchors so they can be repositioned by the theme
 
-* ### Family Links
+* ### Big Feature
 
-	List children of a hierarchical post type (e.g. Pages) as a menu.
+	A 3-column, mobile-responsive grid of linked featured images.
 
 * ### Collapsable Group
 
@@ -51,9 +61,15 @@ composer upgrade
 
 	A simple donut graph block.
 
+* ### Family Links
+
+	List children of a hierarchical post type (e.g. Pages) as a menu.
+
+
 ## Filters
 
 Filters extending blocks include:
 
-* core/post-terms: Added support for custom taxonoomies
-* core/separator: Added margin support
+* core/*: Adds margin support to several core blocks.
+* core/post-terms: Adds support for custom taxonomies.
+* core/search: Adds post-type and taxonomy filters for search fields.
