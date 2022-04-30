@@ -220,15 +220,19 @@ const ChildPageSelector = ( props ) => {
 			WrapperEl = Disabled;
 			resolvedProps.noOptionLabel = 'None available';
 		} else {
-			Object.assign( resolvedProps, {
-				selectedId: selectedId,
-				tree: [
+			let tree = childPageOptions;
+			if ( ! options.multiple ) {
+				tree = [
 					{
 						id: 0,
-						name: '• None',
+						name: '• None Selected',
 					},
-					...childPageOptions,
-				],
+					...tree,
+				];
+			}
+			Object.assign( resolvedProps, {
+				selectedId: selectedId,
+				tree: tree,
 				onChange: onChangeCB,
 			} );
 		}

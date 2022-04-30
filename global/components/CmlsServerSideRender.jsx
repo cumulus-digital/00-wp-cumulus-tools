@@ -50,32 +50,6 @@ export function sanitizeBlockAttributes( name, attributes ) {
 	);
 
 	return ret;
-
-	return reduce(
-		blockType.attributes,
-		( accumulator, schema, key ) => {
-			const value = attributes[ key ];
-
-			if ( undefined !== value ) {
-				accumulator[ key ] = value;
-			} else if ( schema.hasOwnProperty( 'default' ) ) {
-				accumulator[ key ] = schema.default;
-			}
-
-			if ( [ 'node', 'children' ].indexOf( schema.source ) !== -1 ) {
-				// Ensure value passed is always an array, which we're expecting in
-				// the RichText component to handle the deprecated value.
-				if ( typeof accumulator[ key ] === 'string' ) {
-					accumulator[ key ] = [ accumulator[ key ] ];
-				} else if ( ! Array.isArray( accumulator[ key ] ) ) {
-					accumulator[ key ] = [];
-				}
-			}
-
-			return accumulator;
-		},
-		{}
-	);
 }
 
 export function rendererPath( block, attributes = null, urlQueryArgs = {} ) {

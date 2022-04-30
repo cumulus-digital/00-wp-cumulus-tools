@@ -1,5 +1,6 @@
 /**
- * Based on WP's own color gradient dropdown
+ * Based on WP's own color gradient dropdown. Provides a consistent color
+ * controller for use anywhere within a sidebar panel.
  * https://github.com/WordPress/gutenberg/blob/6b1f4a70008354c9e6665a3a37124100180ecaee/packages/block-editor/src/components/colors-gradients/dropdown.js
  */
 
