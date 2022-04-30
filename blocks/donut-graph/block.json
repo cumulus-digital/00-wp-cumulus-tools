@@ -85,11 +85,11 @@
 
 		"_#": "Allow custom colors",
 		"color": {
-			"background": true,
+			"background": false,
 			"__experimentalDuotone": false,
-			"gradients": true,
-			"link": true,
-			"text": true
+			"gradients": false,
+			"link": false,
+			"text": false
 		},
 
 		"_#": "Allow custom class names",

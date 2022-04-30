@@ -2,13 +2,16 @@
 import DonutIcon from './icon.jsx';
 import metadata from '../../block.json';
 import { generateId } from 'Utilities/shortrandom.js';
+import GraphSVG from './GraphSVG';
 
 import { formatBold, formatItalic } from '@wordpress/icons';
 import { registerBlockType } from '@wordpress/blocks';
 import {
 	useBlockProps,
 	BlockControls,
-	ColorPaletteControl,
+	withColors,
+	PanelColorSettings,
+	getColorClassName,
 	InspectorControls,
 } from '@wordpress/block-editor';
 import {
@@ -21,9 +24,9 @@ import {
 	ToolbarGroup,
 	ToolbarButton,
 } from '@wordpress/components';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useMemo } from '@wordpress/element';
 
-const setDonutProps = ( attributes ) => {
+const getDonutProps = ( { attributes, textColor } ) => {
 	let ret = {};
 	ret.style = {
 		'--width': '' + attributes.width,
@@ -39,66 +42,27 @@ const setDonutProps = ( attributes ) => {
 	ret[ 'data-color-inactive' ] = attributes.colorInactive;
 	ret[ 'data-color-active' ] = attributes.colorActive;
 	ret[ 'data-rotation' ] = attributes.rotation + 'deg';
-	return ret;
-};
 
-const svgBlob = ( attributes ) => {
-	return (
-		<div
-			className={ `donut-graph ${
-				attributes.showPercentLabel ? 'show-label' : ''
-			}` }
-			data-percent={ attributes.percent }
-		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				xmlnsXlink="http://www.w3.org/1999/xlink"
-				viewBox="0 0 100 100"
-				version="1.1"
-				alt={ `${ attributes.percent }%` }
-				role="img"
-				aria-labelledby={ `${ attributes.blockId }-title` }
-			>
-				<title id={ `${ attributes.blockId }-title` }>
-					{ `A graph depicting ${ attributes.percent }%` }
-				</title>
-				<defs>
-					<clipPath id="insideCircle">
-						<circle
-							id="circleMask"
-							r="50"
-							cx="50"
-							cy="50"
-							fill="#000000"
-						></circle>
-					</clipPath>
-				</defs>
-				<g style={ { clipPath: 'url(#insideCircle)' } }>
-					<circle
-						className="dg-visible"
-						r="50"
-						cx="50"
-						cy="50"
-					></circle>
-					<circle
-						className="dg-visible dg-bar"
-						r="50"
-						cx="50"
-						cy="50"
-					></circle>
-				</g>
-			</svg>
-		</div>
-	);
+	const textClass = getColorClassName( 'color', textColor?.slug );
+	ret.className = [
+		textClass,
+		textClass || attributes?.style?.color?.text ? 'has-text-color' : null,
+	]
+		.filter( Boolean )
+		?.join( ' ' );
+	console.log( ret.className );
+
+	return ret;
 };
 
 registerBlockType( metadata.name, {
 	icon: DonutIcon,
-	edit: ( props ) => {
+	edit: withColors( 'textColor' )( ( props ) => {
 		const { attributes, setAttributes } = props;
 		const defaults = JSON.parse( JSON.stringify( metadata.attributes ) );
+		const { textColor, setTextColor } = props;
 
-		useEffect( () => {
+		useMemo( () => {
 			window._wpLoadBlockEditor.then( () => {
 				generateId( {
 					prefix: 'cgcg-',
@@ -128,10 +92,40 @@ registerBlockType( metadata.name, {
 			setAttributes( newAttr );
 		};
 
-		const blockProps = useBlockProps( setDonutProps( attributes ) );
+		const colorSettings = useMemo( () => {
+			const settings = [
+				{
+					label: 'Base',
+					value: attributes.colorInactive,
+					onChange: ( val ) =>
+						setAttributes( { colorInactive: val } ),
+				},
+				{
+					label: 'Filled',
+					value: attributes.colorActive,
+					onChange: ( val ) => setAttributes( { colorActive: val } ),
+				},
+			];
+			if ( attributes.showPercentLabel ) {
+				settings.unshift( {
+					label: 'Label Text',
+					value: textColor.color,
+					onChange: setTextColor,
+				} );
+			}
+			return settings;
+		}, [ attributes, textColor ] );
+
+		const donutProps = getDonutProps( props );
+		const blockProps = useBlockProps( donutProps );
+
 		return (
 			<div { ...blockProps }>
 				<InspectorControls>
+					<PanelColorSettings
+						title="Graph Colors"
+						colorSettings={ colorSettings }
+					/>
 					<Panel>
 						<PanelBody title="Graph Attributes">
 							<ToggleControl
@@ -193,7 +187,7 @@ registerBlockType( metadata.name, {
 
 							<div>
 								<AnglePickerControl
-									label="Initial Position"
+									label="Angle"
 									value={ attributes.rotation }
 									onChange={ ( val ) =>
 										setAttributes( { rotation: val } )
@@ -210,22 +204,6 @@ registerBlockType( metadata.name, {
 								max={ 100 }
 								onChange={ ( val ) =>
 									setAttributes( { percent: val } )
-								}
-							/>
-
-							<ColorPaletteControl
-								label="Circle Base Color"
-								value={ attributes.colorInactive }
-								onChange={ ( val ) =>
-									setAttributes( { colorInactive: val } )
-								}
-							/>
-
-							<ColorPaletteControl
-								label="Circle Active Color"
-								value={ attributes.colorActive }
-								onChange={ ( val ) =>
-									setAttributes( { colorActive: val } )
 								}
 							/>
 						</PanelBody>
@@ -274,13 +252,13 @@ registerBlockType( metadata.name, {
 						</ToolbarGroup>
 					</BlockControls>
 				) }
-				{ svgBlob( props.attributes ) }
+				{ GraphSVG( attributes ) }
 			</div>
 		);
-	},
+	} ),
 	save: ( props ) => {
 		const { attributes } = props;
-		const blockProps = useBlockProps.save( setDonutProps( attributes ) );
-		return <div { ...blockProps }>{ svgBlob( attributes ) }</div>;
+		const blockProps = useBlockProps.save( getDonutProps( props ) );
+		return <div { ...blockProps }>{ GraphSVG( attributes ) }</div>;
 	},
 } );
