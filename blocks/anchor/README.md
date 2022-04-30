@@ -1,4 +1,4 @@
 # Cumulus Wordpress Blocks
-## Block folder skeleton
+## Anchor
 
-This is not a block and will be ignored by @wordpress/scripts build process. This is a skeleton folder containing the basic structure necessary for blocks. Duplicate and rename it to begin a new block.
+A separate, standalone anchor block for use with themes that have fixed headers and need to reposition anchor scrolling.
