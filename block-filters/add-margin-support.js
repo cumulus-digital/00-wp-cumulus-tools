@@ -11,6 +11,7 @@ const affectsBlocks = [
 	'core/categories',
 	'core/cover',
 	'core/embed',
+	'core/group',
 	'core/image',
 	'core/latest-comments',
 	'core/latest-posts',
@@ -50,7 +51,12 @@ const addSpacingSupportToBlocks = ( settings, name ) => {
 		...settings?.supports,
 		spacing: {
 			...settings?.supports?.spacing,
-			margin: [ newMargin ],
+			margin: newMargin,
+			__experimentalDefaultControls: Object.assign(
+				settings?.supports?.spacing?.margin
+					?.__experimentalDefaultControls || {},
+				{ margin: true }
+			),
 		},
 	};
 	settings.attributes = {
