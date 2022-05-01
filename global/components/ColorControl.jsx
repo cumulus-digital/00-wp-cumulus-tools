@@ -1,7 +1,10 @@
 /**
- * Based on WP's own color gradient dropdown. Provides a consistent color
+ * Based on WP's own PanelColorSettings. Provides a consistent color
  * controller for use anywhere within a sidebar panel.
  * https://github.com/WordPress/gutenberg/blob/6b1f4a70008354c9e6665a3a37124100180ecaee/packages/block-editor/src/components/colors-gradients/dropdown.js
+ *
+ * Generates dropdown groups from a settings array of object properties
+ * See ColorIndicator and ColorGradientControl for options.
  */
 
 import {
@@ -57,7 +60,7 @@ const ColorControl = ( props ) => {
 							} }
 							renderContent={ () => (
 								<ColorGradientControl
-									showTitle={ setting.label }
+									showTitle={ !! setting.label }
 									{ ...setting }
 								/>
 							) }
