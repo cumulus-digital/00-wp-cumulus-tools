@@ -1,5 +1,5 @@
 {
-  "name": "wp-cumulus-blocks",
+  "name": "wp-cumulus-tools",
   "version": "0.0.1",
   "description": "Cumulus Media custom Wordpress blocks, cpts, and tools collection",
   "scripts": {

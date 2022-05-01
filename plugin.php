@@ -8,7 +8,7 @@ namespace CUMULUS\Gutenberg\Tools;
  * GitHub Plugin URI: https://github.com/cumulus-digital/wp-cumulus-tools/
  * Primary Branch: main
  * Description: Collection of Wordpress tools, blocks, block filters, and CPTs for Cumulus Media
- * Version: 0.0.1
+ * Version: 1.0.0
  * Author: vena
  * License: UNLICENSED
  */
@@ -31,7 +31,7 @@ require BASEDIR . 'helpers.php';
 	}
 	$assets = include BASEDIR . 'build/editor.asset.php';
 	\wp_enqueue_script(
-		'wp-cumulus-blocks-editor',
+		'wp-cumulus-tools-editor',
 		\plugins_url( 'build/editor.js', __FILE__ ),
 		$assets['dependencies'],
 		$assets['version'],
@@ -50,7 +50,7 @@ require BASEDIR . 'helpers.php';
 
 	$assets = include BASEDIR . 'build/block-filters.asset.php';
 	\wp_enqueue_script(
-		'wp-cumulus-block-filters',
+		'wp-cumulus-tools-block-filters',
 		\plugins_url( 'build/block-filters.js', __FILE__ ),
 		$assets['dependencies'],
 		$assets['version'],
