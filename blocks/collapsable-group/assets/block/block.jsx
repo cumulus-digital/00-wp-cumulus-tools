@@ -22,7 +22,7 @@ import {
 	TextControl,
 	ExternalLink,
 } from '@wordpress/components';
-import { useEffect, useState, Platform } from '@wordpress/element';
+import { useMemo, useState, Platform } from '@wordpress/element';
 
 const generateStyles = ( attributes ) => {
 	const cssStyles = {
@@ -32,7 +32,7 @@ const generateStyles = ( attributes ) => {
 		'--padding-bottom': attributes?.style?.spacing?.padding?.bottom,
 		'--padding-left': attributes?.style?.spacing?.padding?.left,
 		'--separator-color': attributes?.separatorColor,
-		'--collapse-width': attributes?.collapseWidth,
+		//'--collapse-width': attributes?.collapseWidth,
 	};
 	// WP uses a class for border color which causes FOUC
 	if ( attributes.borderColor ) {
@@ -116,22 +116,28 @@ registerBlockType( metadata.name, {
 		);
 		const isWeb = Platform.OS === 'web';
 
-		useEffect( () => {
-			window._wpLoadBlockEditor.then( () => {
-				generateId( {
-					prefix: 'cgcg-',
-					attributes: attributes,
-					setAttributes: setAttributes,
-					attribute: 'bodyId',
+		useMemo( () => {
+			if (
+				! attributes.blockId ||
+				document.querySelectorAll( '#' + attributes.blockId ).length > 1
+			) {
+				window._wpLoadBlockEditor.then( () => {
+					generateId( {
+						prefix: 'cgcg-',
+						attributes: attributes,
+						setAttributes: setAttributes,
+						attribute: 'bodyId',
+					} );
 				} );
-			} );
+			}
 		}, [] );
 
-		useEffect( () => {
+		useMemo( () => {
 			setCssStyles( generateStyles( attributes ) );
 		}, [ attributes ] );
 
-		useEffect( () => {
+		/*
+		useMemo( () => {
 			setAttributes( {
 				className: generateClassNames( attributes ),
 			} );
@@ -140,6 +146,7 @@ registerBlockType( metadata.name, {
 			attributes?.alwaysShowHeader,
 			attributes?.hasStickyPosition,
 		] );
+		*/
 
 		const blockProps = useBlockProps( {
 			className: generateClassNames( attributes ),

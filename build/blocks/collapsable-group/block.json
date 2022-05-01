@@ -1,6 +1,7 @@
 {
 	"_#": "_# is used in this document as a comment.",
 
+	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
 	"name": "cumulus-gutenberg/collapsable-group",
 	"title": "Mobile Collapsable Group",
