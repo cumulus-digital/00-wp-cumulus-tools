@@ -16,7 +16,7 @@ function attr( $attr, $key, $default = null ) {
 
 function renderCallback( $attr, $content, $block ) {
 	$is_backend   = \defined( 'REST_REQUEST' ) && true === REST_REQUEST && 'edit' === \filter_input( \INPUT_GET, 'context', \FILTER_SANITIZE_STRING );
-	$maxDepth     = attr( $attr, 'maxDepth', 0 );
+	$maxDepth     = attr( $attr, 'maxDepth', null );
 	$parentPostId = 0;
 
 	if ( isset( $_GET['post_id'] ) ) {
@@ -63,10 +63,11 @@ function renderCallback( $attr, $content, $block ) {
 		'title_li'    => '',
 		'echo'        => false,
 		'walker'      => new FamilyLinkWalker(),
+		'exclude'     => [],
 	];
 	$args = \array_merge( $defaults, [
 		'child_of' => $parentPostId,
-		'exclude'  => \implode( ',', $exclude ),
+		'exclude'  => $exclude,
 	] );
 
 	if ( $attr['excludeNoindex'] ) {
@@ -84,12 +85,8 @@ function renderCallback( $attr, $content, $block ) {
 				->result();
 
 			if ( $aioseo_exclude_ids && \count( $aioseo_exclude_ids ) ) {
-				if ( ! \array_key_exists( 'exclude', $args ) ) {
-					$args['exclude'] = '';
-				} else {
-					$args['exclude'] .= ',';
-				}
-				$args['exclude'] .= \implode( ',', $aioseo_exclude_ids );
+				//$args['exclude'] .= \implode( ',', $aioseo_exclude_ids );
+				$args['exclude'] = \array_merge( $args['exclude'], $aioseo_exclude_ids );
 			}
 		}
 
@@ -117,18 +114,16 @@ function renderCallback( $attr, $content, $block ) {
 		}
 
 		if ( \count( $excludeAdditionalIDs ) ) {
-			if ( ! \array_key_exists( 'exclude', $args ) ) {
-				$args['exclude'] = '';
-			} else {
-				$args['exclude'] .= ',';
-			}
-			$args['exclude'] .= \implode( ',', $excludeAdditionalIDs );
+			//$args['exclude'] .= \implode( ',', $excludeAdditionalIDs );
+			$args['exclude'] = \array_merge( $args['exclude'], $excludeAdditionalIDs );
 		}
 	}
 
+	$args['exclude'] = \implode( ',', $args['exclude'] );
+
 	$pages = \wp_list_pages( $args );
 
-	if ( ! $pages ) {
+	if ( \mb_strlen( $pages ) < 1 ) {
 		return 'None found.';
 	}
 
