@@ -70,16 +70,16 @@
 		color: var(--link-color-hover);
 	}
 	&.has-underline-links a {
-		text-decoration: underline;
+		text-decoration-style: underline;
 	}
 	&.has-underline-links-hover a:hover {
-		text-decoration: underline;
+		text-decoration-style: underline;
 	}
 	&.has-no-underline-links a {
-		text-decoration: none;
+		text-decoration-style: none;
 	}
 	&.has-no-underline-links-hover a:hover {
-		text-decoration: none;
+		text-decoration-style: none;
 	}
 
 	li.current_page_item > a {
@@ -99,15 +99,15 @@
 		color: var(--link-color-hover);
 	}
 	&.has-current-underline-link li.current_page_item > a {
-		text-decoration: underline;
+		text-decoration-style: underline;
 	}
 	&.has-current-underline-link-hover li.current_page_item > a:hover {
-		text-decoration: underline;
+		text-decoration-style: underline;
 	}
 	&.has-current-no-underline-link li.current_page_item > a {
-		text-decoration: none;
+		text-decoration-style: none;
 	}
 	&.has-current-no-underline-link-hover li.current_page_item > a:hover {
-		text-decoration: none;
+		text-decoration-style: none;
 	}
 }
