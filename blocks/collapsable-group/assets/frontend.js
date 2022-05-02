@@ -573,7 +573,10 @@ const init = () => {
 				) {
 					group.CollapseGroup.update();
 				}
-				group.CollapseGroup.setAria();
+
+				if ( group.CollapseGroup instanceof CollapseGroup ) {
+					group.CollapseGroup.setAria();
+				}
 
 				//CollapseGroups.push( group.CollapseGroup );
 				group.CollapseGroup.enabled = true;

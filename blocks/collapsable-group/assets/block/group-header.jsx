@@ -99,16 +99,16 @@ registerBlockType( 'cumulus-gutenberg/collapsable-group-header', {
 					<InnerBlocks
 						template={ [
 							[
-								'core/post-title',
+								'core/heading',
 								{
-									fontSize: 'normal',
+									level: 2,
 									style: {
 										typography: {
 											fontStyle: 'normal',
 											fontWeight: '400',
 										},
 									},
-									isLink: false,
+									fontSize: 'normal',
 								},
 							],
 						] }

@@ -92,7 +92,7 @@ const generateClassNames = ( attributes ) => {
 		attributes?.hasStickyPosition ? 'has-sticky-position' : null,
 		attributes?.hasOnlyStickOnMobile ? 'has-only-stick-on-mobile' : null,
 	];
-	return classNames.filter( ( v ) => v );
+	return classNames.filter( ( v ) => v ).join( ' ' );
 };
 
 const htmlElementMessages = {
@@ -136,17 +136,13 @@ registerBlockType( metadata.name, {
 			setCssStyles( generateStyles( attributes ) );
 		}, [ attributes ] );
 
-		/*
 		useMemo( () => {
-			setAttributes( {
-				className: generateClassNames( attributes ),
-			} );
-		}, [
-			attributes?.collapseOnMobile,
-			attributes?.alwaysShowHeader,
-			attributes?.hasStickyPosition,
-		] );
-		*/
+			if ( attributes.className !== generateClassNames( attributes ) ) {
+				setAttributes( {
+					className: generateClassNames( attributes ),
+				} );
+			}
+		}, [ attributes ] );
 
 		const blockProps = useBlockProps( {
 			className: generateClassNames( attributes ),
