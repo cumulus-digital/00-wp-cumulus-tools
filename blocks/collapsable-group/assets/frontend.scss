@@ -14,6 +14,9 @@
 	}
 
 	&.has-sticky-position {
+		position: static;
+		z-index: 9999;
+
 		&.is-stuck {
 			position: fixed;
 			z-index: var(--sticky-z-index, 20);
