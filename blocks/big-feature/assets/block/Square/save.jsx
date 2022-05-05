@@ -7,7 +7,7 @@ const save = ( { attributes } ) => {
 	const LinkWrapper = ( props ) => {
 		if ( props.href ) {
 			const linkProps = { href: props.href };
-			if ( props.linkTarget ) {
+			if ( props.linkTarget) {
 				linkProps.target = props.linkTarget;
 			}
 			if ( props.rel ) {

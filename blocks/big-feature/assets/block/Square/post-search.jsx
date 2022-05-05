@@ -26,7 +26,7 @@ const PostSearch = ( { attributes, setAttributes } ) => {
 				setAttributes( {
 					href: stripDomain( val.url ),
 					alt: val.useTitleAsAlt ? val.title : attributes.alt,
-					linkTarget: val.opensInNewTab ? '_blank' : '_self',
+					linkTarget: val.opensInNewTab ? '_blank' : '',
 					rel: val.opensInNewTab ? 'noopener' : '',
 				} );
 			} }

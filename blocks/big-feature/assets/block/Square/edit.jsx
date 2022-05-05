@@ -5,7 +5,7 @@ import { isDefault } from './utils';
 
 import { Icon } from '@wordpress/components';
 import { useBlockProps } from '@wordpress/blockEditor';
-import { useState, useEffect } from '@wordpress/element';
+import { useState, useEffect, useMemo } from '@wordpress/element';
 
 const edit = ( props ) => {
 	const { attributes, setAttributes } = props;
@@ -13,7 +13,7 @@ const edit = ( props ) => {
 	const [ toolTips, setTooltips ] = useState( [] );
 	const [ noticeIcons, setNoticeIcons ] = useState( [] );
 
-	useEffect( () => {
+	useMemo( () => {
 		if ( isDefault( attributes, 'mediaUrl' ) ) {
 			setClassNames( [ 'is-placeholder' ] );
 		} else {
@@ -48,6 +48,13 @@ const edit = ( props ) => {
 			}
 		}
 	}, [ attributes ] );
+
+	useMemo(() => {
+		// Remove _self attribute from old versions
+		if (attributes.target === '_self') {
+			setAttributes({ target: '' });
+		}
+	}, []);
 
 	const blockProps = useBlockProps( {
 		className: classNames,
