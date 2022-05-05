@@ -50,9 +50,9 @@ const edit = ( props ) => {
 	}, [ attributes ] );
 
 	useEffect(() => {
-		// Remove _self attribute from old versions
-		if (attributes.linkTarget === '_self') {
-			setAttributes({ linkTarget: '' });
+		// Remove _self attribute/rel noopener from old versions
+		if ( ! attributes.linkTarget?.length || attributes.linkTarget === '_self') {
+			setAttributes({ linkTarget: '', rel: attributes?.rel?.replace('noopener', '') });
 		}
 	}, []);
 
