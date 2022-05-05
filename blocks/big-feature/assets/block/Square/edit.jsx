@@ -49,10 +49,10 @@ const edit = ( props ) => {
 		}
 	}, [ attributes ] );
 
-	useMemo(() => {
+	useEffect(() => {
 		// Remove _self attribute from old versions
-		if (attributes.target === '_self') {
-			setAttributes({ target: '' });
+		if (attributes.linkTarget === '_self') {
+			setAttributes({ linkTarget: '' });
 		}
 	}, []);
 
