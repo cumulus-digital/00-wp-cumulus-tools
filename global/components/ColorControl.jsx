@@ -7,6 +7,7 @@
  * See ColorIndicator and ColorGradientControl for options.
  */
 
+import getColorPalettes from 'Utilities/getColorPalettes';
 import {
 	__experimentalItemGroup as ItemGroup,
 	__experimentalItem as Item,
@@ -15,65 +16,15 @@ import {
 	ColorIndicator,
 	Dropdown,
 } from '@wordpress/components';
-import { useMemo } from '@wordpress/element';
-import { _x } from '@wordpress/i18n';
 import {
-	useSetting,
 	__experimentalColorGradientControl as ColorGradientControl
 } from '@wordpress/block-editor';
-
-const useCommonSingleMultipleSelects = () => {
-	return {
-		disableCustomColors: ! useSetting( 'color.custom' ),
-		disableCustomGradients: ! useSetting( 'color.customGradient' ),
-	};
-}
 
 const ColorControl = (props) => {
 	const dropdownPosition = 'bottom left';
 	const { settings } = props;
 
-	const colorGradientSettings = useCommonSingleMultipleSelects();
-	const customColors = useSetting( 'color.palette.custom' );
-	const themeColors = useSetting( 'color.palette.theme' );
-	const defaultColors = useSetting( 'color.palette.default' );
-	const shouldDisplayDefaultColors = useSetting( 'color.defaultPalette' );
-
-	colorGradientSettings.colors = useMemo( () => {
-		const result = [];
-		if ( themeColors && themeColors.length ) {
-			result.push({
-				name: _x(
-					'Theme',
-					'Indicates this palette comes from the theme.'
-				),
-				colors: themeColors,
-			} );
-		}
-		if (
-			shouldDisplayDefaultColors &&
-			defaultColors &&
-			defaultColors.length
-		) {
-			result.push({
-				name: _x(
-					'Default',
-					'Indicates this palette comes from WordPress.'
-				),
-				colors: defaultColors,
-			} );
-		}
-		if ( customColors && customColors.length ) {
-			result.push({
-				name: _x(
-					'Custom',
-					'Indicates this palette comes from the theme.'
-				),
-				colors: customColors,
-			} );
-		}
-		return result;
-	}, [ defaultColors, themeColors, customColors ] );
+	const colorPalettes = getColorPalettes();
 
 	return (
 		<ItemGroup
@@ -116,9 +67,8 @@ const ColorControl = (props) => {
 							renderContent={() => (
 								<ColorGradientControl
 									showTitle={!!setting.label}
-									__experimentalHasMultipleOrigins={true}
 									__experimentalIsRenderedInSidebar={true}
-									{...colorGradientSettings}
+									{...colorPalettes}
 									{...setting}
 								/>
 							) }

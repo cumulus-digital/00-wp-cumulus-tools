@@ -4,6 +4,7 @@ import metadata from '../../block.json';
 import { generateId } from 'Utilities/shortrandom.js';
 import GraphSVG from './GraphSVG';
 import PanelRow from 'Components/PanelRow';
+import getColorPalettes from 'Utilities/getColorPalettes';
 
 import { formatBold, formatItalic } from '@wordpress/icons';
 import { registerBlockType } from '@wordpress/blocks';
@@ -59,6 +60,7 @@ registerBlockType( metadata.name, {
 		const { attributes, setAttributes } = props;
 		const defaults = JSON.parse( JSON.stringify( metadata.attributes ) );
 		const { textColor, setTextColor } = props;
+		const pallettes = getColorPalettes();
 
 		useMemo( () => {
 			window._wpLoadBlockEditor.then( () => {
@@ -122,7 +124,8 @@ registerBlockType( metadata.name, {
 				<InspectorControls>
 					<PanelColorSettings
 						title="Graph Colors"
-						colorSettings={ colorSettings }
+						colorSettings={colorSettings}
+						{...pallettes}
 					/>
 					<Panel>
 						<PanelBody title="Graph Attributes">
