@@ -10,7 +10,6 @@ import {
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 
-import { resetAttributes } from '../../../big-feature/assets/block/Square/utils';
 import CmlsServerSideRender from 'Components/CmlsServerSideRender.jsx';
 
 const MySpinner = () => {

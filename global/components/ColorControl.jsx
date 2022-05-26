@@ -15,33 +15,88 @@ import {
 	ColorIndicator,
 	Dropdown,
 } from '@wordpress/components';
-import { __experimentalColorGradientControl as ColorGradientControl } from '@wordpress/block-editor';
+import { useMemo } from '@wordpress/element';
+import { _x } from '@wordpress/i18n';
+import {
+	useSetting,
+	__experimentalColorGradientControl as ColorGradientControl
+} from '@wordpress/block-editor';
 
-const ColorControl = ( props ) => {
+const useCommonSingleMultipleSelects = () => {
+	return {
+		disableCustomColors: ! useSetting( 'color.custom' ),
+		disableCustomGradients: ! useSetting( 'color.customGradient' ),
+	};
+}
+
+const ColorControl = (props) => {
 	const dropdownPosition = 'bottom left';
 	const { settings } = props;
+
+	const colorGradientSettings = useCommonSingleMultipleSelects();
+	const customColors = useSetting( 'color.palette.custom' );
+	const themeColors = useSetting( 'color.palette.theme' );
+	const defaultColors = useSetting( 'color.palette.default' );
+	const shouldDisplayDefaultColors = useSetting( 'color.defaultPalette' );
+
+	colorGradientSettings.colors = useMemo( () => {
+		const result = [];
+		if ( themeColors && themeColors.length ) {
+			result.push({
+				name: _x(
+					'Theme',
+					'Indicates this palette comes from the theme.'
+				),
+				colors: themeColors,
+			} );
+		}
+		if (
+			shouldDisplayDefaultColors &&
+			defaultColors &&
+			defaultColors.length
+		) {
+			result.push({
+				name: _x(
+					'Default',
+					'Indicates this palette comes from WordPress.'
+				),
+				colors: defaultColors,
+			} );
+		}
+		if ( customColors && customColors.length ) {
+			result.push({
+				name: _x(
+					'Custom',
+					'Indicates this palette comes from the theme.'
+				),
+				colors: customColors,
+			} );
+		}
+		return result;
+	}, [ defaultColors, themeColors, customColors ] );
+
 	return (
 		<ItemGroup
 			isBordered
 			isSeparated
 			className="block-editor-panel-color-gradient-settings__item-group"
 		>
-			{ settings.map(
-				( setting, index ) =>
+			{settings.map(
+				(setting, index) =>
 					setting && (
 						<Dropdown
-							key={ index }
-							position={ dropdownPosition }
+							key={index}
+							position={dropdownPosition}
 							className="block-editor-panel-color-gradient-settings__dropdown"
 							contentClassName="block-editor-panel-color-gradient-settings__dropdown-content"
-							renderToggle={ ( { isOpen, onToggle } ) => {
+							renderToggle={({ isOpen, onToggle }) => {
 								return (
 									<Item
-										onClick={ onToggle }
-										className={ [
+										onClick={onToggle}
+										className={[
 											'block-editor-panel-color-gradient-settings__item',
 											isOpen ? 'is-open' : '',
-										].filter( ( v ) => v ) }
+										].filter((v) => v)}
 									>
 										<HStack justify="flex-start">
 											<ColorIndicator
@@ -52,16 +107,19 @@ const ColorControl = ( props ) => {
 												}
 											/>
 											<FlexItem>
-												{ setting.label }
+												{setting.label}
 											</FlexItem>
 										</HStack>
 									</Item>
 								);
-							} }
-							renderContent={ () => (
+							}}
+							renderContent={() => (
 								<ColorGradientControl
-									showTitle={ !! setting.label }
-									{ ...setting }
+									showTitle={!!setting.label}
+									__experimentalHasMultipleOrigins={true}
+									__experimentalIsRenderedInSidebar={true}
+									{...colorGradientSettings}
+									{...setting}
 								/>
 							) }
 						/>

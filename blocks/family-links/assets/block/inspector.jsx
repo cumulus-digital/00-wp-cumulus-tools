@@ -5,7 +5,6 @@ import FontAppearanceControl from 'wpBlockEditor/src/components/font-appearance-
 import ColorControl from 'Components/ColorControl';
 import PanelRow from 'Components/PanelRow';
 
-//import ColorGradientSettingsDropdown from '../../../../node_modules/@wordpress/block-editor/src/components/colors-gradients/dropdown';
 import {
 	ToggleControl,
 	SelectControl,
