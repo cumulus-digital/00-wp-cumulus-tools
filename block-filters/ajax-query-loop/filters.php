@@ -32,20 +32,66 @@ use function CUMULUS\Gutenberg\Tools\contains_block;
 }, 10, 2 );
 
 /**
- * AJAX function render more posts.
+ * WP_Query "where" filter to remove any post statuses that
+ * are not "publish" since AJAX calls may include others.
+ */
+function filter_unpublished( $where ) {
+	\preg_match_all(
+		"/OR\s*wp_posts\.post_status\s*=\s*['\"][^'\"]+['\"]/",
+		$where,
+		$statuses
+	);
+
+	$replace = [];
+
+	if ( $statuses && \count( $statuses ) ) {
+		$statuses = $statuses[0];
+		$replace  = \array_filter( $statuses, function ( $status ) {
+			return \mb_strpos( $status, "'publish'" ) === false;
+		} );
+	}
+	$where = \str_replace( $replace, '', $where );
+
+	return $where;
+}
+
+/*
+ * Handle rendering of new pages
  */
 function query_pagination_render_more_query() {
 	$block = \json_decode( \stripslashes( $_REQUEST['block'] ), true );
 	$paged = ! empty( $_REQUEST['paged'] ) ? \intval( $_REQUEST['paged'] ) : 1;
+	$post  = null;
 
 	if ( $block ) {
-		$_GET['query-' . $block['attrs']['queryId'] . '-page'] = $paged;
-		//$block['attrs']['query']['offset'] = $block['attrs']['query']['perPage'] * $paged;
+		// If we don't rewrite the context, wordpress will render this block
+		// as if the page was admin_ajax.php!
+		if ( isset( $_REQUEST['post_id'] ) ) {
+			$post_id = \intval( $_REQUEST['post_id'] );
 
+			if ( $post_id ) {
+				$newPost = \get_post( $post_id );
+
+				if ( $newPost ) {
+					global $post;
+					$post = $newPost;
+					\setup_postdata( $post );
+					// this could get messy...
+					$_SERVER['REQUEST_URI'] = \get_permalink( $post );
+				}
+			}
+		}
+		$_GET['query-' . $block['attrs']['queryId'] . '-page'] = $paged;
+
+		\add_filter( 'posts_where', __NAMESPACE__ . '\\filter_unpublished', 999999999, 1 );
 		echo \render_block( $block );
+		\remove_filter( 'posts_where', __NAMESPACE__ . '\\filter_unpublished', 999999999 );
 	}
 
-	exit;
+	if ( $post ) {
+		\wp_reset_postdata();
+	}
+	\wp_die();
 }
 \add_action( 'wp_ajax_query_render_more_pagination', __NAMESPACE__ . '\query_pagination_render_more_query' );
 \add_action( 'wp_ajax_nopriv_query_render_more_pagination', __NAMESPACE__ . '\query_pagination_render_more_query' );
@@ -62,7 +108,10 @@ function query_pagination_render_more_query() {
 		\wp_localize_script(
 			'core-query-ajax-handler',
 			'core_query_ajax_handler',
-			['url' => \admin_url( 'admin-ajax.php' )]
+			[
+				'url'     => \admin_url( 'admin-ajax.php' ),
+				'post_id' => \get_the_ID(),
+			]
 		);
 		\wp_enqueue_style(
 			'core-query-ajax-handler',

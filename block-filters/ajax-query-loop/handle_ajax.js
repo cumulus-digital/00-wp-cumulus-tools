@@ -17,9 +17,11 @@
 					method: 'POST',
 					url: window.core_query_ajax_handler.url,
 					dataType: 'html',
+					cache: false,
 					data: {
 						action: 'query_render_more_pagination',
-						queryId: queryId,
+						query_id: queryId,
+						post_id: window.core_query_ajax_handler.post_id,
 						paged: pageRequest,
 						block: $queryBlock.attr('data-block')
 					}
@@ -62,25 +64,30 @@
 			if (!$target.is('.wp-block-query.uses-ajax .wp-block-query-pagination a')) {
 				return;
 			}
-			var queryRegexp = new RegExp(/query\-([^\-]+)\-page=(\d+)/);
-			var targetQuery = $target.attr('href').match(queryRegexp);
 			var $queryBlock = $target.closest('.wp-block-query.uses-ajax');
+			var queryId = $queryBlock.attr('data-query-id');
+			var queryRegexp = new RegExp('query\\-' + queryId + '\\-page=(\\d+)');
+			var targetQuery = $target.attr('href').match(queryRegexp);
 			if ($queryBlock.length) {
 				e.preventDefault();
 				var paged = 1;
-				if (targetQuery && targetQuery.length > 1) {
-					paged = parseInt(targetQuery[2]);
+				if (targetQuery && targetQuery.length) {
+					paged = parseInt(targetQuery[1]);
 				}
 				var request = loadPage($queryBlock, paged, true);
 				request.done(function (data) {
 					if (data && data.length) {
 						if (window.history.pushState) {
 							// Replace query in URL
+							var newUrl = new URL(window.location.href);
 							if (targetQuery && targetQuery.length) {
-								var newUrl = new URL(window.location.href);
-								newUrl.search = newUrl.search.match(queryRegexp) ? newUrl.search.replace(/query\-[^\-]+\-page=\d+/, targetQuery[0]) : targetQuery[0];
-								window.history.pushState(null, null, newUrl);
+								newUrl.search = newUrl.search.match(queryRegexp) ?
+									newUrl.search.replace(queryRegexp, targetQuery[0]) :
+									targetQuery[0];
+							} else {
+								newUrl.search = newUrl.search.replace(queryRegexp, '');
 							}
+							window.history.pushState(null, null, newUrl);
 						}
 					}
 				});
