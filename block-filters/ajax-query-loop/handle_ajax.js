@@ -62,7 +62,8 @@
 			if (!$target.is('.wp-block-query.uses-ajax .wp-block-query-pagination a')) {
 				return;
 			}
-			var targetQuery = $target.attr('href').match(/query\-([^\-]+)\-page=(\d+)/);
+			var queryRegexp = new RegExp(/query\-([^\-]+)\-page=(\d+)/);
+			var targetQuery = $target.attr('href').match(queryRegexp);
 			var $queryBlock = $target.closest('.wp-block-query.uses-ajax');
 			if ($queryBlock.length) {
 				e.preventDefault();
@@ -74,11 +75,10 @@
 				request.done(function (data) {
 					if (data && data.length) {
 						if (window.history.pushState) {
-							console.debug('Updating location', targetQuery);
 							// Replace query in URL
 							if (targetQuery && targetQuery.length) {
 								var newUrl = new URL(window.location.href);
-								newUrl.search = newUrl.search.replace(/query\-[^\-]+\-page=\d+/, targetQuery[0]);
+								newUrl.search = newUrl.search.match(queryRegexp) ? newUrl.search.replace(/query\-[^\-]+\-page=\d+/, targetQuery[0]) : targetQuery[0];
 								window.history.pushState(null, null, newUrl);
 							}
 						}
@@ -94,15 +94,21 @@
 		// Handle back/forward buttons
 		$(window).on('popstate', function () {
 			var query = window.location.search.match(/query\-([^\-]+)\-page=(\d+)/);
-			if (query.length > 1) {
+			if (query && query.length > 1) {
 				var queryId = query[1];
 				var paged = query[2];
-				var $queryBlock = $('.wp-block-query[data-query-id="' + queryId + '"]');
+				var $queryBlock = $('.wp-block-query.uses-ajax[data-query-id="' + queryId + '"]');
 				if ($queryBlock.length) {
 					$queryBlock.each(function () {
 						loadPage($(this), paged);
 					});
 				}
+			} else {
+				// No query in url? we need to set any ajax'd query blocks to page 1
+				$queryBlock = $('.wp-block-query.uses-ajax[data-paged!="1"]');
+				$queryBlock.each(function () {
+					loadPage($(this), paged);
+				});
 			}
 		});
 	});
