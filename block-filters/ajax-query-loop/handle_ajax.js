@@ -74,6 +74,7 @@
 				request.done(function (data) {
 					if (data && data.length) {
 						if (window.history.pushState) {
+							console.debug('Updating location', targetQuery);
 							// Replace query in URL
 							if (targetQuery && targetQuery.length) {
 								var newUrl = new URL(window.location.href);
