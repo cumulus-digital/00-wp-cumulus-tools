@@ -8,6 +8,7 @@
 				$queryBlock = $($queryBlock);
 			}
 			var $template = $queryBlock.find('.wp-block-post-template');
+			var $pagination = $queryBlock.find('.wp-block-query-pagination');
 
 			if ($queryBlock.length && $template.length) {
 				var queryId = $queryBlock.attr('data-query-id');
@@ -41,11 +42,11 @@
 							// with the new data.
 							$newHtml[0].className = $queryBlock[0].className;
 							$newHtml.find('.wp-block-post-template')[0].className = $template[0].className;
-							var $pagination = $newHtml.find('.wp-block-query-pagination')
-							$pagination[0].className = $pagination[0].className;
+							var $newPagination = $newHtml.find('.wp-block-query-pagination')
+							$newPagination[0].className = $pagination[0].className;
 
 							// Pagination may be returned with admin-ajax.php as the page!
-							$pagination.find('a').each(function () {
+							$newPagination.find('a').each(function () {
 								this.href = this.href.replace('/wp-admin/admin-ajax.php', window.location.pathname);
 							});
 							$queryBlock.replaceWith($newHtml);
