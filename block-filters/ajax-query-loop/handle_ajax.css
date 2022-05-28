@@ -1,7 +1,11 @@
-.wp-block-query.is-loading{
+.wp-block-query.uses-ajax > * {
+	opacity: 1;
+	transition: opacity .5s;
+}
+.wp-block-query.uses-ajax.is-loading{
 	position: relative;
 }
-	.wp-block-query.is-loading > * {
+	.wp-block-query.uses-ajax.is-loading > * {
 		opacity: 0.4;
 	}
 .wp-block-query.is-loading::after {
