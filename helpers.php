@@ -40,7 +40,7 @@ function contains_block( $block_names = false, $post_id = null ) {
 		$post_id = \get_the_ID();
 	}
 
-	\do_action( 'qm/debug', [$block_names, $post_id] );
+	//\do_action( 'qm/debug', [$block_names, $post_id] );
 
 	if ( $post_id !== false ) {
 		// Handle posts without blocks
@@ -62,7 +62,7 @@ function contains_block( $block_names = false, $post_id = null ) {
 			return $name;
 		}, $block_names );
 
-		\do_action( 'qm/debug', $block_names );
+		//\do_action( 'qm/debug', $block_names );
 
 		// Handle regular blocks quickly
 		foreach ( $block_names as $block_name ) {
@@ -94,9 +94,16 @@ function contains_block( $block_names = false, $post_id = null ) {
 				return false;
 			}
 
+			foreach ( $block_names as $block_name ) {
+				if ( search_reusable_blocks( $blocks, $block_name ) ) {
+					return true;
+				}
+			}
+			/*
 			return \array_walk( $block_names, function ( $block_name ) use ( $blocks ) {
 				return search_reusable_blocks( $blocks, $block_name );
 			} );
+			*/
 		}
 	}
 
