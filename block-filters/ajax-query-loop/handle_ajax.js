@@ -30,7 +30,6 @@
 						var $newHtml = $(data);
 						if ($newHtml.length) {
 							if (scrollTo) {
-								console.log('scrolling');
 								$queryBlock[0].scrollIntoView({
 									behavior: 'smooth',
 									block: 'start',
@@ -63,20 +62,19 @@
 			if (!$target.is('.wp-block-query.uses-ajax .wp-block-query-pagination a')) {
 				return;
 			}
+			var targetQuery = $target.attr('href').match(/query\-([^\-]+)\-page=(\d+)/);
 			var $queryBlock = $target.closest('.wp-block-query.uses-ajax');
 			if ($queryBlock.length) {
 				e.preventDefault();
 				var paged = 1;
-				var pageRequest = $target.attr('href').match(/query\-[^\-]+\-page=(\d+)/);
-				if (pageRequest && pageRequest.length) {
-					paged = parseInt(pageRequest[1]);
+				if (targetQuery && targetQuery.length > 1) {
+					paged = parseInt(targetQuery[2]);
 				}
 				var request = loadPage($queryBlock, paged, true);
 				request.done(function (data) {
 					if (data && data.length) {
 						if (window.history.pushState) {
 							// Replace query in URL
-							var targetQuery = $target.attr('href').match(/query\-[^\-]+\-page=\d+/);
 							if (targetQuery && targetQuery.length) {
 								var newUrl = new URL(window.location.href);
 								newUrl.search = newUrl.search.replace(/query\-[^\-]+\-page=\d+/, targetQuery[0]);
