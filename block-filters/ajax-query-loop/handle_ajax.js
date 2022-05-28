@@ -1,0 +1,109 @@
+(function ($, window, undefined) {
+	$(function () {
+		if (!window.core_query_ajax_handler || !window.core_query_ajax_handler.url) {
+			return;
+		}
+		function loadPage($queryBlock, pageRequest = 1, scrollTo = false) {
+			if (!$queryBlock.jquery) {
+				$queryBlock = $($queryBlock);
+			}
+			var $template = $queryBlock.find('.wp-block-post-template');
+
+			if ($queryBlock.length && $template.length) {
+				var queryId = $queryBlock.attr('data-query-id');
+				$queryBlock.addClass('is-loading');
+				var request = $.ajax({
+					method: 'POST',
+					url: window.core_query_ajax_handler.url,
+					dataType: 'html',
+					data: {
+						action: 'query_render_more_pagination',
+						queryId: queryId,
+						paged: pageRequest,
+						block: $queryBlock.attr('data-block')
+					}
+				});
+				request.done(function (data) {
+					$queryBlock.removeClass('is-loading');
+					if (data) {
+						var $newHtml = $(data);
+						if ($newHtml.length) {
+							if (scrollTo) {
+								console.log('scrolling');
+								$queryBlock[0].scrollIntoView({
+									behavior: 'smooth',
+									block: 'start',
+								});
+							}
+
+							// Replace class names since there are styles
+							// associated with the originals that don't come
+							// with the new data.
+							$newHtml[0].className = $queryBlock[0].className;
+							$newHtml.find('.wp-block-post-template')[0].className = $template[0].className;
+							var $pagination = $newHtml.find('.wp-block-query-pagination')
+							$pagination[0].className = $pagination[0].className;
+
+							// Pagination may be returned with admin-ajax.php as the page!
+							$pagination.find('a').each(function () {
+								this.href = this.href.replace('/wp-admin/admin-ajax.php', window.location.pathname);
+							});
+							$queryBlock.replaceWith($newHtml);
+						}
+					}
+				});
+				return request;
+			}
+		}
+
+		// Handle ajaxified query block pagination clicks
+		$(window).on('click', function (e) {
+			var $target = $(e.target);
+			if (!$target.is('.wp-block-query.uses-ajax .wp-block-query-pagination a')) {
+				return;
+			}
+			var $queryBlock = $target.closest('.wp-block-query.uses-ajax');
+			if ($queryBlock.length) {
+				e.preventDefault();
+				var paged = 1;
+				var pageRequest = $target.attr('href').match(/query\-[^\-]+\-page=(\d+)/);
+				if (pageRequest && pageRequest.length) {
+					paged = parseInt(pageRequest[1]);
+				}
+				var request = loadPage($queryBlock, paged, true);
+				request.done(function (data) {
+					if (data && data.length) {
+						if (window.history.pushState) {
+							// Replace query in URL
+							var targetQuery = $target.attr('href').match(/query\-[^\-]+\-page=\d+/);
+							if (targetQuery && targetQuery.length) {
+								var newUrl = new URL(window.location.href);
+								newUrl.search = newUrl.search.replace(/query\-[^\-]+\-page=\d+/, targetQuery[0]);
+								window.history.pushState(null, null, newUrl);
+							}
+						}
+					}
+				});
+				request.fail(function () {
+					// All else fails, load window
+					window.location.href = $target.attr('href');
+				});
+			}
+		});
+
+		// Handle back/forward buttons
+		$(window).on('popstate', function () {
+			var query = window.location.search.match(/query\-([^\-]+)\-page=(\d+)/);
+			if (query.length > 1) {
+				var queryId = query[1];
+				var paged = query[2];
+				var $queryBlock = $('.wp-block-query[data-query-id="' + queryId + '"]');
+				if ($queryBlock.length) {
+					$queryBlock.each(function () {
+						loadPage($(this), paged);
+					});
+				}
+			}
+		});
+	});
+})(jQuery, window.self);

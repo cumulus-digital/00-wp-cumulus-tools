@@ -4,6 +4,7 @@
 
 import './post-terms';
 import './search';
+import './ajax-query-loop';
 
 /**
  * Multi-block filters

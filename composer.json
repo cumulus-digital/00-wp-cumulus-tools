@@ -1,4 +1,5 @@
 {
+    "$schema": "https://getcomposer.org/schema.json",
     "repositories": [
         {
             "type": "package",
@@ -23,5 +24,8 @@
         "friendsofphp/php-cs-fixer": "^3.0",
         "paulthewalton/acf-stubs": "^5.8",
         "cumulus-digital/wp-php-cs-fixer": "^1"
+    },
+    "config": {
+        "preferred-install": "dist"
     }
 }
