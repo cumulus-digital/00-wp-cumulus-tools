@@ -21,6 +21,26 @@ function is_block_registered( $name ) {
 	return $registry->get_registered( $name );
 }
 
+/**
+ * Recursively search for a block name within inner blocks
+ *
+ * @param array  $blocks
+ * @param string $block_name
+ *
+ * @return bool
+ */
+function recursive_block_search( $blocks, $block_name ) {
+	foreach ( $blocks as $block ) {
+		if ( isset( $block['innerBlocks'] ) && ! empty( $block['innerBlocks'] ) ) {
+			return recursive_block_search( $block['innerBlocks'], $block_name );
+		} elseif ( $block['blockName'] === 'core/block' && ! empty( $block['attrs']['ref'] ) && \has_block( $block_name, $block['attrs']['ref'] ) ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 /*
  * Replacement for WP's has_block which works with reusable blocks.
  * If given multiple block names, will return true if ANY named blocks
@@ -81,27 +101,14 @@ function contains_block( $block_names = false, $post_id = null ) {
 				return false;
 			}
 
-			// Recursive search for our block
-			function search_reusable_blocks( $blocks, $block_name ) {
-				foreach ( $blocks as $block ) {
-					if ( isset( $block['innerBlocks'] ) && ! empty( $block['innerBlocks'] ) ) {
-						return search_reusable_blocks( $block['innerBlocks'], $block_name );
-					} elseif ( $block['blockName'] === 'core/block' && ! empty( $block['attrs']['ref'] ) && \has_block( $block_name, $block['attrs']['ref'] ) ) {
-						return true;
-					}
-				}
-
-				return false;
-			}
-
 			foreach ( $block_names as $block_name ) {
-				if ( search_reusable_blocks( $blocks, $block_name ) ) {
+				if ( recursive_block_search( $blocks, $block_name ) ) {
 					return true;
 				}
 			}
 			/*
 			return \array_walk( $block_names, function ( $block_name ) use ( $blocks ) {
-				return search_reusable_blocks( $blocks, $block_name );
+				return recursive_block_search( $blocks, $block_name );
 			} );
 			*/
 		}
