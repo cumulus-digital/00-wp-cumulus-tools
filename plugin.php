@@ -29,7 +29,7 @@ require BASEDIR . 'helpers.php';
 	if ( ! \is_admin() || 'widgets.php' === $pagenow ) {
 		return;
 	}
-	$assets = include BASEDIR . 'build/editor.asset.php';
+	$assets = include \CUMULUS\Gutenberg\Tools\BASEDIR . 'build/editor.asset.php';
 	\wp_enqueue_script(
 		'wp-cumulus-tools-editor',
 		\plugins_url( 'build/editor.js', __FILE__ ),
@@ -48,7 +48,7 @@ require BASEDIR . 'helpers.php';
 		return;
 	}
 
-	$assets = include BASEDIR . 'build/block-filters.asset.php';
+	$assets = include \CUMULUS\Gutenberg\Tools\BASEDIR . 'build/block-filters.asset.php';
 	\wp_enqueue_script(
 		'wp-cumulus-tools-block-filters',
 		\plugins_url( 'build/block-filters.js', __FILE__ ),
@@ -82,7 +82,7 @@ require BASEDIR . 'helpers.php';
  * Runs all block installers
  */
 \add_action( 'init', function () {
-	$blockdirs = \glob( BASEDIR . 'blocks/*', \GLOB_ONLYDIR );
+	$blockdirs = \glob(  \CUMULUS\Gutenberg\Tools\BASEDIR . 'blocks/*', \GLOB_ONLYDIR );
 
 	foreach ( $blockdirs as $blockdir ) {
 		$files = [
@@ -112,7 +112,7 @@ require BASEDIR . 'helpers.php';
  * Runs all Block Filters support installers
  */
 \add_action( 'init', function () {
-	require BASEDIR . '/block-filters/index.php';
+	require \CUMULUS\Gutenberg\Tools\BASEDIR . '/block-filters/index.php';
 } );
 
 /*
