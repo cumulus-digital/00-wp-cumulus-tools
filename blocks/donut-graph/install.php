@@ -3,5 +3,5 @@
 namespace CUMULUS\Gutenberg\Tools\Blocks\DonutGraph;
 
 \register_block_type(
-	BASEDIR . '/build/blocks/donut-graph'
+	\CUMULUS\Gutenberg\Tools\BASEDIR . '/build/blocks/donut-graph'
 );

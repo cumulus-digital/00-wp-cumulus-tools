@@ -15,8 +15,8 @@ namespace CUMULUS\Gutenberg\Tools;
 
 \defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
 
-\define( 'BASEDIR', \plugin_dir_path( __FILE__ ) );
-\define( 'BASEURL', \plugin_dir_url( __FILE__ ) );
+\define( 'CUMULUS\Gutenberg\Tools\BASEDIR', \plugin_dir_path( __FILE__ ) );
+\define( 'CUMULUS\Gutenberg\Tools\BASEURL', \plugin_dir_url( __FILE__ ) );
 
 require BASEDIR . 'helpers.php';
 
@@ -120,3 +120,8 @@ require BASEDIR . 'helpers.php';
  */
 \add_action( 'init', function () {
 } );
+
+/*
+ * Run all utilities installers
+ */
+require \CUMULUS\Gutenberg\Tools\BASEDIR . '/utilities/index.php';

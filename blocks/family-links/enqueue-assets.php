@@ -12,8 +12,8 @@ class Assets {
 
 	public static $path;
 }
-Assets::$path = BASEDIR . '/build/blocks/family-links/assets';
-Assets::$url  = BASEURL . 'build/blocks/family-links/assets';
+Assets::$path = \CUMULUS\Gutenberg\Tools\BASEDIR . '/build/blocks/family-links/assets';
+Assets::$url  = \CUMULUS\Gutenberg\Tools\BASEURL . 'build/blocks/family-links/assets';
 
 // Editor Assets
 function editor_assets() {

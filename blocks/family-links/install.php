@@ -6,7 +6,7 @@ namespace CUMULUS\Gutenberg\Tools\Blocks\FamilyLinks;
 
 // Server-side renderer
 \register_block_type(
-	BASEDIR . '/build/blocks/family-links',
+	\CUMULUS\Gutenberg\Tools\BASEDIR . '/build/blocks/family-links',
 	[
 		'render_callback' => __NAMESPACE__ . '\\renderCallback',
 	]

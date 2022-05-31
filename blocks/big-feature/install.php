@@ -5,7 +5,7 @@ namespace CUMULUS\Gutenberg\Tools\Blocks\BigFeature;
 use function CUMULUS\Gutenberg\Tools\contains_block;
 
 \register_block_type(
-	BASEDIR . '/build/blocks/big-feature',
+	\CUMULUS\Gutenberg\Tools\BASEDIR . '/build/blocks/big-feature',
 	[
 		'view_script' => null,
 	]

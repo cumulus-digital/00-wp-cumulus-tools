@@ -3,5 +3,5 @@
 namespace CUMULUS\Gutenberg\Tools\Blocks\CollapsableGroup;
 
 \register_block_type(
-	BASEDIR . '/build/blocks/collapsable-group'
+	\CUMULUS\Gutenberg\Tools\BASEDIR . '/build/blocks/collapsable-group'
 );

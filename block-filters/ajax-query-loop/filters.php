@@ -100,7 +100,7 @@ function query_pagination_render_more_query() {
 	if ( contains_block( 'core/query' ) && ! \is_admin() ) {
 		\wp_enqueue_script(
 			'core-query-ajax-handler',
-			BASEURL . 'block-filters/ajax-query-loop/handle_ajax.js',
+			\CUMULUS\Gutenberg\Tools\BASEURL . 'block-filters/ajax-query-loop/handle_ajax.js',
 			['jquery'],
 			false,
 			true
@@ -115,7 +115,7 @@ function query_pagination_render_more_query() {
 		);
 		\wp_enqueue_style(
 			'core-query-ajax-handler',
-			BASEURL . 'block-filters/ajax-query-loop/handle_ajax.css'
+			\CUMULUS\Gutenberg\Tools\BASEURL . 'block-filters/ajax-query-loop/handle_ajax.css'
 		);
 	}
 } );
