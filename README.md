@@ -8,9 +8,10 @@ A collection of custom Wordpress blocks, filters, and utilities for use with Cum
 
 Structure is fairly self-explanatory...
 
-* block-filters
-* blocks
-* cpts
+* block-filters - Filters for core and 3rd party blocks
+* blocks - Custom blocks
+* cpts - Custom post types
+* tools - Custom utility plugins
 * global - Helpers, custom components, icon SVGs
 * phpcs-tokens - Used by PHPCS for automatically root-namespacing WP functions/classes
 
@@ -66,10 +67,17 @@ composer upgrade
 	List children of a hierarchical post type (e.g. Pages) as a menu.
 
 
-## Filters
+## Block Filters
 
 Filters extending blocks include:
 
 * core/*: Adds margin support to several core blocks.
 * core/post-terms: Adds support for custom taxonomies.
+* core/query: Adds ajax pagination for query loop blocks.
 * core/search: Adds post-type and taxonomy filters for search fields.
+
+## Tools
+
+Custom tools for Wordpress include:
+
+* extra-jetpack: Adds options to expose jetpack's modules menu and disable jetpack's backup menu, video and image sitemaps.

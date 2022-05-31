@@ -16,8 +16,6 @@
         }
     ],
     "require": {
-        "johnbillion/extended-cpts": "^4.5",
-        "tgmpa/tgm-plugin-activation": "^2.6",
         "vena/acf-json": "^1.0"
     },
     "require-dev": {
