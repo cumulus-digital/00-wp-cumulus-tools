@@ -1,5 +1,8 @@
-const path = require( 'path' );
-const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
+const glob = require('glob');
+const path = require('path');
+const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+const MiniCSSExtractPlugin = require( 'mini-css-extract-plugin' );
+const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
 
 // Our own personal resolves
 const resolves = {
@@ -39,7 +42,7 @@ defaultConfig.plugins = defaultConfig.plugins.map( ( plugin ) => {
 		} );
 	}
 	return plugin;
-} );
+});
 
 // Make block asset resources go in their block's folder
 const blockModuleRules = defaultConfig.module.rules.map( ( rule ) => {
@@ -114,4 +117,26 @@ module.exports = [
 		stats:
 			defaultConfig.mode == 'production' ? 'normal' : 'errors-warnings',
 	},
+
+	// Utilities
+	{
+		...defaultConfig,
+		...resolves,
+		plugins: [
+			new MiniCSSExtractPlugin({ filename: '[name]/index.css' }),
+			! process.env.WP_NO_EXTERNALS &&
+				new DependencyExtractionWebpackPlugin(),
+		],
+		entry: glob.sync('./utilities/**/assets/index.js').reduce((acc, path) => {
+			const entry = path
+				.replace('/utilities', '')
+				.replace('/assets/index.js', '');
+			acc[entry] = path;
+			return acc;
+		}, {}),
+		output: {
+			path: path.join(__dirname, '/build/utilities'),
+			filename: './[name]/index.js',
+		}
+	}
 ];

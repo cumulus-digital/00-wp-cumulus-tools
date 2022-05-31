@@ -1,0 +1,51 @@
+body.wp-cmls-collapsable #the-list > tr {
+
+	&.wcc-hide {
+		display: none;
+	}
+
+	// Expander icon
+	td.title, td.name {
+		strong i {
+			display: inline-block;
+			cursor: pointer;
+			font-size: 1.25em;
+			font-style: normal;
+			font-weight: normal;
+			color: rgba(0, 0, 0, 0.5);
+			width: 1em;
+			margin-right: .25em;
+
+			&::before {
+				content: '▼'
+			}
+		}
+	}
+		&.wcc-collapsed td.title,
+		&.wcc-collapsed td.name {
+			strong i::before {
+				content: '▷'
+			}
+		}
+
+	// Indent row actions for items with parents or children
+	&.wcc-has_parent .row-actions {
+		padding-left: calc(1.2em * var(--level, 0));
+	}
+	&.wcc-has_children .row-actions {
+		padding-left: calc(1.25em * var(--level, 0));
+	}
+
+	// Level and # of children indicator
+	td strong cite {
+		font-style: normal;
+		font-weight: normal;
+		color: rgba(0,0,0,0.3);
+		margin-right: .5em;
+	}
+
+	& td.title,
+	& td.name {
+		padding-left: calc(1em * var(--level, 0));
+	}
+}

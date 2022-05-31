@@ -11,7 +11,7 @@ Structure is fairly self-explanatory...
 * block-filters - Filters for core and 3rd party blocks
 * blocks - Custom blocks
 * cpts - Custom post types
-* tools - Custom utility plugins
+* utilities - Custom utility plugins
 * global - Helpers, custom components, icon SVGs
 * phpcs-tokens - Used by PHPCS for automatically root-namespacing WP functions/classes
 
@@ -76,8 +76,9 @@ Filters extending blocks include:
 * core/query: Adds ajax pagination for query loop blocks.
 * core/search: Adds post-type and taxonomy filters for search fields.
 
-## Tools
+## Utilities
 
-Custom tools for Wordpress include:
+Custom utilities for Wordpress include:
 
 * extra-jetpack: Adds options to expose jetpack's modules menu and disable jetpack's backup menu, video and image sitemaps.
+* collapse-hierarchical: Adds a collapsing tree UI to hierarchical posts and terms.
