@@ -7,94 +7,101 @@ import { Icon } from '@wordpress/components';
 import { useBlockProps } from '@wordpress/blockEditor';
 import { useState, useEffect, useMemo } from '@wordpress/element';
 
-const edit = ( props ) => {
+const edit = (props) => {
 	const { attributes, setAttributes } = props;
-	const [ classNames, setClassNames ] = useState( [] );
-	const [ toolTips, setTooltips ] = useState( [] );
-	const [ noticeIcons, setNoticeIcons ] = useState( [] );
+	const [classNames, setClassNames] = useState([]);
+	const [toolTips, setTooltips] = useState([]);
+	const [noticeIcons, setNoticeIcons] = useState([]);
 
-	useMemo( () => {
-		if ( isDefault( attributes, 'mediaUrl' ) ) {
-			setClassNames( [ 'is-placeholder' ] );
+	useMemo(() => {
+		if (isDefault(attributes, 'mediaUrl')) {
+			setClassNames(['is-placeholder']);
 		} else {
 			const newClassNames = [];
 			const newTitles = [];
 			const newNoticeIcons = [];
-			if ( isDefault( attributes, 'href' ) ) {
-				newClassNames.push( 'is-unlinked' );
-				newTitles.push( 'Needs a link.' );
-				newNoticeIcons.push( <Icon key="1" icon="editor-unlink" /> );
+			if (isDefault(attributes, 'href')) {
+				newClassNames.push('is-unlinked');
+				newTitles.push('Needs a link.');
+				newNoticeIcons.push(<Icon key="1" icon="editor-unlink" />);
 			} else {
-				newClassNames.push( 'is-linked' );
+				newClassNames.push('is-linked');
 			}
-			if ( isDefault( attributes, 'alt' ) ) {
-				newClassNames.push( 'is-inaccessable' );
-				newTitles.push( 'Needs an "alt" attribute.' );
-				newNoticeIcons.push( <Icon key="2" icon="warning" /> );
+			if (isDefault(attributes, 'alt')) {
+				newClassNames.push('is-inaccessable');
+				newTitles.push('Needs an "alt" attribute.');
+				newNoticeIcons.push(<Icon key="2" icon="warning" />);
 			}
 			if (
-				! isDefault( attributes, 'mediaDimensions' ) &&
+				!isDefault(attributes, 'mediaDimensions') &&
 				attributes.mediaDimensions.width !==
 					attributes.mediaDimensions.height
 			) {
-				newClassNames.push( 'is-not-square' );
-				newTitles.push( 'Is not square.' );
-				newNoticeIcons.push( <Icon key="3" icon="image-crop" /> );
+				newClassNames.push('is-not-square');
+				newTitles.push('Is not square.');
+				newNoticeIcons.push(<Icon key="3" icon="image-crop" />);
 			}
-			if ( newClassNames.length ) {
-				setClassNames( newClassNames );
-				setTooltips( newTitles );
-				setNoticeIcons( newNoticeIcons );
+			if (newClassNames.length) {
+				setClassNames(newClassNames);
+				setTooltips(newTitles);
+				setNoticeIcons(newNoticeIcons);
 			}
 		}
-	}, [ attributes ] );
+	}, [attributes]);
 
 	useEffect(() => {
 		// Remove _self attribute/rel noopener from old versions
-		if ( ! attributes.linkTarget?.length || attributes.linkTarget === '_self') {
-			setAttributes({ linkTarget: '', rel: attributes?.rel?.replace('noopener', '') });
+		if (
+			!attributes.linkTarget?.length ||
+			attributes.linkTarget === '_self'
+		) {
+			setAttributes({
+				linkTarget: '',
+				rel: attributes?.rel?.replace('noopener', ''),
+			});
 		}
 	}, []);
 
-	const blockProps = useBlockProps( {
+	const blockProps = useBlockProps({
 		className: classNames,
-		title: toolTips.join( '\n' ),
-	} );
+		title: toolTips.join('\n'),
+	});
 
 	return (
-		<li { ...blockProps }>
+		<li {...blockProps}>
 			<div className="g-bf-square_container">
-				<SquareBlockControls { ...props } />
-				<SquareInspectorControls { ...props } alerts={ toolTips } />
-				{ ! isDefault( attributes, 'mediaUrl' ) ? (
+				<SquareBlockControls {...props} />
+				<SquareInspectorControls {...props} alerts={toolTips} />
+				{!isDefault(attributes, 'mediaUrl') ? (
 					<>
 						<img
-							src={ attributes.mediaUrl }
-							alt={ attributes.alt }
+							src={attributes.mediaUrl}
+							alt={attributes.alt}
+							className={`wp-image-${attributes.mediaId}`}
 						/>
-						{ noticeIcons.length ? (
+						{noticeIcons.length ? (
 							<div className="g-bf-notice-icons">
-								{ noticeIcons }
+								{noticeIcons}
 							</div>
-						) : null }
+						) : null}
 					</>
 				) : (
 					<MediaUploader
-						{ ...props }
-						render={ ( { open } ) => {
+						{...props}
+						render={({ open }) => {
 							return (
 								<img
-									className="g-bf-placeholder"
-									src={ attributes.mediaUrl }
+									className={`g-bf-placeholder wp-image-${attributes.mediaId}`}
+									src={attributes.mediaUrl}
 									alt="Click to add an image"
 									title="Click to add an image"
-									onClick={ open }
-									style={ { cursor: 'pointer' } }
+									onClick={open}
+									style={{ cursor: 'pointer' }}
 								/>
 							);
-						} }
+						}}
 					/>
-				) }
+				)}
 			</div>
 		</li>
 	);

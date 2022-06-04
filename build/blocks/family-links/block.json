@@ -1,237 +1,203 @@
 {
-	"_#": "_# is used in this document as a comment.",
-
-	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 2,
-	"name": "cumulus-gutenberg/family-links",
-	"title": "Family Links",
-	"description": "Insert links to a page's children or siblings",
-	"keywords": ["cumulus","cmls","family","parent","child","children","siblings"],
-	"icon": "admin-links",
-	"category": "cmls",
-
-	"_#": "▼▼▼ REMOVE ANY INCLUDES BELOW THAT DON'T EXIST! ▼▼▼",
-
-	"_#": "Scripts used only in editor",
-	"editorScript": "file:./assets/editor.js",
-
-	"_#": "Global styles",
-	"style": "file:./assets/editor.css",
-
-	"_#": "▲▲▲ REMOVE ANY INCLUDES ABOVE THAT DON'T EXIST! ▲▲▲",
-
-
-	"_#": "Attributes stored by block",
-	"attributes": {
-		"postType": {
-			"type": "string"
-		},
-		"parentPostId": {
-			"type": "number"
-		},
-		"showCurrentChildren": {
-			"type": "boolean",
-			"default": true
-		},
-		"maxDepth": {
-			"type": "integer",
-			"default": 0
-		},
-		"excludeNoindex": {
-			"type": "boolean",
-			"default": true
-		},
-		"excludeAdditionalIDs": {
-			"type": "array",
-			"default": []
-		},
-		"displayType": {
-			"type": "string",
-			"enum": [
-				"plain",
-				"bullets",
-				"square",
-				"numbered",
-				"custom"
-			],
-			"default": "plain"
-		},
-		"customBullet": {
-			"type": "string",
-			"default": ""
-		},
-		"itemMargin": {
-			"type": "object",
-			"default": {
-				"top": null,
-				"right": null,
-				"bottom": null,
-				"left": null
-			}
-		},
-		"childrenMargin": {
-			"type": "object",
-			"default": {
-				"top": null,
-				"right": null,
-				"bottom": null,
-				"left": "1em"
-			}
-		},
-		"bulletColor": {
-			"type": "string",
-			"default": null
-		},
-		"underlineLinks": {
-			"type": "boolean",
-			"default": true
-		},
-		"underlineOnHover": {
-			"type": "boolean",
-			"default": true
-		},
-		"linkColor": {
-			"type": "string",
-			"default": null
-		},
-		"linkColorHover": {
-			"type": "string",
-			"default": null
-		},
-		"textAlign": {
-			"type": "string",
-			"default": null
-		},
-		"fontWeight": {
-			"type": "string",
-			"default": null
-		},
-		"fontStyle": {
-			"type": "string",
-			"default": null
-		},
-		"highlightCurrent": {
-			"type": "boolean",
-			"default": true
-		},
-		"currentFontSize": {
-			"type": "string",
-			"default": null
-		},
-		"currentFontWeight": {
-			"type": "string",
-			"default": "700"
-		},
-		"currentFontStyle": {
-			"type": "string",
-			"default": "normal"
-		},
-		"currentUnderlineLinks": {
-			"type": "boolean",
-			"default": true
-		},
-		"currentUnderlineOnHover": {
-			"type": "boolean",
-			"default": true
-		},
-		"currentLinkColor": {
-			"type": "string",
-			"default": null
-		},
-		"currentLinkColorHover": {
-			"type": "string",
-			"default": null
-		}
-	},
-
-	"_#": "Wordpress features support",
-	"supports": {
-		"_#": "Allow setting a custom html tag ID on this block",
-		"anchor": true,
-
-		"_#": "Allow align left,right,center",
-		"align": true,
-
-		"_#": "Allow align wide",
-		"alignWide": true,
-
-		"_#": "Give block default wp-block-name class",
-		"className": true,
-
-		"_#": "Allow custom colors",
-		"color": {
-			"background": true,
-			"__experimentalDuotone": false,
-			"gradients": true,
-			"link": false,
-			"text": false
-		},
-
-		"_#": "Allow custom class names",
-		"customClassName": false,
-
-		"_#": "Allow setting default style for all blocks of this type",
-		"defaultStylePicker": true,
-
-		"_#": "Allow editing raw html of block",
-		"html": false,
-
-		"_#": "Show this block in the inserter",
-		"inserter": true,
-
-		"_#": "Allow multiples of this block in a single post",
-		"multiple": true,
-
-		"_#": "Allow block to be included in reusable blocks",
-		"reusable": true,
-
-		"_#": "Allow locking of this block",
-		"lock": true,
-
-		"_#": "Allow adding custom margin or padding",
-		"spacing": {
-			"margin": true,
-			"padding": true,
-			"blockGap": true
-		},
-
-		"_#": "Allow custom typography",
-		"typography": {
-			"align": true,
-			"fontSize": true,
-			"lineHeight": true,
-			"fontWeight": true,
-			"fontStyle": true,
-			"textTransform": true,
-			"__experimentalFontWeight": true,
-			"__experimentalFontStyle": true,
-			"__experimentalTextTransform": true
-		},
-
-		"_#": "Allow customizing border",
-		"border": {
-			"color": true,
-			"radius": true,
-			"style": true,
-			"width": true,
-			"defaultControls": {
-				"color": true,
-				"radius": true,
-				"style": true,
-				"width": true
-			}
-		},
-		"__experimentalBorder": {
-			"color": true,
-			"radius": true,
-			"style": true,
-			"width": true,
-			"__experimentalDefaultControls": {
-				"color": true,
-				"radius": true,
-				"style": true,
-				"width": true
-			}
-		}
-	}
+  "_#": "Wordpress features support",
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "cumulus-gutenberg/family-links",
+  "title": "Family Links",
+  "description": "Insert links to a page's children or siblings",
+  "keywords": [
+    "cumulus",
+    "cmls",
+    "family",
+    "parent",
+    "child",
+    "children",
+    "siblings"
+  ],
+  "icon": "admin-links",
+  "category": "cmls",
+  "editorScript": "file:./assets/editor.js",
+  "style": "file:./assets/editor.css",
+  "attributes": {
+    "postType": {
+      "type": "string"
+    },
+    "parentPostId": {
+      "type": "number"
+    },
+    "showCurrentChildren": {
+      "type": "boolean",
+      "default": true
+    },
+    "maxDepth": {
+      "type": "integer",
+      "default": 0
+    },
+    "excludeNoindex": {
+      "type": "boolean",
+      "default": true
+    },
+    "excludeAdditionalIDs": {
+      "type": "array",
+      "default": []
+    },
+    "displayType": {
+      "type": "string",
+      "enum": [
+        "plain",
+        "bullets",
+        "square",
+        "numbered",
+        "custom"
+      ],
+      "default": "plain"
+    },
+    "customBullet": {
+      "type": "string",
+      "default": ""
+    },
+    "itemMargin": {
+      "type": "object",
+      "default": {
+        "top": null,
+        "right": null,
+        "bottom": null,
+        "left": null
+      }
+    },
+    "childrenMargin": {
+      "type": "object",
+      "default": {
+        "top": null,
+        "right": null,
+        "bottom": null,
+        "left": "1em"
+      }
+    },
+    "bulletColor": {
+      "type": "string",
+      "default": null
+    },
+    "underlineLinks": {
+      "type": "boolean",
+      "default": true
+    },
+    "underlineOnHover": {
+      "type": "boolean",
+      "default": true
+    },
+    "linkColor": {
+      "type": "string",
+      "default": null
+    },
+    "linkColorHover": {
+      "type": "string",
+      "default": null
+    },
+    "textAlign": {
+      "type": "string",
+      "default": null
+    },
+    "fontWeight": {
+      "type": "string",
+      "default": null
+    },
+    "fontStyle": {
+      "type": "string",
+      "default": null
+    },
+    "highlightCurrent": {
+      "type": "boolean",
+      "default": true
+    },
+    "currentFontSize": {
+      "type": "string",
+      "default": null
+    },
+    "currentFontWeight": {
+      "type": "string",
+      "default": "700"
+    },
+    "currentFontStyle": {
+      "type": "string",
+      "default": "normal"
+    },
+    "currentUnderlineLinks": {
+      "type": "boolean",
+      "default": true
+    },
+    "currentUnderlineOnHover": {
+      "type": "boolean",
+      "default": true
+    },
+    "currentLinkColor": {
+      "type": "string",
+      "default": null
+    },
+    "currentLinkColorHover": {
+      "type": "string",
+      "default": null
+    }
+  },
+  "supports": {
+    "_#": "Allow customizing border",
+    "anchor": true,
+    "align": true,
+    "alignWide": true,
+    "className": true,
+    "color": {
+      "background": true,
+      "__experimentalDuotone": false,
+      "gradients": true,
+      "link": false,
+      "text": false
+    },
+    "customClassName": false,
+    "defaultStylePicker": true,
+    "html": false,
+    "inserter": true,
+    "multiple": true,
+    "reusable": true,
+    "lock": true,
+    "spacing": {
+      "margin": true,
+      "padding": true,
+      "blockGap": true
+    },
+    "typography": {
+      "align": true,
+      "fontSize": true,
+      "lineHeight": true,
+      "fontWeight": true,
+      "fontStyle": true,
+      "textTransform": true,
+      "__experimentalFontWeight": true,
+      "__experimentalFontStyle": true,
+      "__experimentalTextTransform": true
+    },
+    "border": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true,
+      "defaultControls": {
+        "color": true,
+        "radius": true,
+        "style": true,
+        "width": true
+      }
+    },
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true,
+      "__experimentalDefaultControls": {
+        "color": true,
+        "radius": true,
+        "style": true,
+        "width": true
+      }
+    }
+  }
 }
