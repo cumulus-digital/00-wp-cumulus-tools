@@ -26,6 +26,8 @@ const save = ({ attributes }) => {
 						src={attributes.mediaUrl}
 						alt={attributes.alt}
 						className={`wp-image-${attributes.mediaId}`}
+						width="1000px"
+						height="1000px"
 					/>
 				</LinkWrapper>
 			</li>
