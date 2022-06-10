@@ -82,3 +82,7 @@ Custom utilities for Wordpress include:
 
 * extra-jetpack: Adds options to expose jetpack's modules menu and disable jetpack's backup menu, video and image sitemaps.
 * collapse-hierarchical: Adds a collapsing tree UI to hierarchical posts and terms.
+
+## What's with the weird repo name?
+
+Wordpress plugins load alphabetically, and it can be advantageous to load first.

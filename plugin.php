@@ -4,11 +4,11 @@ namespace CUMULUS\Gutenberg\Tools;
 
 /*
  * Plugin Name: Cumulus Wordpress Tools
- * Plugin URI: https://github.com/cumulus-digital/wp-cumulus-tools/
- * GitHub Plugin URI: https://github.com/cumulus-digital/wp-cumulus-tools/
+ * Plugin URI: https://github.com/cumulus-digital/00-wp-cumulus-tools/
+ * GitHub Plugin URI: https://github.com/cumulus-digital/00-wp-cumulus-tools/
  * Primary Branch: main
  * Description: Collection of Wordpress tools, blocks, block filters, and CPTs for Cumulus Media
- * Version: 1.1.11
+ * Version: 1.1.12
  * Author: vena
  * License: UNLICENSED
  */
