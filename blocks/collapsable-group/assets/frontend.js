@@ -8,36 +8,33 @@ import jQuery from 'jquery';
 const $ = jQuery;
 const init = () => {
 	// Don't load in the editor
-	if (document.body.classList.contains('block-editor-page')) {
-		console.debug(
-			'wp-cumulus-tools/collapsable-group - Editor detected, exiting'
-		);
+	if ( document.body.classList.contains( 'block-editor-page' ) ) {
 		return;
 	}
 
-	const mobileMediaQuery = matchMedia('(min-width: 768px)');
+	const mobileMediaQuery = matchMedia( '(min-width: 768px)' );
 	let isMobile = false;
-	const mmqListener = (e) => {
-		isMobile = !e.matches;
+	const mmqListener = ( e ) => {
+		isMobile = ! e.matches;
 	};
-	mobileMediaQuery.addEventListener('change', mmqListener);
-	mmqListener(mobileMediaQuery);
+	mobileMediaQuery.addEventListener( 'change', mmqListener );
+	mmqListener( mobileMediaQuery );
 
-	const fuzzyCompare = (left, comp, right, fuzz = 3) => {
-		const lt = (left, right) => {
+	const fuzzyCompare = ( left, comp, right, fuzz = 3 ) => {
+		const lt = ( left, right ) => {
 			return left - fuzz <= right || left + fuzz <= right;
 		};
-		const gt = (left, right) => {
+		const gt = ( left, right ) => {
 			return left - fuzz >= right || left + fuzz >= right;
 		};
-		switch (comp) {
+		switch ( comp ) {
 			case '>':
 			case '>=':
-				return gt(left, right);
+				return gt( left, right );
 				break;
 			case '<':
 			case '<=':
-				return lt(left, right);
+				return lt( left, right );
 				break;
 		}
 	};
@@ -45,11 +42,12 @@ const init = () => {
 	const generatedIds = [];
 	const generateId = () => {
 		let id =
-			Date.now().toString(36) + Math.random().toString(36).substring(2);
-		if (generatedIds.includes(id)) {
+			Date.now().toString( 36 ) +
+			Math.random().toString( 36 ).substring( 2 );
+		if ( generatedIds.includes( id ) ) {
 			return generateId();
 		}
-		generatedIds.push(id);
+		generatedIds.push( id );
 		return id;
 	};
 
@@ -83,36 +81,36 @@ const init = () => {
 
 		enabled = false;
 
-		constructor(settings) {
-			if (!settings.el) {
+		constructor( settings ) {
+			if ( ! settings.el ) {
 				throw 'Must supply an el to StickGroup!';
 			}
-			Object.keys(settings).forEach((k) => {
-				this[k] = settings[k];
-			});
+			Object.keys( settings ).forEach( ( k ) => {
+				this[ k ] = settings[ k ];
+			} );
 
-			this.$el = $(this.el);
+			this.$el = $( this.el );
 
 			this.uid = generateId();
 
 			this.CollapseGroup = this;
 		}
 
-		registerListener(cb) {
-			this.stateListeners.push(cb);
+		registerListener( cb ) {
+			this.stateListeners.push( cb );
 		}
 
-		fireStateListeners(state) {
-			this.stateListeners.forEach((cb) => cb(state));
+		fireStateListeners( state ) {
+			this.stateListeners.forEach( ( cb ) => cb( state ) );
 		}
 
-		setState(state, val) {
-			this['state' + state[0].toUpperCase() + state.slice(1)] = val;
-			this.fireStateListeners({
+		setState( state, val ) {
+			this[ 'state' + state[ 0 ].toUpperCase() + state.slice( 1 ) ] = val;
+			this.fireStateListeners( {
 				group: this.el,
 				state: state,
 				val: val,
-			});
+			} );
 		}
 	}
 
@@ -121,8 +119,8 @@ const init = () => {
 
 		stateExpanded = false;
 
-		constructor(settings) {
-			super(settings);
+		constructor( settings ) {
+			super( settings );
 
 			this.isCollapsable = this.el.classList.contains(
 				'has-collapse-on-mobile'
@@ -133,34 +131,34 @@ const init = () => {
 
 		setAria() {
 			let expanded = false;
-			if (!isMobile) {
-				const hStyle = getComputedStyle(this.body);
+			if ( ! isMobile ) {
+				const hStyle = getComputedStyle( this.body );
 				expanded = hStyle.display === 'hidden' ? false : true;
 			}
-			this.header.setAttribute('aria-expanded', expanded);
-			this.body.setAttribute('aria-hidden', !expanded);
+			this.header.setAttribute( 'aria-expanded', expanded );
+			this.body.setAttribute( 'aria-hidden', ! expanded );
 			//this.stateExpanded = expanded;
-			this.setState('expanded', expanded);
+			this.setState( 'expanded', expanded );
 			return expanded;
 		}
 
 		isExpanded() {
-			if (!this.isCollapsable) {
+			if ( ! this.isCollapsable ) {
 				return false;
 			}
-			let style = getComputedStyle(this.el);
-			return style.getPropertyValue('display') !== 'none';
+			let style = getComputedStyle( this.el );
+			return style.getPropertyValue( 'display' ) !== 'none';
 		}
 
-		setExpanded(newState = !this.stateExpanded) {
-			if (!isMobile) {
+		setExpanded( newState = ! this.stateExpanded ) {
+			if ( ! isMobile ) {
 				return false;
 			}
 			let func = newState ? 'add' : 'remove';
-			this.el.classList[func](this.classes.expanded);
-			this.setState('expanded', newState);
-			this.header.setAttribute('aria-expanded', newState);
-			this.body.setAttribute('aria-hidden', !newState);
+			this.el.classList[ func ]( this.classes.expanded );
+			this.setState( 'expanded', newState );
+			this.header.setAttribute( 'aria-expanded', newState );
+			this.body.setAttribute( 'aria-hidden', ! newState );
 		}
 	}
 
@@ -210,8 +208,8 @@ const init = () => {
 		stateBottomed = false;
 		stateOverflow = false;
 
-		constructor(settings) {
-			super(settings);
+		constructor( settings ) {
+			super( settings );
 
 			this.isStickable = this.el.classList.contains(
 				'has-sticky-position'
@@ -220,36 +218,36 @@ const init = () => {
 				'has-only-stick-on-mobile'
 			);
 
-			if (this.isStickable) {
+			if ( this.isStickable ) {
 				this.generatePlaceholder();
 
-				for (const device in this.cache.container) {
-					this.cache.container[device].el = this.el.closest(
+				for ( const device in this.cache.container ) {
+					this.cache.container[ device ].el = this.el.closest(
 						this.el.getAttribute(
-							this.cache.container[device].attribute
+							this.cache.container[ device ].attribute
 						)
 					);
-					if (this.cache.container[device].el) {
-						this.cache.container[device].$el = $(
-							this.cache.container[device].el
+					if ( this.cache.container[ device ].el ) {
+						this.cache.container[ device ].$el = $(
+							this.cache.container[ device ].el
 						);
 					} else {
-						this.cache.container[device].el = document.body;
-						this.cache.container[device].$el = $(document.body);
+						this.cache.container[ device ].el = document.body;
+						this.cache.container[ device ].$el = $( document.body );
 					}
 				}
 				this.update();
-				if (window?.ResizeObserver) {
+				if ( window?.ResizeObserver ) {
 					this.resizeObserver = new ResizeObserver(
-						debounce(this.onResize, 30)
+						debounce( this.onResize, 30 )
 					);
-					this.resizeObserver.observe(this.el);
+					this.resizeObserver.observe( this.el );
 				}
 			}
 		}
 
 		update() {
-			if (!this.isStickable) {
+			if ( ! this.isStickable ) {
 				return;
 			}
 
@@ -258,45 +256,52 @@ const init = () => {
 			this.unstyle();
 
 			const originalMarginBottom = this.el.style.marginBottom;
-			let stickyPosition = getComputedStyle(this.el).getPropertyValue(
+			let stickyPosition = getComputedStyle( this.el ).getPropertyValue(
 				'--sticky-position'
 			);
-			this.el.style.setProperty('margin-bottom', stickyPosition);
-			stickyPosition = parseFloat(getComputedStyle(this.el).marginBottom);
+			this.el.style.setProperty( 'margin-bottom', stickyPosition );
+			stickyPosition = parseFloat(
+				getComputedStyle( this.el ).marginBottom
+			);
 			this.el.style.marginBottom = originalMarginBottom;
 			//console.log( 'stickyPosition', stickyPosition );
 
 			const device = isMobile ? 'mobile' : 'desktop';
 			const boundaryStyle = getComputedStyle(
-				this.cache.container[device].el
+				this.cache.container[ device ].el
 			);
-			if (boundaryStyle.position === 'static') {
-				this.cache.container[device].el.style.setProperty(
+			if ( boundaryStyle.position === 'static' ) {
+				this.cache.container[ device ].el.style.setProperty(
 					'position',
 					'relative'
 				);
 			}
 
-			Object.assign(this, {
+			Object.assign( this, {
 				stickyPosition: stickyPosition,
 				cache: {
 					offset: this.$el.offset(),
 					position: this.$el.position(),
 					height: this.$el.outerHeight(),
 					width: this.$el.outerWidth(),
-					style: this.el.getAttribute('style'),
+					style: this.el.getAttribute( 'style' ),
 					margin: {
-						top: parseInt(this.$el.css('marginTop'), 10) || 0,
-						right: parseInt(this.$el.css('marginRight'), 10) || 0,
-						bottom: parseInt(this.$el.css('marginBottom'), 10) || 0,
-						left: parseInt(this.$el.css('marginLeft'), 10) || 0,
+						top: parseInt( this.$el.css( 'marginTop' ), 10 ) || 0,
+						right:
+							parseInt( this.$el.css( 'marginRight' ), 10 ) || 0,
+						bottom:
+							parseInt( this.$el.css( 'marginBottom' ), 10 ) || 0,
+						left: parseInt( this.$el.css( 'marginLeft' ), 10 ) || 0,
 					},
 					padding: {
-						top: parseInt(this.$el.css('paddingTop'), 10) || 0,
-						right: parseInt(this.$el.css('paddingRight'), 10) || 0,
+						top: parseInt( this.$el.css( 'paddingTop' ), 10 ) || 0,
+						right:
+							parseInt( this.$el.css( 'paddingRight' ), 10 ) || 0,
 						bottom:
-							parseInt(this.$el.css('paddingBottom'), 10) || 0,
-						left: parseInt(this.$el.css('paddingLeft'), 10) || 0,
+							parseInt( this.$el.css( 'paddingBottom' ), 10 ) ||
+							0,
+						left:
+							parseInt( this.$el.css( 'paddingLeft' ), 10 ) || 0,
 					},
 					container: {
 						...this.cache.container,
@@ -312,7 +317,7 @@ const init = () => {
 						},
 					},
 				},
-			});
+			} );
 			//console.log( this.cache.container );
 
 			// Remove margins from offset?
@@ -321,20 +326,20 @@ const init = () => {
 
 			this.restyle();
 
-			Object.assign(this, {
+			Object.assign( this, {
 				stateStuck:
 					this.stateStuck === null
-						? this.el.classList.contains(this.classes.stuck)
+						? this.el.classList.contains( this.classes.stuck )
 						: this.stateStuck,
 				stateOverflow:
 					this.stateOverflow === null
-						? this.el.classList.contains(this.classes.overflow)
+						? this.el.classList.contains( this.classes.overflow )
 						: this.stateOverflow,
 				stateBottomed:
 					this.stateBottomed === null
-						? this.el.classList.contains(this.classes.bottomed)
+						? this.el.classList.contains( this.classes.bottomed )
 						: this.stateBottomed,
-			});
+			} );
 
 			this.setupScrollEvent();
 
@@ -342,49 +347,51 @@ const init = () => {
 		}
 
 		generatePlaceholder() {
-			if (!this.isStickable) {
+			if ( ! this.isStickable ) {
 				return;
 			}
 
-			this.placeholder = document.createElement('div');
-			this.placeholder.classList.add(selectors.placeholder.substring(1));
-			Object.assign(this.placeholder.style, {
+			this.placeholder = document.createElement( 'div' );
+			this.placeholder.classList.add(
+				selectors.placeholder.substring( 1 )
+			);
+			Object.assign( this.placeholder.style, {
 				display: 'none',
 				height: 'var(--placeholder-height)',
-			});
+			} );
 			this.placeholder.style.setProperty(
 				'--placeholder-height',
 				this.cache.height
 			);
-			this.$el.after(this.placeholder);
+			this.$el.after( this.placeholder );
 			return this.placeholder;
 		}
 
 		unstyle() {
 			this.cache.originalClassNames = this.el.className;
-			this.el.classList.remove(...Object.values(this.classes));
-			this.header.setAttribute('aria-expanded', true);
-			this.body.setAttribute('aria-hidden', false);
-			this.el.style.removeProperty('width');
+			this.el.classList.remove( ...Object.values( this.classes ) );
+			this.header.setAttribute( 'aria-expanded', true );
+			this.body.setAttribute( 'aria-hidden', false );
+			this.el.style.removeProperty( 'width' );
 		}
 		restyle() {
-			if (this.stateStuck) {
-				this.setStuck(true);
-				this.setBottomed(this.stateBottomed);
+			if ( this.stateStuck ) {
+				this.setStuck( true );
+				this.setBottomed( this.stateBottomed );
 			} else {
-				this.setStuck(false);
+				this.setStuck( false );
 			}
-			this.header.setAttribute('aria-expanded', !!this.stateExpanded);
-			this.body.setAttribute('aria-hidden', !this.stateExpanded);
+			this.header.setAttribute( 'aria-expanded', !! this.stateExpanded );
+			this.body.setAttribute( 'aria-hidden', ! this.stateExpanded );
 		}
 
-		onResize(entries) {
-			for (let entry of entries) {
-				if (!entry.target.CollapseGroup || !entry.borderBoxSize) {
+		onResize( entries ) {
+			for ( let entry of entries ) {
+				if ( ! entry.target.CollapseGroup || ! entry.borderBoxSize ) {
 					continue;
 				}
-				const borderBoxSize = Array.isArray(entry.borderBoxSize)
-					? entry.borderBoxSize[0]
+				const borderBoxSize = Array.isArray( entry.borderBoxSize )
+					? entry.borderBoxSize[ 0 ]
 					: entry.borderBoxSize;
 
 				// Update placeholder height
@@ -396,7 +403,7 @@ const init = () => {
 		}
 
 		scrollHandler() {
-			const scroll = $(window).scrollTop();
+			const scroll = $( window ).scrollTop();
 			const device = isMobile ? 'mobile' : 'desktop';
 			if (
 				// Scrolled past top
@@ -409,21 +416,21 @@ const init = () => {
 				fuzzyCompare(
 					scroll,
 					'<=',
-					this.cache.container[device].offset.top +
-						this.cache.container[device].height -
+					this.cache.container[ device ].offset.top +
+						this.cache.container[ device ].height -
 						this.stickyPosition -
 						this.cache.height,
 					1
 				) &&
 				// is not already stuck
-				(!this.stateStuck ||
+				( ! this.stateStuck ||
 					// or is bottomed
-					this.stateBottomed)
+					this.stateBottomed )
 			) {
-				if (this.stateBottomed) {
-					this.setBottomed(false);
+				if ( this.stateBottomed ) {
+					this.setBottomed( false );
 				}
-				this.setStuck(true);
+				this.setStuck( true );
 			} else if (
 				// scrolled above original top position
 				fuzzyCompare(
@@ -435,14 +442,14 @@ const init = () => {
 				// is currently stuck
 				this.stateStuck
 			) {
-				this.setStuck(false);
+				this.setStuck( false );
 			} else if (
 				// scrolled past container bottom
 				fuzzyCompare(
 					scroll,
 					'>=',
-					this.cache.container[device].offset.top +
-						this.cache.container[device].height -
+					this.cache.container[ device ].offset.top +
+						this.cache.container[ device ].height -
 						this.stickyPosition +
 						// Accounts for scrolling an overflowed body
 						this.body.scrollTop -
@@ -450,57 +457,59 @@ const init = () => {
 					1
 				) &&
 				// is not already bottomed
-				!this.stateBottomed &&
-				!(isMobile && this.stateExpanded)
+				! this.stateBottomed &&
+				! ( isMobile && this.stateExpanded )
 			) {
-				if (!this.stateStuck) {
-					this.setStuck(true);
+				if ( ! this.stateStuck ) {
+					this.setStuck( true );
 				}
-				this.setBottomed(true);
+				this.setBottomed( true );
 			}
 		}
 
 		setupScrollEvent() {
-			const event_name = `scroll.${this.uid}`;
-			if (this.onlyStickOnMobile && !isMobile) {
-				this.setStuck(false);
-				this.setBottomed(false);
-				$(window).off(event_name);
+			const event_name = `scroll.${ this.uid }`;
+			if ( this.onlyStickOnMobile && ! isMobile ) {
+				this.setStuck( false );
+				this.setBottomed( false );
+				$( window ).off( event_name );
 				return;
 			}
-			$(window)
-				.off(event_name)
+			$( window )
+				.off( event_name )
 				.on(
 					event_name,
-					debounce(() => {
+					debounce( () => {
 						this.scrollHandler();
-					}, 10)
+					}, 10 )
 				);
 			this.scrollHandler();
 		}
 
-		setStuck(newState = null) {
-			if (newState === null) {
-				newState = !this.stateStuck;
+		setStuck( newState = null ) {
+			if ( newState === null ) {
+				newState = ! this.stateStuck;
 			}
 			let func = newState ? 'add' : 'remove';
-			this.el.classList[func](this.classes.stuck);
-			window.document.body.classList[func](this.classes.bodyStuck);
+			this.el.classList[ func ]( this.classes.stuck );
+			window.document.body.classList[ func ]( this.classes.bodyStuck );
 			this.placeholder.style.setProperty(
 				'display',
 				newState ? 'block' : 'none'
 			);
 			this.stateStuck = newState;
-			if (newState) {
+			if ( newState ) {
 				//console.log( 'stuck', this.cache );
-				this.cache.style = JSON.parse(JSON.stringify(this.el.style));
+				this.cache.style = JSON.parse(
+					JSON.stringify( this.el.style )
+				);
 
-				Object.assign(this.el.style, {
+				Object.assign( this.el.style, {
 					left: this.cache.offset.left + 'px',
 					top: this.stickyPosition + 'px',
 					width: this.cache.width + 'px',
-				});
-				if (window.cmlsExtraScrollMargin) {
+				} );
+				if ( window.cmlsExtraScrollMargin ) {
 					window.cmlsExtraScrollMargin.add(
 						this.uid,
 						this.cache.height + 'px'
@@ -508,36 +517,36 @@ const init = () => {
 				}
 			} else {
 				//console.log( 'unstuck', this.cache );
-				Object.assign(this.el.style, {
+				Object.assign( this.el.style, {
 					left: this.cache.style.left,
 					top: this.cache.style.top,
 					width: this.cache.style.width,
-				});
-				if (window.cmlsExtraScrollMargin) {
-					window.cmlsExtraScrollMargin.remove(this.uid);
+				} );
+				if ( window.cmlsExtraScrollMargin ) {
+					window.cmlsExtraScrollMargin.remove( this.uid );
 				}
 			}
 			//console.log( 'setStuck', newState );
 		}
 
-		setBottomed(newState = null) {
+		setBottomed( newState = null ) {
 			const device = isMobile ? 'mobile' : 'desktop';
-			if (newState === null) {
-				newState = !this.stateBottomed;
+			if ( newState === null ) {
+				newState = ! this.stateBottomed;
 			}
 			let func = newState ? 'add' : 'remove';
-			this.el.classList[func](this.classes.bottomed);
+			this.el.classList[ func ]( this.classes.bottomed );
 			this.stateBottomed = newState;
-			if (newState) {
+			if ( newState ) {
 				//console.log( 'bottomed', this.cache );
-				Object.assign(this.el.style, {
+				Object.assign( this.el.style, {
 					left: this.cache.position.left,
 					top:
-						this.cache.container[device].height -
+						this.cache.container[ device ].height -
 						this.cache.height +
 						'px',
 					width: this.cache.width,
-				});
+				} );
 			} else {
 				//console.log( 'unbottomed', this.cache );
 			}
@@ -545,75 +554,79 @@ const init = () => {
 		}
 	}
 
-	const computeStickies = debounce(() => {
-		const groups = document.querySelectorAll(selectors.group);
-		if (groups && groups.length) {
+	const computeStickies = debounce( () => {
+		const groups = document.querySelectorAll( selectors.group );
+		if ( groups && groups.length ) {
 			//CollapseGroups.length = 0;
 
-			[].forEach.call(groups, (group) => {
-				if (!group.CollapseGroup) {
-					const header = group.querySelector(selectors.header);
-					const body = group.querySelector(selectors.body);
+			[].forEach.call( groups, ( group ) => {
+				if ( ! group.CollapseGroup ) {
+					const header = group.querySelector( selectors.header );
+					const body = group.querySelector( selectors.body );
 
 					let groupType = Group;
-					if (group.classList.contains('has-collapse-on-mobile')) {
+					if (
+						group.classList.contains( 'has-collapse-on-mobile' )
+					) {
 						groupType = CollapseGroup;
 					}
-					if (group.classList.contains('has-sticky-position')) {
+					if ( group.classList.contains( 'has-sticky-position' ) ) {
 						groupType = StickyCollapseGroup;
 					}
-					group.CollapseGroup = new groupType({
+					group.CollapseGroup = new groupType( {
 						el: group,
 						header: header,
 						body: body,
-					});
-				} else if (group.CollapseGroup instanceof StickyCollapseGroup) {
+					} );
+				} else if (
+					group.CollapseGroup instanceof StickyCollapseGroup
+				) {
 					group.CollapseGroup.update();
 				}
 
-				if (group.CollapseGroup instanceof CollapseGroup) {
+				if ( group.CollapseGroup instanceof CollapseGroup ) {
 					group.CollapseGroup.setAria();
 				}
 
 				//CollapseGroups.push( group.CollapseGroup );
 				group.CollapseGroup.enabled = true;
-			});
+			} );
 		}
-	}, 100);
+	}, 100 );
 
-	addEventListener('load', () => {
+	addEventListener( 'load', () => {
 		computeStickies();
-	});
+	} );
 
 	addEventListener(
 		'resize',
-		debounce(computeStickies, 200, { leading: false, trailing: true })
+		debounce( computeStickies, 200, { leading: false, trailing: true } )
 	);
 
 	// Don't activate header links when mobile and collapsable
-	addEventListener('click', (e) => {
-		if (!isMobile) {
+	addEventListener( 'click', ( e ) => {
+		if ( ! isMobile ) {
 			return;
 		}
-		if (e.target.matches(selectors.header + ' a')) {
-			const group = e.target.closest(selectors.group);
-			if (group && group.CollapseGroup instanceof CollapseGroup) {
+		if ( e.target.matches( selectors.header + ' a' ) ) {
+			const group = e.target.closest( selectors.group );
+			if ( group && group.CollapseGroup instanceof CollapseGroup ) {
 				e.preventDefault();
 			}
 		}
-	});
+	} );
 
 	// Expand/collapse group on mobile
 	addEventListener(
 		'click',
-		(e) => {
-			if (!isMobile) {
+		( e ) => {
+			if ( ! isMobile ) {
 				return;
 			}
-			const header = e.target.closest(selectors.header);
-			if (header) {
+			const header = e.target.closest( selectors.header );
+			if ( header ) {
 				const group = header.parentNode;
-				if (group.CollapseGroup instanceof CollapseGroup) {
+				if ( group.CollapseGroup instanceof CollapseGroup ) {
 					group.CollapseGroup.setExpanded();
 				}
 			}
@@ -622,4 +635,4 @@ const init = () => {
 	);
 };
 
-addEventListener('DOMContentLoaded', init);
+addEventListener( 'DOMContentLoaded', init );

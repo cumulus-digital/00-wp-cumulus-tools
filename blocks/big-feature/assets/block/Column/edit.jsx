@@ -7,10 +7,7 @@ const edit = ( props ) => {
 		{ title: 'Big Feature Column' },
 		{
 			template: [
-				[
-					'cumulus-gutenberg/big-feature-square',
-					{ className: 'g-bf-big' },
-				],
+				[ 'cumulus-gutenberg/big-feature-square' ],
 				[ 'cumulus-gutenberg/big-feature-small-cluster' ],
 			],
 			templateLock: false, //'insert',

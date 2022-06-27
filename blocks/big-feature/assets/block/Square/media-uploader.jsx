@@ -3,27 +3,14 @@ import { formatMedia } from './utils';
 import { image as imageIcon } from '@wordpress/icons';
 import { Icon } from '@wordpress/components';
 import {
-	useBlockProps,
-	BlockControls,
-	InspectorControls,
 	MediaReplaceFlow,
-	MediaPlaceholder,
 	MediaUpload,
 	MediaUploadCheck,
-	__experimentalLinkControl as LinkControl,
 } from '@wordpress/blockEditor';
-import {
-	filterURLForDisplay,
-	safeDecodeURI,
-	getAuthority,
-	getPathAndQueryString,
-	getFragment,
-} from '@wordpress/url';
-import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
-import { useState, useEffect } from '@wordpress/element';
+import {} from '@wordpress/url';
 
 export const MediaUploader = ( props ) => {
-	const { attributes, setAttributes } = props;
+	const { attributes, setAttributes, mediaSize } = props;
 	return (
 		<MediaUploadCheck>
 			<MediaUpload
@@ -33,7 +20,7 @@ export const MediaUploader = ( props ) => {
 				allowedTypes={ [ 'image' ] }
 				value={ attributes.mediaId }
 				onSelect={ ( val ) => {
-					setAttributes( formatMedia( val ) );
+					setAttributes( formatMedia( val, mediaSize ) );
 				} }
 				{ ...props }
 			/>
@@ -41,7 +28,7 @@ export const MediaUploader = ( props ) => {
 	);
 };
 
-export const MediaReplacer = ( { attributes, setAttributes } ) => {
+export const MediaReplacer = ( { attributes, setAttributes, mediaSize } ) => {
 	return (
 		<MediaReplaceFlow
 			mediaId={ attributes.mediaId }
@@ -49,7 +36,7 @@ export const MediaReplacer = ( { attributes, setAttributes } ) => {
 			allowedTypes={ [ 'image' ] }
 			accept="image/*"
 			onSelect={ ( val ) => {
-				setAttributes( formatMedia( val ) );
+				setAttributes( formatMedia( val, mediaSize ) );
 			} }
 			label="Replace image"
 			title="Replace image"

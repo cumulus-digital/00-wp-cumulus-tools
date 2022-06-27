@@ -1,40 +1,45 @@
 import { isDefault } from './utils';
 import { useBlockProps } from '@wordpress/blockEditor';
 
-const save = ({ attributes }) => {
+const save = ( { attributes } ) => {
 	const blockProps = useBlockProps.save();
 
-	const LinkWrapper = (props) => {
-		if (props.href) {
+	const LinkWrapper = ( props ) => {
+		if ( props.href ) {
 			const linkProps = { href: props.href };
-			if (props.linkTarget) {
+			if ( props.linkTarget ) {
 				linkProps.target = props.linkTarget;
 			}
-			if (props.rel) {
+			if ( props.rel ) {
 				linkProps.rel = props.rel;
 			}
-			return <a {...linkProps}>{props.children}</a>;
+			return <a { ...linkProps }>{ props.children }</a>;
 		}
-		return <>{props?.children}</>;
+		return <>{ props?.children }</>;
 	};
 
-	if (attributes.mediaUrl && !isDefault(attributes, 'mediaUrl')) {
+	if ( attributes.mediaUrl && ! isDefault( attributes, 'mediaUrl' ) ) {
+		const w = attributes?.mediaDimensions?.width;
+		const h = attributes?.mediaDimensions?.height;
 		return (
-			<li {...blockProps}>
-				<LinkWrapper {...attributes}>
+			<li { ...blockProps }>
+				<LinkWrapper { ...attributes }>
 					<img
-						src={attributes.mediaUrl}
-						alt={attributes.alt}
-						className={`wp-image-${attributes.mediaId}`}
-						width="1000px"
-						height="1000px"
+						src={ attributes.mediaUrl }
+						alt={ attributes.alt }
+						className={ `wp-image-${ attributes.mediaId }` }
+						width={ w ? `${ w }px` : '' }
+						height={ h ? `${ h }px` : '' }
+						sizes={
+							w < 800 ? '(min-width: 1000px) 33vw, 50vw' : '75vw'
+						}
 					/>
 				</LinkWrapper>
 			</li>
 		);
 	}
 
-	return <li {...blockProps}></li>;
+	return <li { ...blockProps }></li>;
 };
 
 export default save;

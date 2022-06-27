@@ -24,17 +24,26 @@ export const stripDomain = ( url ) => {
  * @param {object} media
  * @return {object}
  */
-export const formatMedia = ( media ) => {
+export const formatMedia = ( media, size = 'full' ) => {
 	// Try to get the largest media size available
-	const src =
-		media?.sizes?.full?.url ||
-		media?.media_details?.sizes?.full?.source_url;
+	let sizedMedia;
+	if ( media?.sizes?.[ size ] ) {
+		sizedMedia = media?.sizes?.[ size ];
+	} else if ( media?.media_details?.sizes?.[ sizes ] ) {
+		sizedMedia = {
+			...media?.media_details?.sizes?.[ sizes ],
+			url: media?.media_details?.sizes?.[ sizes ].source_url,
+		};
+	} else {
+		sizedMedia = media;
+	}
 	const alt = media?.alt;
+
 	return {
-		mediaUrl: stripDomain( src || media.url ),
+		mediaUrl: stripDomain( sizedMedia.url ),
 		mediaId: media.id,
 		alt: alt || '',
-		mediaDimensions: { width: media.width, height: media.height },
+		mediaDimensions: { width: sizedMedia.width, height: sizedMedia.height },
 	};
 };
 

@@ -11,7 +11,7 @@ import {
 } from '@wordpress/components';
 import { BlockControls } from '@wordpress/blockEditor';
 
-const SquareBlockControls = ( { attributes, setAttributes } ) => {
+const SquareBlockControls = ( { attributes, setAttributes, mediaSize } ) => {
 	const warningIcon = <Icon icon="warning" style={ { color: 'red' } } />;
 
 	return (
@@ -19,7 +19,10 @@ const SquareBlockControls = ( { attributes, setAttributes } ) => {
 			{ ! isDefault( attributes, 'mediaUrl' ) && (
 				<>
 					<ToolbarGroup>
-						<MediaReplacer { ...{ attributes, setAttributes } } />
+						<MediaReplacer
+							{ ...{ attributes, setAttributes } }
+							mediaSize={ mediaSize }
+						/>
 					</ToolbarGroup>
 					<ToolbarGroup>
 						<Dropdown

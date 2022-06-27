@@ -8,14 +8,8 @@ const edit = ( props ) => {
 		{
 			orientation: 'horizontal',
 			template: [
-				[
-					'cumulus-gutenberg/big-feature-square',
-					{ className: 'g-bf-small' },
-				],
-				[
-					'cumulus-gutenberg/big-feature-square',
-					{ className: 'g-bf-small' },
-				],
+				[ 'cumulus-gutenberg/big-feature-square' ],
+				[ 'cumulus-gutenberg/big-feature-square' ],
 			],
 			templateLock: false, //'insert',
 		}
