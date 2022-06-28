@@ -4,6 +4,8 @@ namespace CUMULUS\Gutenberg\Tools\BlockFilters;
 
 use function CUMULUS\Gutenberg\Tools\contains_block;
 
+\defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
+
 /*
  * Filter a query loop block to deal with ajax options
  */

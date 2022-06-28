@@ -2,6 +2,8 @@
 
 namespace CUMULUS\Gutenberg\Tools\BlockFilters;
 
+\defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
+
 /*
  * Adds defined filters to core/search block output
  */

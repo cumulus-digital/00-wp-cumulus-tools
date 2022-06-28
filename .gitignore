@@ -3,8 +3,8 @@ phpcs-tokens/**/*.csv
 
 # Composer
 vendor/
-# Scoped vendors for distribution
-!vendor.dist/
+vendor-bin/
+!build/composer/vendor
 
 # npm
 node_modules/

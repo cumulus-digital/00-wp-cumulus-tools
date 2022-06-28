@@ -14,7 +14,8 @@
     "lint:md:js": "wp-scripts lint-md-js",
     "lint:pkg-json": "wp-scripts lint-pkg-json",
     "packages-update": "wp-scripts packages-update",
-    "full-upgrade": "npm update; npm run packages-update; npm upgrade"
+    "full-upgrade": "npm update; npm run packages-update; npm upgrade; npm run php-scoper",
+    "php-scoper": "composer update; composer install --no-scripts --no-dev --prefer-dist --optimize-autoloader; ./phpcs-tokens/refresh.sh; ./vendor/bin/php-scoper add-prefix --output-dir ./build/composer --force; composer dump-autoload --working-dir build/composer --classmap-authoritative; composer install --no-scripts --prefer-dist"
   },
   "repository": {
     "type": "git",

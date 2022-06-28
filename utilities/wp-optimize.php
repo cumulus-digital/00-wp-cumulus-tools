@@ -1,4 +1,7 @@
 <?php
+
+namespace CUMULUS\Gutenberg\Tools\Utilities;
+
 /**
  * Enable showing advanced minify options
  */

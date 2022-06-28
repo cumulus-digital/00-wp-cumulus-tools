@@ -4,6 +4,8 @@ namespace CUMULUS\Gutenberg\Tools\Blocks\BigFeature;
 
 use function CUMULUS\Gutenberg\Tools\contains_block;
 
+\defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
+
 \register_block_type(
 	\CUMULUS\Gutenberg\Tools\BASEDIR . '/build/blocks/big-feature',
 	[

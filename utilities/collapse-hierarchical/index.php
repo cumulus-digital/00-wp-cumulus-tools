@@ -2,6 +2,8 @@
 
 namespace CUMULUS\Gutenberg\Tools\Utilities\CollapseHierarchical;
 
+\defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
+
 \add_action( 'admin_enqueue_scripts', function () {
 	if ( ! \is_admin() ) {
 		return;

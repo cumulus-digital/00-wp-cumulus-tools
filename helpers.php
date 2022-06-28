@@ -4,6 +4,8 @@ namespace CUMULUS\Gutenberg\Tools;
 
 use WP_Block_Type_Registry;
 
+\defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
+
 /*
  * Helper functions for Cumulus WP Tools
  */

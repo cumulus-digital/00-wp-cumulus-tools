@@ -15,6 +15,7 @@ namespace CUMULUS\Gutenberg\Tools;
 
 \defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
 
+\define( 'CUMULUS\Gutenberg\Tools\PLUGIN', __FILE__ );
 \define( 'CUMULUS\Gutenberg\Tools\BASEDIR', \plugin_dir_path( __FILE__ ) );
 \define( 'CUMULUS\Gutenberg\Tools\BASEURL', \plugin_dir_url( __FILE__ ) );
 

@@ -1,7 +1,9 @@
-#!/bin/sh
-SCRIPT=$(readlink -f "$0")
+#!/bin/bash
+SCRIPT="$0"
 SCRIPTPATH=$(dirname "$SCRIPT")
 TOKENPATH="${SCRIPTPATH}/tokens"
+
+echo "Outputting to ${TOKENPATH}"
 
 mkdir -p "${TOKENPATH}"
 echo "Refreshing wp-core.csv";
