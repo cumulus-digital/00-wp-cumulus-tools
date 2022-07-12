@@ -2,6 +2,8 @@
 
 namespace CUMULUS\Gutenberg\Tools\Utilities;
 
+\defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
+
 /*
  * Runs utility entries
  */
