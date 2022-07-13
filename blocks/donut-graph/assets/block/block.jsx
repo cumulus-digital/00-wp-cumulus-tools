@@ -21,6 +21,7 @@ import {
 	PanelBody,
 	ToggleControl,
 	RangeControl,
+	__experimentalUseCustomUnits as useCustomUnits,
 	__experimentalUnitControl as UnitControl,
 	AnglePickerControl,
 	ToolbarGroup,
@@ -124,8 +125,8 @@ registerBlockType( metadata.name, {
 				<InspectorControls>
 					<PanelColorSettings
 						title="Graph Colors"
-						colorSettings={colorSettings}
-						{...pallettes}
+						colorSettings={ colorSettings }
+						{ ...pallettes }
 					/>
 					<Panel>
 						<PanelBody title="Graph Attributes">
@@ -147,28 +148,24 @@ registerBlockType( metadata.name, {
 									labelPosition="side"
 									isUnitSelectTabbable
 									value={ attributes.width }
-									units={ [
-										{
-											value: 'px',
-											label: 'px',
-											default: 100,
+									units={ useCustomUnits( {
+										availableUnits: [
+											'px',
+											'%',
+											'em',
+											'rem',
+											'vh',
+											'vw',
+										],
+										defaultValues: {
+											px: 100,
+											em: 10,
+											rem: 10,
+											'%': 100,
+											vh: 25,
+											vw: 10,
 										},
-										{
-											value: '%',
-											label: '%',
-											default: 100,
-										},
-										{
-											value: 'em',
-											label: 'em',
-											default: 100,
-										},
-										{
-											value: 'rem',
-											label: 'rem',
-											default: 100,
-										},
-									] }
+									} ) }
 									onChange={ ( val ) =>
 										setAttributes( { width: val } )
 									}
