@@ -1,10 +1,10 @@
 # php-cs-fixer wordpress tokens
-phpcs-tokens/**/*.csv
+/phpcs-tokens/**/*.csv
 
 # Composer
-vendor/
-vendor-bin/
-!build/composer/vendor
+/vendor/
+/vendor-bin/
+!/build/composer
 
 # npm
 node_modules/
