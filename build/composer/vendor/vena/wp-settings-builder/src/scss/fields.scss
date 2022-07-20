@@ -1,0 +1,87 @@
+// Required fields get a star
+.wp-settings-field.required .title::after {
+	content: " *";
+	color: red;
+}
+
+.wp-settings-field {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.25em;
+	margin-bottom: 1.5em;
+	width: 100%;
+
+	&.wpsb-no-margin {
+		margin-bottom: 0;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	.title {
+		font-weight: 600;
+	}
+
+	.wp-settings-field-content {
+		width: 100%;
+	}
+
+	.description {
+		margin-top: 0.5em;
+	}
+
+	input,
+	select,
+	textarea {
+		max-width: 100% !important;
+
+		&:focus:invalid {
+			border-color: red;
+		}
+	}
+
+	input[type="email"],
+	input[type="password"],
+	input[type="search"],
+	input[type="text"],
+	input[type="tel"],
+	input[type="url"] {
+		width: 100%;
+	}
+
+	&:not(.orientation-column) input[type="color"],
+	&:not(.orientation-column) input[type="range"],
+	&:not(.orientation-column) input[type="date"],
+	&:not(.orientation-column) input[type="time"],
+	&:not(.orientation-column) input[type="datetime-local"],
+	&:not(.orientation-column) input[type="month"],
+	&:not(.orientation-column) input[type="week"] {
+		width: revert;
+	}
+
+	&.wpsb-type-checkbox,
+	&.wpsb-type-radio {
+		.wp-settings-field-content {
+			min-height: 1.6rem;
+			margin-top: 0.15rem;
+		}
+	}
+	&.wpsb-type-html {
+		display: block;
+		margin: 0;
+	}
+
+	@media (min-width: 600px) {
+		&:not(.orientation-column) {
+			flex-direction: row;
+			gap: 1.5em;
+		}
+
+		.title {
+			width: 200px;
+			flex-shrink: 0;
+		}
+	}
+}

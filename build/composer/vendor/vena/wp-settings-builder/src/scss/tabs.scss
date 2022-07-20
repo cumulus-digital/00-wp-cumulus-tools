@@ -1,0 +1,106 @@
+.wp-settings-builder.use-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 0 1em;
+	max-width: 900px;
+}
+input.wp-settings-tab {
+	position: absolute;
+	opacity: 0;
+}
+.wp-settings-tablabel {
+	width: 100%;
+	padding: 0.75em 1em;
+	background: none;
+	cursor: pointer;
+	color: var(--wpsb-admin_colors-base);
+	text-align: center;
+	margin: 0;
+	border-radius: 3px 3px 0 0;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+
+	&:last-child {
+		border-bottom: 0;
+	}
+
+	&::before {
+		content: "▷";
+	}
+
+	input.wp-settings-tab:checked + &::before {
+		content: "▼";
+	}
+
+	@media (min-width: 600px) {
+		margin: 0 0 0 0.25em;
+		border-bottom: 0;
+
+		&::before {
+			content: "";
+		}
+
+		input.wp-settings-tab:checked + &::before {
+			content: "";
+		}
+	}
+
+	&:hover,
+	&:active {
+		background: var(--wpsb-admin_icon_colors-current);
+		color: var(--wpsb-admin_colors-active);
+	}
+
+	input.wp-settings-tab:focus-within + &,
+	input.wp-settings-tab:active + & {
+		background: var(--wpsb-admin_icon_colors-current);
+		color: var(--wpsb-admin_colors-active);
+		outline: 1px solid var(--wpsb-admin_colors-highlight);
+	}
+
+	input.wp-settings-tab:checked + & {
+		background: var(--wpsb-admin_colors-active);
+		color: var(--wpsb-admin_icon_colors-current);
+		border-right: 3px solid rgba(0, 0, 0, 0.15);
+	}
+}
+.wp-settings-panel {
+	display: none;
+	padding: 1rem 1.25rem;
+	background: #fff;
+	width: 100%;
+	overflow: hidden;
+
+	@media (min-width: 800px) {
+		border-radius: 3px;
+		border-width: 3px;
+		border-style: solid;
+		border-color: rgba(0, 0, 0, 0.15);
+		border-left: none;
+		border-top: none;
+	}
+
+	.wp-settings-section_title {
+		margin: -1rem -1.25rem 1em;
+		background: var(--wpsb-admin_colors-active);
+		color: var(--wpsb-admin_icon_colors-current);
+		border-bottom: 1px solid var(--wpsb-admin_colors-highlight);
+		padding: 0.75rem 1.25rem;
+
+		@media (min-width: 800px) {
+			border-radius: 3px 3px 0 0;
+		}
+	}
+}
+input.wp-settings-tab:checked + .wp-settings-tablabel + .wp-settings-panel {
+	display: block;
+}
+
+@media (min-width: 600px) {
+	.wp-settings-panel {
+		order: 99;
+	}
+	.wp-settings-tablabel {
+		width: max-content;
+		margin-right: 0.25em;
+	}
+}

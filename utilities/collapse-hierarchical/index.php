@@ -4,7 +4,11 @@ namespace CUMULUS\Gutenberg\Tools\Utilities\CollapseHierarchical;
 
 \defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
 
-\add_action( 'admin_enqueue_scripts', function () {
+if ( \CUMULUS\Gutenberg\Tools\Settings::isToolActivated( 'collapse-hierarchical' ) ) {
+	\add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\initCollapseHierarchical' );
+}
+
+function initCollapseHierarchical() {
 	if ( ! \is_admin() ) {
 		return;
 	}
@@ -15,7 +19,7 @@ namespace CUMULUS\Gutenberg\Tools\Utilities\CollapseHierarchical;
 	if (
 		! $screen
 		|| $screen->is_block_editor()
-		|| ! \in_array( $screen->base, ['edit', 'edit-tags'] )
+		|| ! \in_array( $screen->base, array( 'edit', 'edit-tags' ), true )
 	) {
 		return;
 	}
@@ -55,9 +59,9 @@ namespace CUMULUS\Gutenberg\Tools\Utilities\CollapseHierarchical;
 		\wp_enqueue_style(
 			'collapse-hierarchical-backend-style',
 			\CUMULUS\Gutenberg\Tools\BASEURL . '/build/utilities/collapse-hierarchical/index.css',
-			[],
+			array(),
 			$assets['version'],
 			'screen'
 		);
 	}
-} );
+}

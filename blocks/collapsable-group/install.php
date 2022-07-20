@@ -4,6 +4,8 @@ namespace CUMULUS\Gutenberg\Tools\Blocks\CollapsableGroup;
 
 \defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
 
-\register_block_type(
-	\CUMULUS\Gutenberg\Tools\BASEDIR . '/build/blocks/collapsable-group'
-);
+if ( \CUMULUS\Gutenberg\Tools\Settings::isBlockActivated( 'collapsable-group' ) ) {
+	\register_block_type(
+		\CUMULUS\Gutenberg\Tools\BASEDIR . '/build/blocks/collapsable-group'
+	);
+}

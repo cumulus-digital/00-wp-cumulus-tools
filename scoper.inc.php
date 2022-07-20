@@ -8,22 +8,22 @@ $wp_functions = \str_getcsv( \file_get_contents( __DIR__ . '/phpcs-tokens/tokens
 $wp_classes   = \str_getcsv( \file_get_contents( __DIR__ . '/phpcs-tokens/tokens/wp-classes.csv' ) );
 $wp_consts    = \str_getcsv( \file_get_contents( __DIR__ . '/phpcs-tokens/tokens/wp-consts.csv' ) );
 
-return [
+return array(
 	// The prefix configuration. If a non null value will be used, a random prefix will be generated.
-	'prefix' => 'CUMULUS\Gutenberg\Vendors',
+	'prefix' => 'Vendors',
 
 	// By default when running php-scoper add-prefix, it will prefix all relevant code found in the current working
 	// directory. You can however define which files should be scoped by defining a collection of Finders in the
 	// following configuration key.
 	//
 	// For more see: https://github.com/humbug/php-scoper#finders-and-paths
-	'finders' => [
-		//Finder::create()->files()->in( 'vendor' ),
+	'finders' => array(
+		// Finder::create()->files()->in( 'vendor' ),
 		\Isolated\Symfony\Component\Finder\Finder::create()
 			->files()
 			->ignoreVCS( true )
 			->notName( '/LICENSE|.*\\.md|.*\\.dist|Makefile|composer\\.json|composer\\.lock/' )
-			->exclude( [
+			->exclude( array(
 				'doc',
 				'test',
 				'test_old',
@@ -32,16 +32,16 @@ return [
 				'vendor-bin',
 				'php-cs-fixer',
 				'friendsofphp',
-			] )
+			) )
 			->notPath( \array_keys( $composer['require-dev'] ) )
 			->notPath( 'friendsofphp' )
 			->notPath( 'bin' )
 			->in( 'vendor' ),
-		\Isolated\Symfony\Component\Finder\Finder::create()->append( [
+		\Isolated\Symfony\Component\Finder\Finder::create()->append( array(
 			'composer.json',
 			'composer.lock',
-		] ),
-	],
+		) ),
+	),
 
 	// If `true` then the user defined constants belonging to the global namespace will not be prefixed.
 	//
@@ -60,10 +60,13 @@ return [
 
 	'exclude-classes'   => $wp_classes,
 	'exclude-functions' => \array_merge(
-		[
+		array(
 			'wp_count_terms',
-		],
-		\array_map( 'strtolower', $wp_functions )
+		),
+		\array_map(
+			'strtolower',
+			$wp_functions
+		)
 	),
 	'exclude-constants' => $wp_consts,
-];
+);

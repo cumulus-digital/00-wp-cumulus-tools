@@ -19,15 +19,18 @@ namespace CUMULUS\Gutenberg\Tools;
 \define( 'CUMULUS\Gutenberg\Tools\BASEDIR', \plugin_dir_path( __FILE__ ) );
 \define( 'CUMULUS\Gutenberg\Tools\BASEURL', \plugin_dir_url( __FILE__ ) );
 
+require BASEDIR . 'build/composer/vendor/scoper-autoload.php';
+
 require BASEDIR . 'helpers.php';
 
-/*
- * Install global editor assets
- */
+// Register settings menu.
+require BASEDIR . '/settings.php';
+
+// Install global editor assets
 \add_action( 'enqueue_block_editor_assets', function () {
 	global $pagenow;
 
-	if ( ! \is_admin() || 'widgets.php' === $pagenow ) {
+	if ( ! \is_admin() || $pagenow === 'widgets.php' ) {
 		return;
 	}
 	$assets = include \CUMULUS\Gutenberg\Tools\BASEDIR . 'build/editor.asset.php';
@@ -59,37 +62,33 @@ require BASEDIR . 'helpers.php';
 	);
 } );
 
-/*
- * Register our block category
- */
+// Register our block category
 \add_filter( 'block_categories_all', function ( $categories ) {
-	if ( ! \array_search( 'cmls', \array_column( $categories, 'slug' ) ) ) {
+	if ( ! \array_search( 'cmls', \array_column( $categories, 'slug' ), true ) ) {
 		$categories = \array_merge(
 			$categories,
-			[
-				[
+			array(
+				array(
 					'slug'  => 'cmls',
 					'title' => 'Cumulus',
 					'icon'  => null,
-				],
-			]
+				),
+			)
 		);
 	}
 
 	return $categories;
 }, 10, 1 );
 
-/*
- * Runs all block installers
- */
+// Runs all block installers
 \add_action( 'init', function () {
 	$blockdirs = \glob(  \CUMULUS\Gutenberg\Tools\BASEDIR . 'blocks/*', \GLOB_ONLYDIR );
 
 	foreach ( $blockdirs as $blockdir ) {
-		$files = [
+		$files = array(
 			'json'      => $blockdir . '/block.json',
 			'installer' => $blockdir . '/install.php',
-		];
+		);
 
 		if ( \file_exists( $files['json'] ) ) {
 			$json = \json_decode( \file_get_contents( $files['json'] ) );
@@ -109,20 +108,42 @@ require BASEDIR . 'helpers.php';
 	}
 } );
 
-/*
- * Runs all Block Filters support installers
- */
+// Runs all Block Filters support installers
 \add_action( 'init', function () {
 	require \CUMULUS\Gutenberg\Tools\BASEDIR . '/block-filters/index.php';
 } );
 
-/*
- * Runs all CPT intallers
- */
+// Runs all CPT intallers
 \add_action( 'init', function () {
 } );
 
-/*
- * Run all utilities installers
- */
+// Run all utilities installers
 require \CUMULUS\Gutenberg\Tools\BASEDIR . '/utilities/index.php';
+
+// Register activation hooks
+\register_activation_hook( \CUMULUS\Gutenberg\Tools\PLUGIN, function () {
+	$callbacks = (array) \apply_filters( 'wp-cumulus-tools--on-activation', array() );
+	foreach ( $callbacks as $callback ) {
+		\call_user_func( $callback );
+	}
+
+	// Register uninstall hooks
+	\register_uninstall_hook( \CUMULUS\Gutenberg\Tools\PLUGIN, __NAMESPACE__ . '\\handleUninstall' );
+} );
+
+function handleUninstall() {
+	// Override settings and run deactivation hooks
+	Settings::overrideClearOnDeactivation();
+	$deactivators = (array) \apply_filters( 'wp-cumulus-tools--on-deactivation', array() );
+	foreach ( $deactivators as $callback ) {
+		\call_user_func( $callback );
+	}
+}
+
+// Register deactivation hooks
+\register_deactivation_hook( \CUMULUS\Gutenberg\Tools\PLUGIN, function () {
+	$callbacks = (array) \apply_filters( 'wp-cumulus-tools--on-deactivation', array() );
+	foreach ( $callbacks as $callback ) {
+		\call_user_func( $callback );
+	}
+} );
