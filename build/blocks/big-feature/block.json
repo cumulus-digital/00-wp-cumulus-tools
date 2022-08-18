@@ -17,7 +17,15 @@
   "viewScript": "file:./assets/frontend.js",
   "style": "file:./assets/frontend.css",
   "editorStyle": "file:./assets/editor.css",
-  "attributes": {},
+  "attributes": {
+    "lazyLoad": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "providesContext": {
+    "cmlsBigFeature/lazyLoad": "lazyLoad"
+  },
   "supports": {
     "_#": "Allow customizing border",
     "anchor": true,

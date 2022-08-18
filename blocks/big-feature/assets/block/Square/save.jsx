@@ -1,8 +1,10 @@
 import { isDefault } from './utils';
 import { useBlockProps } from '@wordpress/blockEditor';
+import { select } from '@wordpress/data';
 
-const save = ( { attributes } ) => {
+const save = ( props ) => {
 	const blockProps = useBlockProps.save();
+	const { attributes } = props;
 
 	const LinkWrapper = ( props ) => {
 		if ( props.href ) {
@@ -28,6 +30,7 @@ const save = ( { attributes } ) => {
 						src={ attributes.mediaUrl }
 						alt={ attributes.alt }
 						className={ `wp-image-${ attributes.mediaId }` }
+						loading={ attributes.lazyLoad ? 'lazy' : 'eager' }
 						width={ w ? `${ w }px` : '' }
 						height={ h ? `${ h }px` : '' }
 						sizes={
