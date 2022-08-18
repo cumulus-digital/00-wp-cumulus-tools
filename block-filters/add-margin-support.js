@@ -1,8 +1,8 @@
 /**
  * Add margin support to any block!
  */
-const { addFilter } = wp.hooks;
-const { createHigherOrderComponent } = wp.compose;
+import { addFilter } from '@wordpress/hooks';
+import { createHigherOrderComponent } from '@wordpress/compose';
 
 // List of blocks to add margin support to
 const affectsBlocks = [

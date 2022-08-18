@@ -3,12 +3,12 @@
  * Automatically selects the appropriate term based on the
  * variation (categories => hierarchical, tags => not hierarchical))
  */
-const { addFilter } = wp.hooks;
-const { createHigherOrderComponent } = wp.compose;
-const { Panel, PanelBody, SelectControl } = wp.components;
-const { InspectorControls } = wp.blockEditor;
-const { useSelect } = wp.data;
-const { useState, useEffect } = wp.element;
+import { addFilter } from '@wordpress/hooks';
+import { createHigherOrderComponent } from '@wordpress/compose';
+import { Panel, PanelBody, SelectControl } from '@wordpress/components';
+import { InspectorControls } from '@wordpress/block-editor';
+import { useState, useEffect } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
 // Enable tax type selector on these blocks
 const enableTaxTypeSelector = [ 'core/post-terms' ];
@@ -48,9 +48,8 @@ const withTaxTypeSelector = createHigherOrderComponent( ( BlockEdit ) => {
 					per_page: -1,
 				};
 				return {
-					availableTaxonomies: select( 'core' ).getTaxonomies(
-						query
-					),
+					availableTaxonomies:
+						select( 'core' ).getTaxonomies( query ),
 					isLoading: select( 'core/data' ).isResolving(
 						'core',
 						'getTaxonomies',

@@ -1,15 +1,15 @@
 /**
  * Add base path, post type, and taxonomy filters to core search block
  */
-import TaxonomyControls from 'wpBlockLibrary/src/query/edit/inspector-controls/taxonomy-controls';
+import { TaxonomyControls } from 'wpBlockLibrary/src/query/edit/inspector-controls/taxonomy-controls';
 import { usePostTypes } from 'wpBlockLibrary/src/query/utils';
 
-const { addFilter } = wp.hooks;
-const { createHigherOrderComponent } = wp.compose;
-const { Panel, PanelBody, SelectControl } = wp.components;
-const { InspectorControls } = wp.blockEditor;
-const { useState, useEffect } = wp.element;
-const { useSelect } = wp.data;
+import { addFilter } from '@wordpress/hooks';
+import { createHigherOrderComponent } from '@wordpress/compose';
+import { Panel, PanelBody, SelectControl } from '@wordpress/components';
+import { InspectorControls } from '@wordpress/block-editor';
+import { useState, useEffect } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
 const addAttributesToSearch = ( settings, name ) => {
 	if ( name !== 'core/search' ) {
@@ -56,10 +56,8 @@ const withTaxTypeSelector = createHigherOrderComponent( ( BlockEdit ) => {
 		const [ postTypesSelectOptions, setPostTypesSelectOptions ] = useState(
 			[]
 		);
-		const [
-			postCategoriesSelectOptions,
-			setPostCategoriesSelectOptions,
-		] = useState( [] );
+		const [ postCategoriesSelectOptions, setPostCategoriesSelectOptions ] =
+			useState( [] );
 
 		const setQuery = ( newQuery ) =>
 			setAttributes( { query: { ...attributes.query, ...newQuery } } );
@@ -116,13 +114,11 @@ const withTaxTypeSelector = createHigherOrderComponent( ( BlockEdit ) => {
 							per_page: -1,
 						}
 					),
-					postCategoriesLoading: select(
-						'core/data'
-					).isResolving( 'core', 'getEntityRecords', [
-						'taxonomy',
-						'category',
-						{ per_page: -1 },
-					] ),
+					postCategoriesLoading: select( 'core/data' ).isResolving(
+						'core',
+						'getEntityRecords',
+						[ 'taxonomy', 'category', { per_page: -1 } ]
+					),
 				};
 			},
 			[ attributes.query, attributes.baseCategory ]
