@@ -1,12 +1,10 @@
 /**
  * Add an attribute and toggle for using ajax with query loop pagination
  */
-const { addFilter } = wp.hooks;
-const { createHigherOrderComponent } = wp.compose;
-const { Panel, PanelRow, PanelBody, ToggleControl } = wp.components;
-const { InspectorAdvancedControls } = wp.blockEditor;
-const { useState, useEffect } = wp.element;
-const { useSelect } = wp.data;
+import { addFilter } from '@wordpress/hooks';
+import { createHigherOrderComponent } from '@wordpress/compose';
+import { PanelRow, ToggleControl } from '@wordpress/components';
+import { InspectorAdvancedControls } from '@wordpress/block-editor';
 
 const addAttributesToCoreQuery = ( settings, name ) => {
 	if ( name !== 'core/query' ) {

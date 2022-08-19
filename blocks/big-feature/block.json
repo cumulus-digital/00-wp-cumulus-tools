@@ -28,7 +28,15 @@
 
 	"_#": "Attributes stored by block",
 	"attributes": {
+		"lazyLoad": {
+			"type": "boolean",
+			"default": true
+		}
+	},
 
+	"_#": "Context store",
+	"providesContext": {
+		"cmlsBigFeature/lazyLoad": "lazyLoad"
 	},
 
 	"_#": "Wordpress features support",

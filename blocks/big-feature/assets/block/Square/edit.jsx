@@ -9,7 +9,7 @@ import { useState, useEffect, useMemo } from '@wordpress/element';
 import { select } from '@wordpress/data';
 
 const edit = ( props ) => {
-	const { attributes, setAttributes } = props;
+	const { attributes, setAttributes, context } = props;
 	const [ classNames, setClassNames ] = useState( [] );
 	const [ reqMediaSize, setReqMediaSize ] = useState( 'medium' );
 	const [ toolTips, setTooltips ] = useState( [] );
@@ -20,6 +20,9 @@ const edit = ( props ) => {
 	);
 
 	useEffect( () => {
+		if ( context[ 'cmlsBigFeature/lazyLoad' ] !== attributes.lazyLoad ) {
+			setAttributes( { lazyLoad: context[ 'cmlsBigFeature/lazyLoad' ] } );
+		}
 		if ( ! parent?.length ) {
 			setReqMediaSize( 'full' );
 		} else {
@@ -58,7 +61,7 @@ const edit = ( props ) => {
 				setNoticeIcons( newNoticeIcons );
 			}
 		}
-	}, [ attributes, parent ] );
+	}, [ attributes, parent, context ] );
 
 	useEffect( () => {
 		// Remove _self attribute/rel noopener from old versions

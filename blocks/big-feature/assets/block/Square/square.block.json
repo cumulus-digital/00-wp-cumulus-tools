@@ -55,8 +55,16 @@
 			"source": "attribute",
 			"selector": "a",
 			"attribute": "rel"
+		},
+		"lazyLoad": {
+			"type": "boolean",
+			"default": true
 		}
 	},
+
+	"usesContext": [
+		"cmlsBigFeature/lazyLoad"
+	],
 
 	"_#": "Wordpress features support",
 	"supports": {
