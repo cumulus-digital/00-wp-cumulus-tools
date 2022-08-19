@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ac443499ccf235fd3d433df11d3292b",
+    "content-hash": "e88d2288083fcc05189d4b52be593485",
     "packages": [
         {
             "name": "vena/acf-json",
@@ -50,6 +50,49 @@
                 "source": "https://github.com/vena/acf-json/tree/1.0.5"
             },
             "time": "2021-08-25T00:07:26+00:00"
+        },
+        {
+            "name": "vena/wp-settings-builder",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vena/wp-settings-builder.git",
+                "reference": "94884dd500e9fab03b0105cb59e08f6d0d53109a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vena/wp-settings-builder/zipball/94884dd500e9fab03b0105cb59e08f6d0d53109a",
+                "reference": "94884dd500e9fab03b0105cb59e08f6d0d53109a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "vena/php-cs-fixer-wordpress": "^1.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "vena\\WordpressSettingsBuilder\\": "src/php"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Vena",
+                    "email": "deaconvena@gmail.com"
+                }
+            ],
+            "support": {
+                "source": "https://github.com/vena/wp-settings-builder/tree/v1.0.14",
+                "issues": "https://github.com/vena/wp-settings-builder/issues"
+            },
+            "time": "2022-07-20T22:23:41+00:00"
         }
     ],
     "packages-dev": [
@@ -327,16 +370,6 @@
                 }
             ],
             "time": "2022-02-25T21:32:43+00:00"
-        },
-        {
-            "name": "cumulus-digital/wp-php-cs-fixer",
-            "version": "1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cumulus-digital/wp-php-cs-fixer.git",
-                "reference": "master"
-            },
-            "type": "library"
         },
         {
             "name": "doctrine/annotations",
@@ -2193,11 +2226,57 @@
                 }
             ],
             "time": "2022-07-27T15:50:51+00:00"
+        },
+        {
+            "name": "vena/php-cs-fixer-wordpress",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vena/php-cs-fixer-wordpress.git",
+                "reference": "92a611c97ff85077f0c6366f64fb6e65adfd81fa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vena/php-cs-fixer-wordpress/zipball/92a611c97ff85077f0c6366f64fb6e65adfd81fa",
+                "reference": "92a611c97ff85077f0c6366f64fb6e65adfd81fa",
+                "shasum": ""
+            },
+            "require": {
+                "friendsofphp/php-cs-fixer": "^3.0.0",
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "vena\\WordPress\\PhpCsFixer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Vena",
+                    "email": "deaconvena@gmail.com"
+                }
+            ],
+            "description": "A custom ruleset for PHP CS Fixer (close to) Wordpress Coding Standards",
+            "support": {
+                "issues": "https://github.com/vena/php-cs-fixer-wordpress/issues",
+                "source": "https://github.com/vena/php-cs-fixer-wordpress/tree/v1.0.1"
+            },
+            "time": "2022-07-12T02:49:06+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "vena/wp-settings-builder": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
