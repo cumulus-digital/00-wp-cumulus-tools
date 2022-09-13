@@ -35,7 +35,7 @@ namespace CUMULUS\Gutenberg\Tools\BlockFilters;
 		return $content;
 	}
 
-	if ( isset( $attrs['query'] ) && isset( $attrs['query']['postType'] ) ) {
+	if ( isset( $attrs['query'] ) && isset( $attrs['query']['postType'] ) && $attrs['query']['postType'] ) {
 		// Complex query
 		$query             = $attrs['query'];
 		$formClosePosition = \mb_strpos( $content, '</form>' );
