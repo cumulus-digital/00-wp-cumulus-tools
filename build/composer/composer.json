@@ -12,9 +12,9 @@
     },
     "require-dev": {
         "friendsofphp\/php-cs-fixer": "^3.0",
-        "paulthewalton\/acf-stubs": "^5.8",
         "vena\/php-cs-fixer-wordpress": "^1.0",
-        "bamarni\/composer-bin-plugin": "^1.7"
+        "bamarni\/composer-bin-plugin": "^1.7",
+        "php-stubs\/acf-pro-stubs": "^6.0"
     },
     "config": {
         "preferred-install": "dist",
