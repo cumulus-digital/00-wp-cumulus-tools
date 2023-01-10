@@ -90,7 +90,8 @@
 		border-top-width: 0;
 		border-bottom-width: 0;
 	}
-	&[aria-expanded="true"] {
+	&[aria-expanded="true"],
+	div:not(.has-collapse-on-mobile) > & {
 		&:first-child {
 			border-bottom-width: 1px;
 			margin-bottom: var(--padding-bottom, 0.75em);
@@ -154,6 +155,10 @@
 	overflow: hidden;
 
 	@media (min-width: 768px) {
+		display: none;
+	}
+
+	div:not(.has-collapse-on-mobile) > header > & {
 		display: none;
 	}
 

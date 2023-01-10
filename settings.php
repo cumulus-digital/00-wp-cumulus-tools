@@ -115,7 +115,15 @@ class Settings {
 
 		$main_options = \get_option( BASE_OPTION_KEY );
 
-		return $main_options['clear_on_deactivation'] === '1';
+		if (
+			\is_array( $main_options )
+			&& isset( $main_options['clear_on_deactivation'] )
+			&& $main_options['clear_on_deactivation'] === '1'
+		) {
+			return true;
+		}
+
+		return false;
 	}
 
 	public static function overrideClearOnDeactivation() {
