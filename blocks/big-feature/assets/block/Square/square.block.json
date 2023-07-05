@@ -5,7 +5,15 @@
 	"name": "cumulus-gutenberg/big-feature-square",
 	"title": "Big Feature Square",
 	"description": "Image container within a Big Feature",
-	"keywords": ["cumulus","cmls","feature","panel","hero", "bo", "image"],
+	"keywords": [
+		"cumulus",
+		"cmls",
+		"feature",
+		"panel",
+		"hero",
+		"bo",
+		"image"
+	],
 	"icon": "star-filled",
 	"category": "cmls",
 	"parent": [
@@ -20,8 +28,7 @@
 			"source": "attribute",
 			"selector": "img",
 			"attribute": "src",
-			"default":
-				"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+			"default": "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
 		},
 		"mediaId": {
 			"type": "integer"
@@ -62,9 +69,7 @@
 		}
 	},
 
-	"usesContext": [
-		"cmlsBigFeature/lazyLoad"
-	],
+	"usesContext": [ "cmlsBigFeature/lazyLoad" ],
 
 	"_#": "Wordpress features support",
 	"supports": {

@@ -3,14 +3,13 @@
 	"_#": "Reusable metadata for group's header and body blocks",
 
 	"apiVersion": 2,
-	"keywords": ["cumulus","cmls","group","stick","sticky","mobile"],
+	"keywords": [ "cumulus", "cmls", "group", "stick", "sticky", "mobile" ],
 	"icon": "star-filled",
 	"category": "cmls",
 	"parent": [ "cumulus-gutenberg/collapsable-group" ],
 
 	"_#": "Attributes stored by block",
-	"attributes": {
-	},
+	"attributes": {},
 
 	"_#": "Wordpress features support",
 	"supports": {
@@ -77,5 +76,4 @@
 		"border": false,
 		"__experimentalBorder": false
 	}
-
 }

@@ -29,9 +29,8 @@ const edit = ( props ) => {
 	const { currentPostId, parentPostId } = useSelect( ( select ) => {
 		return {
 			currentPostId: select( 'core/editor' ).getCurrentPostId(),
-			parentPostId: select( 'core/editor' ).getEditedPostAttribute(
-				'parent'
-			),
+			parentPostId:
+				select( 'core/editor' ).getEditedPostAttribute( 'parent' ),
 		};
 	} );
 

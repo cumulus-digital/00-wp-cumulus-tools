@@ -72,8 +72,8 @@ const Toolbar = ( props ) => {
 						{
 							title: 'Normal',
 							icon: formatCapitalize,
-							isActive: ! attributes.style?.typography
-								?.textTransform,
+							isActive:
+								! attributes.style?.typography?.textTransform,
 							onClick: () =>
 								updateTypography( 'textTransform', null ),
 						},

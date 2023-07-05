@@ -16,11 +16,9 @@ import {
 	ColorIndicator,
 	Dropdown,
 } from '@wordpress/components';
-import {
-	__experimentalColorGradientControl as ColorGradientControl
-} from '@wordpress/block-editor';
+import { __experimentalColorGradientControl as ColorGradientControl } from '@wordpress/block-editor';
 
-const ColorControl = (props) => {
+const ColorControl = ( props ) => {
 	const dropdownPosition = 'bottom left';
 	const { settings } = props;
 
@@ -32,22 +30,22 @@ const ColorControl = (props) => {
 			isSeparated
 			className="block-editor-panel-color-gradient-settings__item-group"
 		>
-			{settings.map(
-				(setting, index) =>
+			{ settings.map(
+				( setting, index ) =>
 					setting && (
 						<Dropdown
-							key={index}
-							position={dropdownPosition}
+							key={ index }
+							position={ dropdownPosition }
 							className="block-editor-panel-color-gradient-settings__dropdown"
 							contentClassName="block-editor-panel-color-gradient-settings__dropdown-content"
-							renderToggle={({ isOpen, onToggle }) => {
+							renderToggle={ ( { isOpen, onToggle } ) => {
 								return (
 									<Item
-										onClick={onToggle}
-										className={[
+										onClick={ onToggle }
+										className={ [
 											'block-editor-panel-color-gradient-settings__item',
 											isOpen ? 'is-open' : '',
-										].filter((v) => v)}
+										].filter( ( v ) => v ) }
 									>
 										<HStack justify="flex-start">
 											<ColorIndicator
@@ -58,18 +56,18 @@ const ColorControl = (props) => {
 												}
 											/>
 											<FlexItem>
-												{setting.label}
+												{ setting.label }
 											</FlexItem>
 										</HStack>
 									</Item>
 								);
-							}}
-							renderContent={() => (
+							} }
+							renderContent={ () => (
 								<ColorGradientControl
-									showTitle={!!setting.label}
-									__experimentalIsRenderedInSidebar={true}
-									{...colorPalettes}
-									{...setting}
+									showTitle={ !! setting.label }
+									__experimentalIsRenderedInSidebar={ true }
+									{ ...colorPalettes }
+									{ ...setting }
 								/>
 							) }
 						/>

@@ -6,7 +6,7 @@
 	"name": "cumulus-gutenberg/collapsable-group",
 	"title": "Mobile Collapsable Group",
 	"description": "A group block which can 'collapse' on mobile as well as 'stick' to a bounding container on scroll.",
-	"keywords": ["cumulus","cmls","group","stick","sticky","mobile"],
+	"keywords": [ "cumulus", "cmls", "group", "stick", "sticky", "mobile" ],
 	"icon": "star-filled",
 	"category": "cmls",
 
@@ -26,10 +26,8 @@
 
 	"_#": "▲▲▲ REMOVE ANY INCLUDES ABOVE THAT DON'T EXIST! ▲▲▲",
 
-
 	"_#": "Attributes stored by block",
 	"attributes": {
-
 		"tagName": {
 			"type": "string",
 			"enum": [ "div", "section", "aside" ],
@@ -104,7 +102,6 @@
 			"type": "string",
 			"default": "lightgrey"
 		}
-
 	},
 
 	"_#": "Wordpress features support",

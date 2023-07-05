@@ -39,9 +39,9 @@ npm run build
 ```
 
 Update packages:
+Upgrades npm, composer, and phpcs-tokens, runs strauss
 ```
 npm run full-upgrade
-composer upgrade
 ```
 
 ## Blocks

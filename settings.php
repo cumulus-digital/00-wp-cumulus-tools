@@ -2,7 +2,7 @@
 
 namespace CUMULUS\Gutenberg\Tools;
 
-use Vendors\vena\WordpressSettingsBuilder\Builder as SettingsBuilder;
+use CUMULUS\Gutenberg\Tools\Vendors\vena\WordpressSettingsBuilder\Builder as SettingsBuilder;
 
 // General settings for all Cumulus Tools.
 \defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
@@ -15,6 +15,7 @@ use Vendors\vena\WordpressSettingsBuilder\Builder as SettingsBuilder;
 class Settings {
 	/** @var \vena\WordpressSettingsBuilder\Builder */
 	public static $instance;
+
 	public static $basics = array(
 		'tools' => array(
 			'collapse-hierarchical' => array(
@@ -49,6 +50,7 @@ class Settings {
 			),
 		),
 	);
+
 	private static $overrideClearOnDeactivation = false;
 
 	public static function builder() {

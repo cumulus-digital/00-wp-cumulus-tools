@@ -1,4 +1,5 @@
 <?php
+
 // PHP-CS-Fixer project configuration
 $config = new PhpCsFixer\Config();
 
@@ -37,7 +38,6 @@ return $config
 	->setFinder(
 		PhpCsFixer\Finder::create()
 			->exclude( 'vendor' )
-			->exclude( 'build/composer' )
+			->exclude( 'vendor-prefixed' )
 			->in( __DIR__ )
-	)
-;
+	);

@@ -6,7 +6,7 @@ import deprecated from './deprecated.jsx';
 
 import { registerBlockType } from '@wordpress/blocks';
 
-registerBlockType(metadata.name, {
+registerBlockType( metadata.name, {
 	...metadata,
 	icon: {
 		src: 'format-image',
@@ -15,4 +15,4 @@ registerBlockType(metadata.name, {
 	edit: edit,
 	save: save,
 	deprecated: deprecated,
-});
+} );

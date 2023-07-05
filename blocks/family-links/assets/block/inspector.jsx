@@ -26,9 +26,8 @@ const Inspector = ( props ) => {
 	const { currentPostId, parentPostId } = useSelect( ( select ) => {
 		return {
 			currentPostId: select( 'core/editor' ).getCurrentPostId(),
-			parentPostId: select( 'core/editor' ).getEditedPostAttribute(
-				'parent'
-			),
+			parentPostId:
+				select( 'core/editor' ).getEditedPostAttribute( 'parent' ),
 		};
 	} );
 
@@ -216,9 +215,8 @@ const Inspector = ( props ) => {
 										','
 									) }
 									onChange={ ( val ) => {
-										const excludes = val.match(
-											/(?<id>\d+)/
-										);
+										const excludes =
+											val.match( /(?<id>\d+)/ );
 										if (
 											excludes?.groups?.id &&
 											excludes?.groups?.id?.length

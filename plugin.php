@@ -8,7 +8,7 @@ namespace CUMULUS\Gutenberg\Tools;
  * GitHub Plugin URI: https://github.com/cumulus-digital/00-wp-cumulus-tools/
  * Primary Branch: main
  * Description: Collection of Wordpress tools, blocks, block filters, and CPTs for Cumulus Media
- * Version: 1.2.2
+ * Version: 1.3.0
  * Author: vena
  * License: UNLICENSED
  */
@@ -19,7 +19,7 @@ namespace CUMULUS\Gutenberg\Tools;
 \define( 'CUMULUS\Gutenberg\Tools\BASEDIR', \plugin_dir_path( __FILE__ ) );
 \define( 'CUMULUS\Gutenberg\Tools\BASEURL', \plugin_dir_url( __FILE__ ) );
 
-require BASEDIR . 'build/composer/vendor/scoper-autoload.php';
+require BASEDIR . '/vendor-prefixed/autoload.php';
 
 require BASEDIR . 'helpers.php';
 

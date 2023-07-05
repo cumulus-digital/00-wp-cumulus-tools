@@ -4,7 +4,7 @@
 # Composer
 /vendor/
 /vendor-bin/
-!/build/composer
+!/vendor-prefixed/
 
 # npm
 node_modules/

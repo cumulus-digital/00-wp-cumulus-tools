@@ -1,53 +1,53 @@
 {
-  "name": "wp-cumulus-tools",
-  "version": "1.2.2",
-  "description": "Cumulus Media custom Wordpress blocks, cpts, and tools collection",
-  "scripts": {
-    "start": "wp-scripts start --webpack-src-dir=blocks",
-    "build": "wp-scripts build --webpack-src-dir=blocks",
-    "check-engines": "wp-scripts check-engines",
-    "check-licenses": "wp-scripts check-licenses",
-    "format:js": "wp-scripts format --webpack-src-dir=blocks",
-    "lint:css": "wp-scripts lint-style --webpack-src-dir=blocks",
-    "lint:js": "wp-scripts lint-js",
-    "lint:md:docs": "wp-scripts lint-md-docs",
-    "lint:md:js": "wp-scripts lint-md-js",
-    "lint:pkg-json": "wp-scripts lint-pkg-json",
-    "packages-update": "wp-scripts packages-update",
-    "full-upgrade": "npm update; npm run packages-update; npm upgrade; npm run php-scoper",
-    "php-scoper": "composer update; composer install --no-scripts --no-dev --prefer-dist --optimize-autoloader; ./phpcs-tokens/refresh.sh; ./vendor/bin/php-scoper add-prefix --output-dir ./build/composer --force; composer dump-autoload --working-dir build/composer --classmap-authoritative; composer install --no-scripts --prefer-dist"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cumulus-digital/wp-cumulus-tools"
-  },
-  "keywords": [
-    "wordpress",
-    "gutenberg",
-    "blocks",
-    "cumulus",
-    "cmls"
-  ],
-  "author": "vena",
-  "license": "UNLICENSED",
-  "bugs": {
-    "url": "https://github.com/cumulus-digital/wp-cumulus-tools/issues"
-  },
-  "homepage": "https://github.com/cumulus-digital/wp-cumulus-tools/#readme",
-  "devDependencies": {
-    "@wordpress/block-editor": "^9.7.0",
-    "@wordpress/block-library": "^7.12.0",
-    "@wordpress/editor": "^12.14.0",
-    "@wordpress/icons": "^9.6.0",
-    "@wordpress/scripts": "^23.7.2",
-    "jquery": "^3.6.0",
-    "prettier": "npm:wp-prettier@^2.6.2",
-    "resize-observer-polyfill": "^1.5.1"
-  },
-  "browserslist": [
-    "last 3 versions or > 1%"
-  ],
-  "dependencies": {
-    "lodash": "^4.17.21"
-  }
+	"name": "wp-cumulus-tools",
+	"version": "1.2.2",
+	"description": "Cumulus Media custom Wordpress blocks, cpts, and tools collection",
+	"scripts": {
+		"start": "wp-scripts start --webpack-src-dir=blocks",
+		"build": "wp-scripts build --webpack-src-dir=blocks",
+		"check-engines": "wp-scripts check-engines",
+		"check-licenses": "wp-scripts check-licenses",
+		"format:js": "wp-scripts format --webpack-src-dir=blocks",
+		"lint:css": "wp-scripts lint-style --webpack-src-dir=blocks",
+		"lint:js": "wp-scripts lint-js",
+		"lint:md:docs": "wp-scripts lint-md-docs",
+		"lint:md:js": "wp-scripts lint-md-js",
+		"lint:pkg-json": "wp-scripts lint-pkg-json",
+		"packages-update": "wp-scripts packages-update",
+		"full-upgrade": "npm update && npm run packages-update && npm upgrade; npm run composer-upgrade",
+		"composer-upgrade": "composer update && composer dump-autoload && pushd phpcs-tokens && ./refresh.sh && popd && rm -rf vendor-prefixed && composer upgrade"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/cumulus-digital/wp-cumulus-tools"
+	},
+	"keywords": [
+		"wordpress",
+		"gutenberg",
+		"blocks",
+		"cumulus",
+		"cmls"
+	],
+	"author": "vena",
+	"license": "UNLICENSED",
+	"bugs": {
+		"url": "https://github.com/cumulus-digital/wp-cumulus-tools/issues"
+	},
+	"homepage": "https://github.com/cumulus-digital/wp-cumulus-tools/#readme",
+	"devDependencies": {
+		"@wordpress/block-editor": "^9.7.0",
+		"@wordpress/block-library": "^7.12.0",
+		"@wordpress/editor": "^12.14.0",
+		"@wordpress/icons": "^9.6.0",
+		"@wordpress/scripts": "^23.7.2",
+		"jquery": "^3.6.0",
+		"prettier": "npm:wp-prettier@^2.6.2",
+		"resize-observer-polyfill": "^1.5.1"
+	},
+	"browserslist": [
+		"last 3 versions or > 1%"
+	],
+	"dependencies": {
+		"lodash": "^4.17.21"
+	}
 }

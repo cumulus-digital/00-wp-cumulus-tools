@@ -6,7 +6,15 @@
 	"name": "cumulus-gutenberg/family-links",
 	"title": "Family Links",
 	"description": "Insert links to a page's children or siblings",
-	"keywords": ["cumulus","cmls","family","parent","child","children","siblings"],
+	"keywords": [
+		"cumulus",
+		"cmls",
+		"family",
+		"parent",
+		"child",
+		"children",
+		"siblings"
+	],
 	"icon": "admin-links",
 	"category": "cmls",
 
@@ -19,7 +27,6 @@
 	"style": "file:./assets/editor.css",
 
 	"_#": "▲▲▲ REMOVE ANY INCLUDES ABOVE THAT DON'T EXIST! ▲▲▲",
-
 
 	"_#": "Attributes stored by block",
 	"attributes": {
@@ -47,13 +54,7 @@
 		},
 		"displayType": {
 			"type": "string",
-			"enum": [
-				"plain",
-				"bullets",
-				"square",
-				"numbered",
-				"custom"
-			],
+			"enum": [ "plain", "bullets", "square", "numbered", "custom" ],
 			"default": "plain"
 		},
 		"customBullet": {

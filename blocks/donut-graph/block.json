@@ -6,7 +6,7 @@
 	"name": "cumulus-gutenberg/donut-graph",
 	"title": "Donut Graph",
 	"description": "A simple donut graph block",
-	"keywords": ["cumulus","cmls","graph","chart","donut"],
+	"keywords": [ "cumulus", "cmls", "graph", "chart", "donut" ],
 	"icon": "star-filled",
 	"category": "cmls",
 
@@ -19,7 +19,6 @@
 	"style": "file:./assets/block.css",
 
 	"_#": "▲▲▲ REMOVE ANY INCLUDES ABOVE THAT DON'T EXIST! ▲▲▲",
-
 
 	"_#": "Attributes stored by block",
 	"attributes": {

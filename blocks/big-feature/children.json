@@ -2,14 +2,12 @@
 	"_#": "_# is used in this document as a comment.",
 
 	"apiVersion": 2,
-	"keywords": ["cumulus","cmls","feature","panel","hero"],
+	"keywords": [ "cumulus", "cmls", "feature", "panel", "hero" ],
 	"icon": "star-filled",
 	"category": "cmls",
 
 	"_#": "Attributes stored by block",
-	"attributes": {
-
-	},
+	"attributes": {},
 
 	"_#": "Wordpress features support",
 	"supports": {

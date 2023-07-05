@@ -1,19 +1,22 @@
-(function ($, window, undefined) {
-	$(function () {
-		if (!window.core_query_ajax_handler || !window.core_query_ajax_handler.url) {
+( function ( $, window, undefined ) {
+	$( function () {
+		if (
+			! window.core_query_ajax_handler ||
+			! window.core_query_ajax_handler.url
+		) {
 			return;
 		}
-		function loadPage($queryBlock, pageRequest = 1, scrollTo = false) {
-			if (!$queryBlock.jquery) {
-				$queryBlock = $($queryBlock);
+		function loadPage( $queryBlock, pageRequest = 1, scrollTo = false ) {
+			if ( ! $queryBlock.jquery ) {
+				$queryBlock = $( $queryBlock );
 			}
-			var $template = $queryBlock.find('.wp-block-post-template');
-			var $pagination = $queryBlock.find('.wp-block-query-pagination');
+			var $template = $queryBlock.find( '.wp-block-post-template' );
+			var $pagination = $queryBlock.find( '.wp-block-query-pagination' );
 
-			if ($queryBlock.length && $template.length) {
-				var queryId = $queryBlock.attr('data-query-id');
-				$queryBlock.addClass('is-loading');
-				var request = $.ajax({
+			if ( $queryBlock.length && $template.length ) {
+				var queryId = $queryBlock.attr( 'data-query-id' );
+				$queryBlock.addClass( 'is-loading' );
+				var request = $.ajax( {
 					method: 'POST',
 					url: window.core_query_ajax_handler.url,
 					dataType: 'html',
@@ -23,100 +26,127 @@
 						query_id: queryId,
 						post_id: window.core_query_ajax_handler.post_id,
 						paged: pageRequest,
-						block: $queryBlock.attr('data-block')
-					}
-				});
-				request.done(function (data) {
-					$queryBlock.removeClass('is-loading');
-					if (data) {
-						var $newHtml = $(data);
-						if ($newHtml.length) {
-							if (scrollTo) {
-								$queryBlock[0].scrollIntoView({
+						block: $queryBlock.attr( 'data-block' ),
+					},
+				} );
+				request.done( function ( data ) {
+					$queryBlock.removeClass( 'is-loading' );
+					if ( data ) {
+						var $newHtml = $( data );
+						if ( $newHtml.length ) {
+							if ( scrollTo ) {
+								$queryBlock[ 0 ].scrollIntoView( {
 									behavior: 'smooth',
 									block: 'start',
-								});
+								} );
 							}
 
 							// Replace class names since there are styles
 							// associated with the originals that don't come
 							// with the new data.
-							$newHtml[0].className = $queryBlock[0].className;
-							$newHtml.find('.wp-block-post-template')[0].className = $template[0].className;
-							var $newPagination = $newHtml.find('.wp-block-query-pagination')
-							$newPagination[0].className = $pagination[0].className;
+							$newHtml[ 0 ].className =
+								$queryBlock[ 0 ].className;
+							$newHtml.find(
+								'.wp-block-post-template'
+							)[ 0 ].className = $template[ 0 ].className;
+							var $newPagination = $newHtml.find(
+								'.wp-block-query-pagination'
+							);
+							$newPagination[ 0 ].className =
+								$pagination[ 0 ].className;
 
 							// Pagination may be returned with admin-ajax.php as the page!
-							$newPagination.find('a').each(function () {
-								this.href = this.href.replace('/wp-admin/admin-ajax.php', window.location.pathname);
-							});
-							$queryBlock.replaceWith($newHtml);
+							$newPagination.find( 'a' ).each( function () {
+								this.href = this.href.replace(
+									'/wp-admin/admin-ajax.php',
+									window.location.pathname
+								);
+							} );
+							$queryBlock.replaceWith( $newHtml );
 						}
 					}
-				});
+				} );
 				return request;
 			}
 		}
 
 		// Handle ajaxified query block pagination clicks
-		$(window).on('click', function (e) {
-			var $target = $(e.target);
-			if (!$target.is('.wp-block-query.uses-ajax .wp-block-query-pagination a')) {
+		$( window ).on( 'click', function ( e ) {
+			var $target = $( e.target );
+			if (
+				! $target.is(
+					'.wp-block-query.uses-ajax .wp-block-query-pagination a'
+				)
+			) {
 				return;
 			}
-			var $queryBlock = $target.closest('.wp-block-query.uses-ajax');
-			var queryId = $queryBlock.attr('data-query-id');
-			var queryRegexp = new RegExp('query\\-' + queryId + '\\-page=(\\d+)');
-			var targetQuery = $target.attr('href').match(queryRegexp);
-			if ($queryBlock.length) {
+			var $queryBlock = $target.closest( '.wp-block-query.uses-ajax' );
+			var queryId = $queryBlock.attr( 'data-query-id' );
+			var queryRegexp = new RegExp(
+				'query\\-' + queryId + '\\-page=(\\d+)'
+			);
+			var targetQuery = $target.attr( 'href' ).match( queryRegexp );
+			if ( $queryBlock.length ) {
 				e.preventDefault();
 				var paged = 1;
-				if (targetQuery && targetQuery.length) {
-					paged = parseInt(targetQuery[1]);
+				if ( targetQuery && targetQuery.length ) {
+					paged = parseInt( targetQuery[ 1 ] );
 				}
-				var request = loadPage($queryBlock, paged, true);
-				request.done(function (data) {
-					if (data && data.length) {
-						if (window.history.pushState) {
+				var request = loadPage( $queryBlock, paged, true );
+				request.done( function ( data ) {
+					if ( data && data.length ) {
+						if ( window.history.pushState ) {
 							// Replace query in URL
-							var newUrl = new URL(window.location.href);
-							if (targetQuery && targetQuery.length) {
-								newUrl.search = newUrl.search.match(queryRegexp) ?
-									newUrl.search.replace(queryRegexp, targetQuery[0]) :
-									targetQuery[0];
+							var newUrl = new URL( window.location.href );
+							if ( targetQuery && targetQuery.length ) {
+								newUrl.search = newUrl.search.match(
+									queryRegexp
+								)
+									? newUrl.search.replace(
+											queryRegexp,
+											targetQuery[ 0 ]
+									  )
+									: targetQuery[ 0 ];
 							} else {
-								newUrl.search = newUrl.search.replace(queryRegexp, '');
+								newUrl.search = newUrl.search.replace(
+									queryRegexp,
+									''
+								);
 							}
-							window.history.pushState(null, null, newUrl);
+							window.history.pushState( null, null, newUrl );
 						}
 					}
-				});
-				request.fail(function () {
+				} );
+				request.fail( function () {
 					// All else fails, load window
-					window.location.href = $target.attr('href');
-				});
+					window.location.href = $target.attr( 'href' );
+				} );
 			}
-		});
+		} );
 
 		// Handle back/forward buttons
-		$(window).on('popstate', function () {
-			var query = window.location.search.match(/query\-([^\-]+)\-page=(\d+)/);
-			if (query && query.length > 1) {
-				var queryId = query[1];
-				var paged = query[2];
-				var $queryBlock = $('.wp-block-query.uses-ajax[data-query-id="' + queryId + '"]');
-				if ($queryBlock.length) {
-					$queryBlock.each(function () {
-						loadPage($(this), paged);
-					});
+		$( window ).on( 'popstate', function () {
+			var query = window.location.search.match(
+				/query\-([^\-]+)\-page=(\d+)/
+			);
+			if ( query && query.length > 1 ) {
+				var queryId = query[ 1 ];
+				var paged = query[ 2 ];
+				var $queryBlock = $(
+					'.wp-block-query.uses-ajax[data-query-id="' + queryId + '"]'
+				);
+				if ( $queryBlock.length ) {
+					$queryBlock.each( function () {
+						loadPage( $( this ), paged );
+					} );
 				}
 			} else {
 				// No query in url? we need to set any ajax'd query blocks to page 1
-				$queryBlock = $('.wp-block-query.uses-ajax[data-paged!="1"]');
-				$queryBlock.each(function () {
-					loadPage($(this), paged);
-				});
+				$queryBlock = $( '.wp-block-query.uses-ajax[data-paged!="1"]' );
+				$queryBlock.each( function () {
+					loadPage( $( this ), paged );
+				} );
 			}
-		});
-	});
-})(jQuery, window.self);
+		} );
+	} );
+} )( jQuery, window.self );

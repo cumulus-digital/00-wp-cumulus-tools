@@ -98,8 +98,7 @@ const generateClassNames = ( attributes ) => {
 const htmlElementMessages = {
 	section:
 		"The <section> element should represent a standalone portion of the document that can't be better represented by another element.",
-	aside:
-		"The <aside> element should represent a portion of a document whose content is only indirectly related to the document's main content.",
+	aside: "The <aside> element should represent a portion of a document whose content is only indirectly related to the document's main content.",
 };
 
 registerBlockType( metadata.name, {
@@ -230,7 +229,8 @@ registerBlockType( metadata.name, {
 														attributes.mobileExpandIconColor,
 													onColorChange: ( val ) =>
 														setAttributes( {
-															mobileExpandIconColor: val,
+															mobileExpandIconColor:
+																val,
 														} ),
 												},
 											] }

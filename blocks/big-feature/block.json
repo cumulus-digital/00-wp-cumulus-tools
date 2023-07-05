@@ -5,7 +5,7 @@
 	"name": "cumulus-gutenberg/big-feature",
 	"title": "Big Feature",
 	"description": "A special grid of linked images for featuring content",
-	"keywords": ["cumulus","cmls","feature","panel","hero"],
+	"keywords": [ "cumulus", "cmls", "feature", "panel", "hero" ],
 	"icon": "star-filled",
 	"category": "cmls",
 
@@ -24,7 +24,6 @@
 	"editorStyle": "file:./assets/editor.css",
 
 	"_#": "▲▲▲ REMOVE ANY INCLUDES ABOVE THAT DON'T EXIST! ▲▲▲",
-
 
 	"_#": "Attributes stored by block",
 	"attributes": {

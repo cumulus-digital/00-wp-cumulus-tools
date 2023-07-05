@@ -6,7 +6,7 @@
 	"name": "cumulus-gutenberg/block-skeleton",
 	"title": "Block Skeleton",
 	"description": "This is not a block!",
-	"keywords": ["cumulus","cmls"],
+	"keywords": [ "cumulus", "cmls" ],
 	"icon": "star-filled",
 	"category": "cmls",
 
@@ -29,11 +29,8 @@
 
 	"_#": "▲▲▲ REMOVE ANY INCLUDES ABOVE THAT DON'T EXIST! ▲▲▲",
 
-
 	"_#": "Attributes stored by block",
-	"attributes": {
-
-	},
+	"attributes": {},
 
 	"_#": "Wordpress features support",
 	"supports": {

@@ -6,7 +6,7 @@
 	"name": "cumulus-gutenberg/anchor",
 	"title": "Anchor",
 	"description": "A simple, standalone anchor tag",
-	"keywords": ["cumulus","cmls"],
+	"keywords": [ "cumulus", "cmls" ],
 	"icon": "admin-links",
 	"category": "cmls",
 

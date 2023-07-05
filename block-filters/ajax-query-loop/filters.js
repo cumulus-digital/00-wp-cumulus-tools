@@ -12,10 +12,10 @@ const addAttributesToCoreQuery = ( settings, name ) => {
 	}
 
 	return Object.assign( {}, settings, {
-        attributes: Object.assign( {}, settings.attributes, {
-            useAjax: { type: 'boolean', default: false }
-        } ),
-    } );
+		attributes: Object.assign( {}, settings.attributes, {
+			useAjax: { type: 'boolean', default: false },
+		} ),
+	} );
 };
 addFilter(
 	'blocks.registerBlockType',
@@ -44,8 +44,12 @@ const withAjaxToggle = createHigherOrderComponent( ( BlockEdit ) => {
 							<ToggleControl
 								label="Use Ajax Pagination"
 								help="Pagination reloads the block in place instead of reloading the page"
-								checked={!!attributes.useAjax}
-								onChange={(val) => setAttributes({ useAjax: !attributes.useAjax })}
+								checked={ !! attributes.useAjax }
+								onChange={ ( val ) =>
+									setAttributes( {
+										useAjax: ! attributes.useAjax,
+									} )
+								}
 							/>
 						</PanelRow>
 					</InspectorAdvancedControls>
@@ -53,7 +57,7 @@ const withAjaxToggle = createHigherOrderComponent( ( BlockEdit ) => {
 			</>
 		);
 	};
-});
+} );
 addFilter(
 	'editor.BlockEdit',
 	'cmls/block-filters/query/filters/ajax',
@@ -61,21 +65,23 @@ addFilter(
 );
 
 const saveAjaxAttribute = ( extraProps, blockType, attributes ) => {
-    // Do nothing if it's another block than our defined ones.
-	if (blockType.name !== 'core/query') {
+	// Do nothing if it's another block than our defined ones.
+	if ( blockType.name !== 'core/query' ) {
 		return extraProps;
 	}
 
-	extraProps.className = extraProps.className.replace(/\s*uses?\-ajax\s*/, '');
-	if (attributes.useAjax) {
+	extraProps.className = extraProps.className.replace(
+		/\s*uses?\-ajax\s*/,
+		''
+	);
+	if ( attributes.useAjax ) {
 		extraProps.className += ' uses-ajax';
 	}
 
-    return extraProps;
-
+	return extraProps;
 };
 wp.hooks.addFilter(
-    'blocks.getSaveContent.extraProps',
-    'cmls/block-filters/query/filters/ajax',
-    saveAjaxAttribute
+	'blocks.getSaveContent.extraProps',
+	'cmls/block-filters/query/filters/ajax',
+	saveAjaxAttribute
 );
