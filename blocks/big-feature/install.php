@@ -10,7 +10,7 @@ if ( \CUMULUS\Gutenberg\Tools\Settings::isBlockActivated( 'big-feature' ) ) {
 	\register_block_type(
 		\CUMULUS\Gutenberg\Tools\BASEDIR . '/build/blocks/big-feature',
 		array(
-			'view_script' => null,
+			'view_script_handles' => null,
 		)
 	);
 
