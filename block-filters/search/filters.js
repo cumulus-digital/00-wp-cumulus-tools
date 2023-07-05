@@ -24,7 +24,7 @@ const addAttributesToSearch = ( settings, name ) => {
 			default: {
 				postType: null,
 				author: '',
-				exclude: [],
+				exclude: '',
 				sticky: '',
 				taxQuery: null,
 			},
