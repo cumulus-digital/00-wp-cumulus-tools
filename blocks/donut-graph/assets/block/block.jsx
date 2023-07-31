@@ -122,55 +122,14 @@ registerBlockType( metadata.name, {
 
 		return (
 			<div { ...blockProps }>
-				<InspectorControls>
+				<InspectorControls group="styles">
 					<PanelColorSettings
 						title="Graph Colors"
 						colorSettings={ colorSettings }
 						{ ...pallettes }
 					/>
 					<Panel>
-						<PanelBody title="Graph Attributes">
-							<PanelRow>
-								<ToggleControl
-									label="Show Label"
-									checked={ attributes.showPercentLabel }
-									onChange={ ( val ) =>
-										setAttributes( {
-											showPercentLabel: val,
-										} )
-									}
-								/>
-							</PanelRow>
-
-							<PanelRow>
-								<UnitControl
-									label="Graph Size"
-									labelPosition="side"
-									isUnitSelectTabbable
-									value={ attributes.width }
-									units={ useCustomUnits( {
-										availableUnits: [
-											'px',
-											'%',
-											'em',
-											'rem',
-											'vh',
-											'vw',
-										],
-										defaultValues: {
-											px: 100,
-											em: 10,
-											rem: 10,
-											'%': 100,
-											vh: 25,
-											vw: 10,
-										},
-									} ) }
-									onChange={ ( val ) =>
-										setAttributes( { width: val } )
-									}
-								/>
-							</PanelRow>
+						<PanelBody title="Graph Styles">
 							<PanelRow>
 								<RangeControl
 									label="Stroke Width"
@@ -197,7 +156,12 @@ registerBlockType( metadata.name, {
 									}
 								/>
 							</PanelRow>
-
+						</PanelBody>
+					</Panel>
+				</InspectorControls>
+				<InspectorControls>
+					<Panel>
+						<PanelBody title="Graph Display">
 							<PanelRow>
 								<RangeControl
 									label="Percent Active"
@@ -210,6 +174,46 @@ registerBlockType( metadata.name, {
 									max={ 100 }
 									onChange={ ( val ) =>
 										setAttributes( { percent: val } )
+									}
+								/>
+							</PanelRow>
+							<PanelRow>
+								<ToggleControl
+									label="Show Label"
+									checked={ attributes.showPercentLabel }
+									onChange={ ( val ) =>
+										setAttributes( {
+											showPercentLabel: val,
+										} )
+									}
+								/>
+							</PanelRow>
+							<PanelRow>
+								<UnitControl
+									label="Graph Size"
+									labelPosition="side"
+									isUnitSelectTabbable
+									value={ attributes.width }
+									units={ useCustomUnits( {
+										availableUnits: [
+											'px',
+											'%',
+											'em',
+											'rem',
+											'vh',
+											'vw',
+										],
+										defaultValues: {
+											px: 100,
+											em: 10,
+											rem: 10,
+											'%': 100,
+											vh: 25,
+											vw: 10,
+										},
+									} ) }
+									onChange={ ( val ) =>
+										setAttributes( { width: val } )
 									}
 								/>
 							</PanelRow>
