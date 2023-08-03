@@ -137,15 +137,32 @@ function renderCallback( $attr, $content, $block ) {
 		attr( $attr, 'displayType' ) === 'custom' ? 'has-custom-bullet' : null,
 	) );
 
-	$marginDefault = array(
+	$spacingDefaults = array(
 		'top'    => null,
 		'right'  => null,
 		'bottom' => null,
 		'left'   => null,
 	);
-	$itemMargin     = attr( $attr, 'itemMargin', $marginDefault );
-	$childrenMargin = attr( $attr, 'childrenMargin', $marginDefault );
-	$styleAttr      = \array_filter( array(
+	$itemMargin = \wp_style_engine_get_styles( array(
+		'spacing' => array(
+			'margin' => \array_filter( \_wp_array_get(
+				$attr,
+				array( 'itemMargin' ),
+				$spacingDefaults
+			) ),
+		),
+	) );
+	$childrenMargin = \wp_style_engine_get_styles( array(
+		'spacing' => array(
+			'margin' => \array_filter( \_wp_array_get(
+				$attr,
+				array( 'childrenMargin' ),
+				$spacingDefaults
+			) ),
+		),
+	) );
+
+	$styleAttr = \array_filter( array(
 		'custom-bullet' => '"' . attr(
 			$attr,
 			'customBullet'
@@ -154,37 +171,37 @@ function renderCallback( $attr, $content, $block ) {
 			$attr,
 			'bulletColor'
 		),
-		'item-margin-top' => attr(
+		'item-margin-top' => \_wp_array_get(
 			$itemMargin,
-			'top'
+			array( 'declarations', 'margin-top' )
 		),
-		'item-margin-right' => attr(
+		'item-margin-right' => \_wp_array_get(
 			$itemMargin,
-			'right'
+			array( 'declarations', 'margin-right' )
 		),
-		'item-margin-bottom' => attr(
+		'item-margin-bottom' => \_wp_array_get(
 			$itemMargin,
-			'bottom'
+			array( 'declarations', 'margin-bottom' )
 		),
-		'item-margin-left' => attr(
+		'item-margin-left' => \_wp_array_get(
 			$itemMargin,
-			'left'
+			array( 'declarations', 'margin-left' )
 		),
-		'children-margin-top' => attr(
+		'children-margin-top' => \_wp_array_get(
 			$childrenMargin,
-			'top'
+			array( 'declarations', 'margin-top' )
 		),
-		'children-margin-right' => attr(
+		'children-margin-right' => \_wp_array_get(
 			$childrenMargin,
-			'right'
+			array( 'declarations', 'margin-right' )
 		),
-		'children-margin-bottom' => attr(
+		'children-margin-bottom' => \_wp_array_get(
 			$childrenMargin,
-			'bottom'
+			array( 'declarations', 'margin-bottom' )
 		),
-		'children-margin-left' => attr(
+		'children-margin-left' => \_wp_array_get(
 			$childrenMargin,
-			'left'
+			array( 'declarations', 'margin-left' )
 		),
 		'text-align' => attr(
 			$attr,

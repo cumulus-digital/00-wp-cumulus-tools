@@ -1,5 +1,5 @@
 import Toolbar from './toolbar';
-import Inspector from './inspector';
+import { Inspectors } from './inspector';
 import metadata from '../../block.json';
 
 import { Spinner } from '@wordpress/components';
@@ -40,9 +40,7 @@ const edit = ( props ) => {
 			<BlockControls>
 				<Toolbar { ...props } />
 			</BlockControls>
-			<InspectorControls>
-				<Inspector { ...props } />
-			</InspectorControls>
+			<Inspectors { ...props } />
 
 			{ attributes.parentPostId === null ? (
 				<MySpinner />

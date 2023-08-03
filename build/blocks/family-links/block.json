@@ -58,19 +58,11 @@
     },
     "itemMargin": {
       "type": "object",
-      "default": {
-        "top": null,
-        "right": null,
-        "bottom": null,
-        "left": null
-      }
+      "default": null
     },
     "childrenMargin": {
       "type": "object",
       "default": {
-        "top": null,
-        "right": null,
-        "bottom": null,
         "left": "1em"
       }
     },
