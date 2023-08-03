@@ -2,12 +2,9 @@
 
 namespace CUMULUS\Gutenberg\Tools\Blocks\FamilyLinks;
 
-use Walker_Page;
-
 \defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
 
-class FamilyLinkWalker extends Walker_Page {
-
+class FamilyLinkWalker extends \Walker_Page {
 	protected $current_object_id = 0;
 
 	protected $is_backend = false;
@@ -24,14 +21,16 @@ class FamilyLinkWalker extends Walker_Page {
 		}
 	}
 
-	public function start_el( &$output, $data_object, $depth = 0, $args = [], $current_object_id = 0 ) {
+	public function start_el( &$output, $data_object, $depth = 0, $args = array(), $current_object_id = 0 ) {
 		$newOutput = '';
 
 		parent::start_el( $newOutput, $data_object, $depth, $args, $this->current_object_id );
 
+		/*
 		if ( $this->is_backend ) {
 			$newOutput = \str_replace( '<a ', '<a onclick="event.preventDefault();" ', $newOutput );
 		}
+		 */
 
 		$output .= $newOutput;
 	}

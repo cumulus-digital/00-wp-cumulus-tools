@@ -193,7 +193,7 @@
 		"spacing": {
 			"margin": true,
 			"padding": true,
-			"blockGap": true
+			"blockGap": false
 		},
 
 		"_#": "Allow custom typography",

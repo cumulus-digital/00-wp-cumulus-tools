@@ -1,3 +1,6 @@
+.editor-styles-wrapper .wp-block-cumulus-gutenberg-family-links {
+	min-height: 1.25em;
+}
 :root body .wp-block-cumulus-gutenberg-family-links,
 :root body .wp-block-cumulus-gutenberg-family-links nav {
 	ul,
@@ -76,10 +79,10 @@
 		text-decoration-style: underline;
 	}
 	&.has-no-underline-links a {
-		text-decoration-style: none;
+		text-decoration-line: none;
 	}
 	&.has-no-underline-links-hover a:hover {
-		text-decoration-style: none;
+		text-decoration-line: none;
 	}
 
 	li.current_page_item > a {
@@ -105,9 +108,9 @@
 		text-decoration-style: underline;
 	}
 	&.has-current-no-underline-link li.current_page_item > a {
-		text-decoration-style: none;
+		text-decoration-line: none;
 	}
 	&.has-current-no-underline-link-hover li.current_page_item > a:hover {
-		text-decoration-style: none;
+		text-decoration-line: none;
 	}
 }

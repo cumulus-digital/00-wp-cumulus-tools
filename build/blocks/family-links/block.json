@@ -162,7 +162,7 @@
     "spacing": {
       "margin": true,
       "padding": true,
-      "blockGap": true
+      "blockGap": false
     },
     "typography": {
       "align": true,

@@ -2,7 +2,7 @@ import Toolbar from './toolbar';
 import Inspector from './inspector';
 import metadata from '../../block.json';
 
-import { Spinner } from '@wordpress/components';
+import { Spinner, Disabled } from '@wordpress/components';
 import {
 	useBlockProps,
 	BlockControls,
@@ -11,6 +11,7 @@ import {
 import { useSelect } from '@wordpress/data';
 
 import CmlsServerSideRender from 'Components/CmlsServerSideRender.jsx';
+import ServerSideRender from '@wordpress/server-side-render';
 
 const MySpinner = () => {
 	return (
@@ -46,18 +47,20 @@ const edit = ( props ) => {
 			{ attributes.parentPostId === null ? (
 				<MySpinner />
 			) : (
-				<CmlsServerSideRender
-					block={ metadata.name }
-					attributes={ attributes }
-					urlQueryArgs={ {
-						'attributes[parentPostId]':
-							attributes.parentPostId !== undefined
-								? attributes.parentPostId
-								: parentPostId,
-						post_id: currentPostId,
-					} }
-					LoadingResponsePlaceholder={ MySpinner }
-				/>
+				<Disabled>
+					<ServerSideRender
+						block={ metadata.name }
+						attributes={ attributes }
+						urlQueryArgs={ {
+							'attributes[parentPostId]':
+								attributes.parentPostId !== undefined
+									? attributes.parentPostId
+									: parentPostId,
+							post_id: currentPostId,
+						} }
+						//LoadingResponsePlaceholder={ MySpinner }
+					/>
+				</Disabled>
 			) }
 		</div>
 	);

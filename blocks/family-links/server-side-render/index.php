@@ -7,8 +7,8 @@ namespace CUMULUS\Gutenberg\Tools\Blocks\FamilyLinks;
 require __DIR__ . '/FamilyLinkWalker.php';
 
 function attr( $attr, $key, $default = null ) {
-	if ( isset( $attr[$key] ) ) {
-		return $attr[$key];
+	if ( isset( $attr[ $key ] ) ) {
+		return $attr[ $key ];
 	}
 
 	return $default;
@@ -44,31 +44,31 @@ function renderCallback( $attr, $content, $block ) {
 		$postType     = \get_post_type( $postId );
 	}
 
-	$exclude = [];
+	$exclude = array();
 
 	if ( ! $attr['showCurrentChildren'] ) {
-		$children = new \WP_Query( [
+		$children = new \WP_Query( array(
 			'post_parent'    => $postId,
 			'post_type'      => $postType,
 			'fields'         => 'ids',
 			'posts_per_page' => -1,
-		] );
+		) );
 		$exclude = \array_merge( $exclude, $children->posts );
 	}
 
-	$defaults = [
+	$defaults = array(
 		'post_type'   => $postType,
 		'depth'       => $maxDepth,
 		'sort_column' => 'menu_order,post_title',
 		'title_li'    => '',
 		'echo'        => false,
 		'walker'      => new FamilyLinkWalker(),
-		'exclude'     => [],
-	];
-	$args = \array_merge( $defaults, [
+		'exclude'     => array(),
+	);
+	$args = \array_merge( $defaults, array(
 		'child_of' => $parentPostId,
 		'exclude'  => $exclude,
-	] );
+	) );
 
 	if ( $attr['excludeNoindex'] ) {
 
@@ -85,25 +85,25 @@ function renderCallback( $attr, $content, $block ) {
 				->result();
 
 			if ( $aioseo_exclude_ids && \count( $aioseo_exclude_ids ) ) {
-				//$args['exclude'] .= \implode( ',', $aioseo_exclude_ids );
+				// $args['exclude'] .= \implode( ',', $aioseo_exclude_ids );
 				$args['exclude'] = \array_merge( $args['exclude'], $aioseo_exclude_ids );
 			}
 		}
 
 		if ( ! \array_key_exists( 'meta_query', $args ) ) {
-			$args['meta_query'] = [];
+			$args['meta_query'] = array();
 		}
-		$args['meta_query'] = \array_merge( $args['meta_query'], [
-			[
+		$args['meta_query'] = \array_merge( $args['meta_query'], array(
+			array(
 				'key'     => '_yoast_wpseo_meta-robots-noindex',
 				'value'   => 1,
 				'compare' => 'NOT EXISTS',
-			],
-			[
+			),
+			array(
 				'key'     => '_hide_from_sitemap',
 				'compare' => 'NOT EXISTS',
-			],
-		] );
+			),
+		) );
 	}
 
 	if ( \array_key_exists( 'excludeAdditionalIDs', $attr ) ) {
@@ -114,7 +114,7 @@ function renderCallback( $attr, $content, $block ) {
 		}
 
 		if ( \count( $excludeAdditionalIDs ) ) {
-			//$args['exclude'] .= \implode( ',', $excludeAdditionalIDs );
+			// $args['exclude'] .= \implode( ',', $excludeAdditionalIDs );
 			$args['exclude'] = \array_merge( $args['exclude'], $excludeAdditionalIDs );
 		}
 	}
@@ -127,7 +127,7 @@ function renderCallback( $attr, $content, $block ) {
 		return 'None found.';
 	}
 
-	$classes = \array_filter( [
+	$classes = \array_filter( array(
 		"is-style-{$attr['displayType']}",
 		attr( $attr, 'textAlign' ) ? "has-text-align text-align-{$attr['textAlign']}" : null,
 		attr( $attr, 'linkColor' ) ? 'has-link-color' : null,
@@ -135,57 +135,125 @@ function renderCallback( $attr, $content, $block ) {
 		attr( $attr, 'underlineLinks', false ) ? 'has-underline-links' : 'has-no-underline-links',
 		attr( $attr, 'underlineOnHover', false ) ? 'has-underline-links-hover' : 'has-no-underline-links-hover',
 		attr( $attr, 'displayType' ) === 'custom' ? 'has-custom-bullet' : null,
-	] );
+	) );
 
-	$marginDefault  = [ 'top' => null, 'right' => null, 'bottom' => null, 'left' => null];
+	$marginDefault = array(
+		'top'    => null,
+		'right'  => null,
+		'bottom' => null,
+		'left'   => null,
+	);
 	$itemMargin     = attr( $attr, 'itemMargin', $marginDefault );
 	$childrenMargin = attr( $attr, 'childrenMargin', $marginDefault );
-	$styleAttr      = \array_filter( [
-		'custom-bullet'          => '"' . attr( $attr, 'customBullet' ) . '"',
-		'bullet-color'           => attr( $attr, 'bulletColor' ),
-		'item-margin-top'        => attr( $itemMargin, 'top' ),
-		'item-margin-right'      => attr( $itemMargin, 'right' ),
-		'item-margin-bottom'     => attr( $itemMargin, 'bottom' ),
-		'item-margin-left'       => attr( $itemMargin, 'left' ),
-		'children-margin-top'    => attr( $childrenMargin, 'top' ),
-		'children-margin-right'  => attr( $childrenMargin, 'right' ),
-		'children-margin-bottom' => attr( $childrenMargin, 'bottom' ),
-		'children-margin-left'   => attr( $childrenMargin, 'left' ),
-		'text-align'             => attr( $attr, 'textAlign' ),
-		'link-color'             => attr( $attr, 'linkColor' ),
-		'link-color-hover'       => attr( $attr, 'linkColorHover' ),
-	] );
+	$styleAttr      = \array_filter( array(
+		'custom-bullet' => '"' . attr(
+			$attr,
+			'customBullet'
+		) . '"',
+		'bullet-color' => attr(
+			$attr,
+			'bulletColor'
+		),
+		'item-margin-top' => attr(
+			$itemMargin,
+			'top'
+		),
+		'item-margin-right' => attr(
+			$itemMargin,
+			'right'
+		),
+		'item-margin-bottom' => attr(
+			$itemMargin,
+			'bottom'
+		),
+		'item-margin-left' => attr(
+			$itemMargin,
+			'left'
+		),
+		'children-margin-top' => attr(
+			$childrenMargin,
+			'top'
+		),
+		'children-margin-right' => attr(
+			$childrenMargin,
+			'right'
+		),
+		'children-margin-bottom' => attr(
+			$childrenMargin,
+			'bottom'
+		),
+		'children-margin-left' => attr(
+			$childrenMargin,
+			'left'
+		),
+		'text-align' => attr(
+			$attr,
+			'textAlign'
+		),
+		'link-color' => attr(
+			$attr,
+			'linkColor'
+		),
+		'link-color-hover' => attr(
+			$attr,
+			'linkColorHover'
+		),
+	) );
 
 	// Only set current page styles if highlightCurrent is enabled
 	if ( attr( $attr, 'highlightCurrent', false ) ) {
-		$classes = \array_merge( $classes, \array_filter( [
+		$classes = \array_merge( $classes, \array_filter( array(
 			attr( $attr, 'currentLinkColor' ) ? 'has-current-link-color' : null,
 			attr( $attr, 'currentLinkColorHover' ) ? 'has-current-link-color-hover' : null,
 			attr( $attr, 'currentUnderlineLinks', false ) ? 'has-current-underline-link' : 'has-current-no-underline-link',
 			attr( $attr, 'currentUnderlineOnHover', false ) ? 'has-current-underline-link-hover' : 'has-current-no-underline-link-hover',
-		] ) );
-		$styleAttr = \array_merge( $styleAttr, \array_filter( [
-			'current-link-color'       => attr( $attr, 'currentLinkColor' ),
-			'current-link-color-hover' => attr( $attr, 'currentLinkColorHover' ),
-			'current-font-weight'      => attr( $attr, 'currentFontWeight' ),
-			'current-font-style'       => attr( $attr, 'currentFontStyle' ),
-			'current-font-size'        => attr( $attr, 'currentFontSize' ),
-		] ) );
+		) ) );
+		$styleAttr = \array_merge( $styleAttr, \array_filter( array(
+			'current-link-color' => attr(
+				$attr,
+				'currentLinkColor'
+			),
+			'current-link-color-hover' => attr(
+				$attr,
+				'currentLinkColorHover'
+			),
+			'current-font-weight' => attr(
+				$attr,
+				'currentFontWeight'
+			),
+			'current-font-style' => attr(
+				$attr,
+				'currentFontStyle'
+			),
+			'current-font-size' => attr(
+				$attr,
+				'currentFontSize'
+			),
+		) ) );
 	}
 
-	$params = [
-		'class' => \implode( ' ', $classes ),
-		'style' => \array_reduce( \array_keys( $styleAttr ), function ( $css, $key ) use ( $styleAttr ) {
-			return "--{$key}: {$styleAttr[$key]};" . $css;
-		} ),
-	];
+	$params = array(
+		'class' => \implode(
+			' ',
+			$classes
+		),
+		'style' => \array_reduce(
+			\array_keys( $styleAttr ),
+			function (
+				$css,
+				$key
+			) use ( $styleAttr ) {
+				return "--{$key}: {$styleAttr[ $key ]};" . $css;
+			}
+		),
+	);
 	\ob_start(); ?>
 	<nav
 		<?php
 		// If in editor
 		if ( $is_backend ) {
 			foreach ( $params as $key => $val ) {
-				echo "{$key}='{$val}' ";
+				echo \esc_html( $key ) . '="' . \esc_attr( $val ) . '" ';
 			}
 		} else {
 			echo \get_block_wrapper_attributes( $params );
