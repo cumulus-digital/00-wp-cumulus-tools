@@ -2,7 +2,7 @@ import Toolbar from './toolbar';
 import Inspector from './inspector';
 import metadata from '../../block.json';
 
-import { Spinner, Disabled } from '@wordpress/components';
+import { Spinner } from '@wordpress/components';
 import {
 	useBlockProps,
 	BlockControls,
@@ -47,20 +47,18 @@ const edit = ( props ) => {
 			{ attributes.parentPostId === null ? (
 				<MySpinner />
 			) : (
-				<Disabled>
-					<ServerSideRender
-						block={ metadata.name }
-						attributes={ attributes }
-						urlQueryArgs={ {
-							'attributes[parentPostId]':
-								attributes.parentPostId !== undefined
-									? attributes.parentPostId
-									: parentPostId,
-							post_id: currentPostId,
-						} }
-						//LoadingResponsePlaceholder={ MySpinner }
-					/>
-				</Disabled>
+				<ServerSideRender
+					block={ metadata.name }
+					attributes={ attributes }
+					urlQueryArgs={ {
+						'attributes[parentPostId]':
+							attributes.parentPostId !== undefined
+								? attributes.parentPostId
+								: parentPostId,
+						post_id: currentPostId,
+					} }
+					//LoadingResponsePlaceholder={ MySpinner }
+				/>
 			) }
 		</div>
 	);

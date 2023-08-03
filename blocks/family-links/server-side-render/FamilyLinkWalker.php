@@ -26,11 +26,9 @@ class FamilyLinkWalker extends \Walker_Page {
 
 		parent::start_el( $newOutput, $data_object, $depth, $args, $this->current_object_id );
 
-		/*
 		if ( $this->is_backend ) {
 			$newOutput = \str_replace( '<a ', '<a onclick="event.preventDefault();" ', $newOutput );
 		}
-		 */
 
 		$output .= $newOutput;
 	}
