@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by __root__ on 03-August-2023 using Strauss.
+ * Modified by __root__ on 10-August-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 // Base class which all field types should extend.
@@ -10,15 +10,28 @@
 namespace CUMULUS\Gutenberg\Tools\Vendors\vena\WordpressSettingsBuilder\FieldTypes;
 
 trait Generic {
-	private $id    = 'WSB/section/field';
+	private $id = 'WSB/section/field';
+
+	private $type;
+
 	private $title = 'Field';
+
 	private $callback;
+
+	private $orientation;
+
 	private $option_group;
+
 	private $option_name;
-	private $default     = false;
-	private $page_slug   = 'settings';
-	private $section_id  = 'WSB/section';
-	private $args        = array();
+
+	private $default = false;
+
+	private $page_slug = 'settings';
+
+	private $section_id = 'WSB/section';
+
+	private $args = array();
+
 	private $option_args = array(
 		'type'         => 'string',
 		'show_in_rest' => true,
@@ -28,6 +41,7 @@ trait Generic {
 	 * Construct a field's options.
 	 *
 	 * @param string   $options[id]           Field ID
+	 * @param string   $option[type]          Field type
 	 * @param string   $options[title]        Field label
 	 * @param string   $options[option_group] Option group for field value. Defaults to [page_slug]
 	 * @param string   $options[option_name]  Option name for field value. Defaults to [id]
@@ -35,6 +49,7 @@ trait Generic {
 	 * @param string   $options[page_slug]    Settings page slug
 	 * @param string   $options[section_id]   Settings section ID
 	 * @param function $options[callback]     Render callback for field. Types have built-in render callbacks by default.
+	 * @param string   $options[orientation]  Optional. Default "row". Values are "row" or "column". Sets the orientation of the settings row.
 	 * @param array    $options[args]         Additional parameters to be output with field. Output as key="value" or "value" in absence of key.
 	 * @param array    $options[option_args]  Additional arguments for register_setting. Note that setting a 'default' key here will override the base 'default' setting.
 	 */
@@ -244,7 +259,6 @@ trait Generic {
 			);
 		}
 
-		return null;
 	}
 
 	/**

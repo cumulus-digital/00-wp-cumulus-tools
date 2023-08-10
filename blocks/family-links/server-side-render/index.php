@@ -15,7 +15,11 @@ function attr( $attr, $key, $default = null ) {
 }
 
 function renderCallback( $attr, $content, $block ) {
-	$is_backend   = \defined( 'REST_REQUEST' ) && true === REST_REQUEST && 'edit' === \filter_input( \INPUT_GET, 'context', \FILTER_SANITIZE_STRING );
+	$is_backend = (
+		\defined( 'REST_REQUEST' )
+		&& true   === REST_REQUEST
+		&& 'edit' === \filter_input( \INPUT_GET, 'context', \FILTER_UNSAFE_RAW )
+	);
 	$maxDepth     = attr( $attr, 'maxDepth', null );
 	$parentPostId = 0;
 

@@ -10,7 +10,11 @@ class FamilyLinkWalker extends \Walker_Page {
 	protected $is_backend = false;
 
 	public function __construct() {
-		$this->is_backend = \defined( 'REST_REQUEST' ) && true === REST_REQUEST && 'edit' === \filter_input( \INPUT_GET, 'context', \FILTER_SANITIZE_STRING );
+		$this->is_backend = (
+			\defined( 'REST_REQUEST' )
+			&& true   === REST_REQUEST
+			&& 'edit' === \filter_input( \INPUT_GET, 'context', \FILTER_UNSAFE_RAW )
+		);
 
 		if ( $this->current_object_id === 0 ) {
 			if ( isset( $_GET['post_id'] ) ) {
