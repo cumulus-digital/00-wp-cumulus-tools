@@ -24,7 +24,7 @@ const edit = ( props ) => {
 			setAttributes( { lazyLoad: context[ 'cmlsBigFeature/lazyLoad' ] } );
 		}
 		if ( ! parent?.length ) {
-			setReqMediaSize( 'full' );
+			setReqMediaSize( [ 'medium_large', 'large', 'full' ] );
 		} else {
 			setReqMediaSize( 'medium' );
 		}

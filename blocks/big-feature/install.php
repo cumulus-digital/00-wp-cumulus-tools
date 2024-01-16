@@ -14,6 +14,17 @@ if ( \CUMULUS\Gutenberg\Tools\Settings::isBlockActivated( 'big-feature' ) ) {
 		)
 	);
 
+	// Add medium_large size back
+	\add_filter( 'image_size_names_choose', function ( $sizes ) {
+		if ( \array_key_exists( 'medium_large', $sizes ) ) {
+			return $sizes;
+		}
+
+		return \array_merge( $sizes, array(
+			'medium_large' => \__( 'Medium Large' ),
+		) );
+	} );
+
 	// Frontend stuff is getting enqueued when not needed for some reason
 	function frontend_block_assets() {
 		if ( ! \is_admin() && ! contains_block( 'cumulus-gutenberg/big-feature' ) ) {

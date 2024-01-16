@@ -53,8 +53,8 @@ registerBlockType( 'cumulus-gutenberg/collapsable-group-body', {
 						],
 					] }
 					templateLock={ false }
-					__experimentalDirectInsert={ true }
-					__experimentalDefaultBlock="core/paragraph"
+					directInsert={ true }
+					defaultBlock="core/paragraph"
 				/>
 			</div>
 		);

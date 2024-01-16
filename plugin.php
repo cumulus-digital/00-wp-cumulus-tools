@@ -8,10 +8,10 @@ namespace CUMULUS\Gutenberg\Tools;
  * GitHub Plugin URI: https://github.com/cumulus-digital/00-wp-cumulus-tools/
  * Primary Branch: main
  * Description: Collection of Wordpress tools, blocks, block filters, and CPTs for Cumulus Media
- * Version: 1.3.3
+ * Version: 1.3.4
  * Author: vena
  * License: UNLICENSED
- * Requires at least: 6.1
+ * Requires at least: 6.3
  */
 
 \defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );

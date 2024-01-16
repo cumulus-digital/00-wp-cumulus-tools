@@ -21,23 +21,42 @@ export const stripDomain = ( url ) => {
 
 /**
  * When media is available, return the largest size and alt attribute
- * @param {object} media
+ * @param {object} media,
+ * @param {string|array} size
  * @return {object}
  */
-export const formatMedia = ( media, size = 'full' ) => {
-	// Try to get the largest media size available
-	let sizedMedia;
-	if ( media?.sizes?.[ size ] ) {
-		sizedMedia = media?.sizes?.[ size ];
-	} else if ( media?.media_details?.sizes?.[ sizes ] ) {
-		sizedMedia = {
-			...media?.media_details?.sizes?.[ sizes ],
-			url: media?.media_details?.sizes?.[ sizes ].source_url,
-		};
+export const formatMedia = ( media, size = 'large' ) => {
+	let sizedMedia = media;
+	const hasSize = ( media, size ) => {
+		if ( media?.sizes?.[ size ] ) {
+			return media.sizes[ size ];
+		} else if ( media?.media_details?.sizes?.[ size ] ) {
+			return {
+				...media.media_details.sizes[ size ],
+				url: media.media_details.sizes[ size ].source_url,
+			};
+		} else {
+			return false;
+		}
+	};
+	if ( Array.isArray( size ) ) {
+		size.some( ( s ) => {
+			const ret = hasSize( media, s );
+			if ( ret ) {
+				sizedMedia = ret;
+				return true;
+			}
+		} );
 	} else {
-		sizedMedia = media;
+		const ret = hasSize( media, size );
+		if ( ret ) {
+			sizedMedia = ret;
+		}
 	}
+
 	const alt = media?.alt;
+
+	console.log( 'MEDIA', size, sizedMedia );
 
 	return {
 		mediaUrl: stripDomain( sizedMedia.url ),
