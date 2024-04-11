@@ -5,6 +5,7 @@
 import './post-terms';
 import './search';
 import './ajax-query-loop';
+import './query-loop-exclude-ids/index.js';
 
 /**
  * Multi-block filters

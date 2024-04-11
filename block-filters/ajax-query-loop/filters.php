@@ -21,9 +21,9 @@ use function CUMULUS\Gutenberg\Tools\contains_block;
 
 	$content = \substr_replace(
 		$content,
-		' data-query-id="' . \esc_attr( $query_id ) . '"' .
-		' data-paged="' . \esc_attr( $paged ) . '"' .
-		' data-block="' . \esc_attr( \json_encode( $block ) ) . '"',
+		' data-query-id="' . \esc_attr( $query_id ) . '"'
+		. ' data-paged="' . \esc_attr( $paged ) . '"'
+		. ' data-block="' . \esc_attr( \json_encode( $block ) ) . '"',
 		$container_end,
 		0
 	);
