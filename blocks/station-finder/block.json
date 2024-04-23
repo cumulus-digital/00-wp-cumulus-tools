@@ -1,0 +1,122 @@
+{
+	"_#": "_# is used in this document as a comment.",
+
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "cumulus-gutenberg/station-finder",
+	"title": "Station Finder",
+	"description": "Provides a frontend for searching and filtering the CRSG station list.",
+	"keywords": [ "cumulus", "cmls", "station", "stations" ],
+	"icon": "format-audio",
+	"category": "cmls",
+
+	"_#": "▼▼▼ REMOVE ANY INCLUDES BELOW THAT DON'T EXIST! ▼▼▼",
+
+	"_#": "Scripts used only in editor",
+	"editorScript": "file:./assets/editor.js",
+
+	"_#": "Styles used only in editor",
+	"editorStyle": "file:./assets/editor.css",
+
+	"_#": "Scripts used only on frontend",
+	"viewScript": "file:./assets/frontend.js",
+
+	"_#": "Global styles",
+	"viewStyle": "file:./assets/frontend.css",
+
+	"_#": "▲▲▲ REMOVE ANY INCLUDES ABOVE THAT DON'T EXIST! ▲▲▲",
+
+	"_#": "Attributes stored by block",
+	"attributes": {},
+
+	"_#": "Wordpress features support",
+	"supports": {
+		"_#": "Allow setting a custom html tag ID on this block",
+		"anchor": true,
+
+		"_#": "Allow align left,right,center",
+		"align": true,
+
+		"_#": "Allow align wide",
+		"alignWide": true,
+
+		"_#": "Give block default wp-block-name class",
+		"className": true,
+
+		"_#": "Allow custom colors",
+		"color": {
+			"background": true,
+			"__experimentalDuotone": false,
+			"gradients": true,
+			"link": true,
+			"text": true
+		},
+
+		"_#": "Allow custom class names",
+		"customClassName": true,
+
+		"_#": "Allow setting default style for all blocks of this type",
+		"defaultStylePicker": true,
+
+		"_#": "Allow editing raw html of block",
+		"html": false,
+
+		"_#": "Show this block in the inserter",
+		"inserter": true,
+
+		"_#": "Allow multiples of this block in a single post",
+		"multiple": false,
+
+		"_#": "Allow block to be included in reusable blocks",
+		"reusable": true,
+
+		"_#": "Allow locking of this block",
+		"lock": true,
+
+		"_#": "Allow adding custom margin or padding",
+		"spacing": {
+			"margin": true,
+			"padding": true,
+			"blockGap": true
+		},
+
+		"_#": "Allow custom typography",
+		"typography": {
+			"align": false,
+			"fontSize": true,
+			"lineHeight": false,
+			"fontWeight": false,
+			"fontStyle": false,
+			"textTransform": true,
+			"__experimentalFontWeight": false,
+			"__experimentalFontStyle": false,
+			"__experimentalTextTransform": false
+		},
+
+		"_#": "Allow customizing border",
+		"border": {
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true,
+			"defaultControls": {
+				"color": true,
+				"radius": true,
+				"style": true,
+				"width": true
+			}
+		},
+		"__experimentalBorder": {
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true,
+			"__experimentalDefaultControls": {
+				"color": true,
+				"radius": true,
+				"style": true,
+				"width": true
+			}
+		}
+	}
+}

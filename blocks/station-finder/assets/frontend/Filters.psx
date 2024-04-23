@@ -1,0 +1,84 @@
+import { h, Fragment } from 'preact';
+import { debounce } from 'lodash';
+
+import { store, initialState } from './store';
+import FilterSelector from './FilterSelector.psx';
+
+export default function Filters( props ) {
+	const handleStateFilterChange = ( e ) => {
+		const newState = e.target.value;
+		store.state = newState;
+		store.city = initialState.city;
+	};
+
+	const handleCityFilterChange = ( e ) => {
+		const newCity = e.target.value;
+		if ( newCity === initialState.city ) {
+			store.city = initialState.city;
+			return;
+		}
+
+		const newState = newCity.substring( 0, newCity.indexOf( '|' ) );
+		if ( newState ) {
+			store.state = newState;
+		}
+		store.city = newCity;
+	};
+
+	const handleFormatFilterChange = ( e ) => {
+		const newFormat = e.target.value;
+		store.format = newFormat;
+	};
+
+	const debounceQuery = debounce( ( e ) => {
+		store.query = e.target.value;
+	}, 250 );
+
+	return (
+		<ul class="crsg-sf-filters">
+			<FilterSelector
+				type="states"
+				label="Market State:"
+				value={ store.state }
+				options={ store.states }
+				onChange={ handleStateFilterChange }
+				disabled={ store.loading }
+			/>
+			<FilterSelector
+				type="cities"
+				label="City:"
+				value={ store.city }
+				options={ store.cities }
+				onChange={ handleCityFilterChange }
+				disabled={ store.loading }
+			/>
+			<FilterSelector
+				type="formats"
+				label="Format:"
+				value={ store.format }
+				options={ store.formats }
+				onChange={ handleFormatFilterChange }
+				disabled={ store.loading }
+			/>
+
+			<li class="crsg-sf-search">
+				<label for="stations-search">Search:</label>
+				<input
+					name="search"
+					id="stations-search"
+					type="text"
+					placeholder="Search…"
+					value={ store.query }
+					spellCheck={ false }
+					onKeyUp={ debounceQuery }
+				/>
+				<button
+					ariaLabel="Clear Search"
+					onClick={ () => ( store.query = '' ) }
+				>
+					Clear
+				</button>
+			</li>
+		</ul>
+	);
+}

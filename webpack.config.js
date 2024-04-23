@@ -98,7 +98,31 @@ module.exports = [
 		...defaultConfig,
 		module: {
 			...defaultConfig.module,
-			rules: blockModuleRules,
+			rules: [
+				...blockModuleRules,
+				{
+					test: /\.psx$/,
+					use: {
+						loader: 'babel-loader',
+						options: {
+							presets: [
+								'@babel/preset-react',
+								'@babel/preset-env',
+							],
+							plugins: [
+								[ '@babel/plugin-transform-runtime' ],
+								[
+									'@babel/plugin-transform-react-jsx',
+									{
+										pragma: 'h',
+										pragmaFrag: 'Fragment',
+									},
+								],
+							],
+						},
+					},
+				},
+			],
 		},
 		...resolves,
 		stats:

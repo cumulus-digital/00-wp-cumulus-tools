@@ -1,0 +1,53 @@
+import { h } from 'preact';
+import { ViewportObserver } from 'preact-intersection-observer';
+import { useMemo } from 'preact/hooks';
+
+export default function Station( props ) {
+	const Tag = useMemo( () => ( props?.url ? 'a' : 'div' ), [ props?.url ] );
+	const attribs = useMemo(
+		() => ( {
+			href: props?.url,
+			target: '_blank',
+			rel: 'noopener',
+		} ),
+		[ props?.url ]
+	);
+
+	return (
+		<Tag { ...attribs }>
+			{ props?.image && (
+				<ViewportObserver
+					as="figure"
+					render={ ( { inView, entry } ) => {
+						if ( inView ) {
+							return (
+								<img
+									src={ props.image.replace(
+										'http://',
+										'https://'
+									) }
+									alt={ `Logo for ${ props.id }` }
+								/>
+							);
+						}
+						return null;
+					} }
+				/>
+			) }
+			<div className="crsg-sf-locale">
+				{ props?.city }, { props?.state }
+			</div>
+			{ props?.freq && (
+				<div className="crsg-sf-details">{ props.freq }</div>
+			) }
+			{ props?.calls && (
+				<div className="crsg-sf-details">
+					{ props.calls } { props?.band }
+				</div>
+			) }
+			{ props?.format && (
+				<div className="crsg-sf-details">{ props.format }</div>
+			) }
+		</Tag>
+	);
+}

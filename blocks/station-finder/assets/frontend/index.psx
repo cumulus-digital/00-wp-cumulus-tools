@@ -1,0 +1,116 @@
+import { h, render, Fragment } from 'preact';
+import { useLayoutEffect } from 'preact/hooks';
+
+import config from './config';
+import { store } from './store';
+import Filters from './Filters.psx';
+import StationList from './StationList.psx';
+import Loading from './Loading.psx';
+
+const place = document.querySelectorAll(
+	'.wp-block-cumulus-gutenberg-station-finder'
+);
+if ( place?.length ) {
+	place.forEach( ( p ) => {
+		p.innerHTML = config?.loading_message
+			? config.loading_message
+			: '<div class="crsg-loading"></div>';
+	} );
+}
+
+const polyfillIntersectionObserver = ( callback, global ) => {
+	if (
+		'IntersectionObserver' in global &&
+		'IntersectionObserverEntry' in global &&
+		'intersectionRatio' in global.IntersectionObserverEntry.prototype
+	) {
+		callback( true );
+		return;
+	}
+
+	const script = global.document.createElement( 'script' );
+	script.src =
+		'https://www.gstatic.com/external_hosted/intersectionobserver_polyfill/intersection-observer.min.js';
+	script.onload = () => callback( true );
+	script.onerror = () => callback( false );
+	global.document.body.appendChild( script );
+};
+
+polyfillIntersectionObserver( ( success ) => {
+	if ( success ) {
+		const place = document.querySelectorAll(
+			'.wp-block-cumulus-gutenberg-station-finder'
+		);
+		if ( place?.length ) {
+			place.forEach( ( p ) => {
+				p.innerHTML = '';
+				render( <StationFinder />, p );
+			} );
+		} else {
+			console.warn(
+				'Station finder FE included, but no placements were found.'
+			);
+		}
+	}
+}, window.self );
+
+function StationFinder( props ) {
+	const refreshTime = config.refreshTime ? config.refreshTime : 14400000;
+	let refreshTimer;
+
+	store.loading = true;
+	store.status = <Loading />;
+	const error_msg = config?.error_message
+		? config.error_message
+		: 'Failed to load stations! Please try again later.';
+
+	const fetchStations = () => {
+		fetch( config.baseURL, { method: 'GET', headers: config.headers } )
+			.then( ( resp ) => {
+				if ( resp.status !== 200 ) {
+					store.status = error_msg;
+					console.error( 'StationFinder', resp );
+					return;
+				}
+				resp.json()
+					.then( ( data ) => {
+						store._stations = data;
+						store.loading = false;
+					} )
+					.catch( ( err ) => {
+						store.status = error_msg;
+						console.error( 'StationFinder', err );
+					} );
+			} )
+			.catch( ( err ) => {
+				store.status = error_msg;
+				console.error( 'StationFinder', err );
+			} );
+	};
+
+	const doFetchTime = () => {
+		if ( refreshTimer ) clearTimeout( refreshTimer );
+
+		fetchStations();
+
+		refreshTimer = setTimeout( () => {
+			doFetchTime();
+		}, Math.random( refreshTime ) + refreshTime );
+	};
+
+	useLayoutEffect( () => {
+		doFetchTime();
+
+		return () => {
+			if ( refreshTimer ) clearTimeout( refreshTimer );
+			refreshTimer = null;
+		};
+	}, [] );
+
+	return (
+		<div class="crsg-stationfinder">
+			<Filters />
+			<StationList />
+		</div>
+	);
+}

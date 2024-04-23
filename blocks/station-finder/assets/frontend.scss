@@ -1,0 +1,247 @@
+@mixin hover() {
+	@media (hover: none) {
+		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+		&:active {
+			@content;
+		}
+	}
+
+	@media not all and (hover: none),
+		all and (-ms-high-contrast: none),
+		(-ms-high-contrast: active) {
+		&:hover,
+		&:focus {
+			@content;
+		}
+	}
+}
+
+:root {
+	.crsg-sf-loading,
+	.crsg-sf-loading:after {
+		border-radius: 50%;
+		width: 3em;
+		height: 3em;
+	}
+	.crsg-sf-loading {
+		margin: 60px auto;
+		position: relative;
+		text-indent: -9999em;
+		border-top: 0.5em solid rgba(0, 0, 0, 0.1);
+		border-right: 0.5em solid rgba(0, 0, 0, 0.1);
+		border-bottom: 0.5em solid rgba(0, 0, 0, 0.1);
+		border-left: 0.5em solid rgba(0, 0, 0, 0.4);
+		transform: translateZ(0);
+		animation: crsg_loading 1.1s infinite linear;
+	}
+	@keyframes crsg_loading {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
+	.full-width .crsg-stationfinder,
+	.fullwidth .crsg-stationfinder {
+		padding: 0 1em;
+	}
+
+	.crsg-sf-filters {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 2fr;
+		grid-template-rows: 1fr;
+		gap: 1em;
+		//align-items: start;
+
+		list-style: none;
+		margin: 0 0 1em;
+		padding: 0;
+
+		li {
+			align-self: start;
+			margin: 0;
+			padding: 0;
+		}
+
+		@media (max-width: 640px) {
+			display: block;
+		}
+
+		label {
+			display: block;
+		}
+		select,
+		input[type="text"],
+		button {
+			padding: 0.6em 1.4em 0.5em 0.8em;
+			width: 100%;
+			max-width: 100%;
+			box-sizing: border-box;
+			margin: 0;
+			border: 1px solid #aaa;
+			border-radius: 0.5em;
+			appearance: none;
+			background-color: #fff;
+
+			&::-ms-expand {
+				display: none;
+			}
+			@include hover {
+				border-color: #888;
+			}
+			&:focus {
+				border-color: rgb(0, 89, 142);
+				color: #222;
+				outline: none;
+			}
+			&:focus-visible {
+				outline: 1;
+			}
+			& option {
+				font-weight: normal;
+			}
+		}
+		select {
+			background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+			background-repeat: no-repeat, repeat;
+			background-position: right 0.7em top 50%, 0 0;
+			background-size: 0.65em auto, 100%;
+		}
+		button {
+			background: rgb(0, 89, 142);
+			color: #fff;
+
+			&:focus {
+				color: #fff;
+				border: 0;
+				box-shadow: none;
+			}
+		}
+
+		.crsg-sf-search {
+			display: grid;
+			grid-template:
+				"a a a"
+				"b b c";
+			grid-column-gap: 0.5em;
+			width: 100%;
+
+			label {
+				grid-area: a;
+			}
+			input {
+				grid-area: b;
+			}
+			button {
+				grid-area: c;
+			}
+		}
+	}
+
+	.crsg-sf-stations {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		&.crsg-sf-none {
+			grid-template-columns: 1fr;
+		}
+		gap: 1em;
+		//align-items: center;
+
+		list-style: none;
+		margin: 0;
+		padding: 0;
+
+		@media (max-width: 900px) {
+			grid-template-columns: 1fr 1fr 1fr;
+		}
+
+		@media (max-width: 640px) {
+			grid-template-columns: 49% 49%;
+			gap: 0.5em;
+		}
+
+		li {
+			display: block;
+			margin: 0;
+			padding: 0;
+			align-self: center;
+		}
+
+		a {
+			display: block;
+			outline: 0;
+
+			padding: 1em;
+
+			background: #fff;
+			box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+			border: 1px solid rgba(0, 89, 142, 0.2);
+			border-radius: 0.6em;
+
+			font-size: 0.8em;
+			text-align: center;
+			text-decoration: none;
+
+			transition: transform 0.1s ease-in-out, box-shadow 0.15s ease-in-out,
+				color 0.05s ease-in-out 0.1s,
+				border-color 0.05s ease-in-out 0.05s;
+
+			overflow: hidden;
+
+			@include hover {
+				box-shadow: 0 0 1em rgba(0, 0, 0, 0.3);
+				border: 1px solid rgba(0, 89, 142, 0.8);
+				transform: scale(1.05);
+				transform-origin: center center;
+			}
+			&:focus-visible {
+				outline: 1;
+				border: 2px solid #000;
+			}
+		}
+
+		figure {
+			display: grid;
+			width: 100%;
+			height: 0;
+			padding-bottom: 80%;
+			margin: 0 0 0.5em !important;
+			position: relative;
+
+			img {
+				position: absolute;
+				image-rendering: auto;
+			}
+
+			@media (max-width: 640px) {
+				height: 15vh;
+				margin: 0 0 0.75em;
+			}
+		}
+
+		img {
+			align-self: center;
+			justify-self: center;
+			max-width: 90%;
+			max-height: 100%;
+			overflow: hidden;
+		}
+
+		h3 {
+			font-weight: bold;
+			margin-bottom: 0.15em !important;
+		}
+
+		.crsg-sf-locale {
+			font-size: 1.15em;
+			font-weight: 600;
+			margin-bottom: 0.15em;
+		}
+		.crsg-sf-details {
+			font-size: 0.9em;
+		}
+	}
+}

@@ -1,0 +1,10 @@
+import { h, Fragment } from 'preact';
+import config from './config';
+
+export default function Loading( props ) {
+	return (
+		<div class="crsg-sf-loading">
+			{ config?.loading_message ? config.loading_message : 'Loading…' }
+		</div>
+	);
+}

@@ -1,0 +1,82 @@
+{
+  "_#": "Wordpress features support",
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "cumulus-gutenberg/station-finder",
+  "title": "Station Finder",
+  "description": "Provides a frontend for searching and filtering the CRSG station list.",
+  "keywords": [
+    "cumulus",
+    "cmls",
+    "station",
+    "stations"
+  ],
+  "icon": "format-audio",
+  "category": "cmls",
+  "editorScript": "file:./assets/editor.js",
+  "editorStyle": "file:./assets/editor.css",
+  "viewScript": "file:./assets/frontend.js",
+  "viewStyle": "file:./assets/frontend.css",
+  "attributes": {},
+  "supports": {
+    "_#": "Allow customizing border",
+    "anchor": true,
+    "align": true,
+    "alignWide": true,
+    "className": true,
+    "color": {
+      "background": true,
+      "__experimentalDuotone": false,
+      "gradients": true,
+      "link": true,
+      "text": true
+    },
+    "customClassName": true,
+    "defaultStylePicker": true,
+    "html": false,
+    "inserter": true,
+    "multiple": false,
+    "reusable": true,
+    "lock": true,
+    "spacing": {
+      "margin": true,
+      "padding": true,
+      "blockGap": true
+    },
+    "typography": {
+      "align": false,
+      "fontSize": true,
+      "lineHeight": false,
+      "fontWeight": false,
+      "fontStyle": false,
+      "textTransform": true,
+      "__experimentalFontWeight": false,
+      "__experimentalFontStyle": false,
+      "__experimentalTextTransform": false
+    },
+    "border": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true,
+      "defaultControls": {
+        "color": true,
+        "radius": true,
+        "style": true,
+        "width": true
+      }
+    },
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true,
+      "__experimentalDefaultControls": {
+        "color": true,
+        "radius": true,
+        "style": true,
+        "width": true
+      }
+    }
+  }
+}

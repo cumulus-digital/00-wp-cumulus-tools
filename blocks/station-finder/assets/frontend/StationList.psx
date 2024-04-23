@@ -1,0 +1,41 @@
+import { h, Fragment } from 'preact';
+
+import { store } from './store';
+import Station from './Station.psx';
+import { useMemo } from 'preact/hooks';
+
+export default function StationList( props ) {
+	const content = useMemo( () => {
+		if ( store.loading.value ) {
+			return <li>{ store.status }</li>;
+		}
+
+		const stations = store.stations;
+		if ( stations.length ) {
+			return stations.map( ( station ) => (
+				<li>
+					<Station { ...station } />
+				</li>
+			) );
+		} else {
+			return <li>No stations found, please try other filter options.</li>;
+		}
+	}, [
+		store.loading,
+		store.city,
+		store.state,
+		store.format,
+		store.query,
+		store._stations,
+	] );
+
+	return (
+		<ul
+			class={ `crsg-sf-stations ${
+				store.stations.length || 'crsg-sf-none'
+			}` }
+		>
+			{ content }
+		</ul>
+	);
+}

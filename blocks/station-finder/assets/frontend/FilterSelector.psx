@@ -1,0 +1,27 @@
+import { h } from 'preact';
+
+export default function FilterSelector( props ) {
+	const label = Math.ceil( Math.random() * 100000000 );
+
+	return (
+		<li class={ `crsg-sf-${ props?.type || label }` }>
+			<label for={ `stations-${ props?.type || label }` }>
+				{ props?.label || 'Filter:' }
+			</label>
+			<select
+				id={ `stations-${ props.type || label }` }
+				value={ props?.value }
+				onChange={ props?.onChange }
+			>
+				<option key="all" value="all">
+					All
+				</option>
+				{ props?.options?.map( ( o ) => (
+					<option key={ o?.key || o?.value } value={ o?.value }>
+						{ o?.name || o?.value }
+					</option>
+				) ) }
+			</select>
+		</li>
+	);
+}
