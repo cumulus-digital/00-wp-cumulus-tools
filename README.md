@@ -71,6 +71,14 @@ npm run full-upgrade
 
 	Provides a frontend UI for searching the CSRG station database.
 
+* ### Category Slideshow
+
+	Displays a simple slideshow of images in a given category.
+
+* ### Flip Card
+
+	A card that flips in 3d when hovered/tapped.
+
 ## Block Filters
 
 Filters extending blocks include:
