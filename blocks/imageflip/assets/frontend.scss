@@ -1,0 +1,22 @@
+@import "./common.scss";
+
+.crsg-flipcard {
+	&:hover,
+	&:focus,
+	&:active {
+		position: relative;
+		z-index: 2;
+
+		.crsg-flipcard-container {
+			transform: rotateY(180deg);
+		}
+
+		&.crsg-flipcard-vertical .crsg-flipcard-container {
+			transform: rotateX(180deg);
+		}
+
+		&.has-zoom-on-hover {
+			transform: scale(1.08);
+		}
+	}
+}

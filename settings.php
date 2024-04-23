@@ -48,6 +48,10 @@ class Settings {
 				'title'   => 'Family Links',
 				'default' => '1',
 			),
+			'imageflip' => array(
+				'title'   => 'Flip Card',
+				'default' => '0',
+			),
 			'station-finder' => array(
 				'title'   => 'Station Finder',
 				'default' => '0',

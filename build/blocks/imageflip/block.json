@@ -1,0 +1,116 @@
+{
+  "_#": "Wordpress features support",
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "cumulus-gutenberg/imageflip",
+  "title": "Flip Card",
+  "description": "3D flipping card block.",
+  "keywords": [
+    "cumulus",
+    "cmls",
+    "image",
+    "hover",
+    "flip",
+    "imageflip",
+    "card",
+    "flipcard"
+  ],
+  "icon": "format-gallery",
+  "category": "cmls",
+  "editorScript": "file:./assets/editor.js",
+  "viewScript": "file:./assets/frontend.js",
+  "editorStyle": "file:./assets/editor.css",
+  "viewStyle": "file:./assets/frontend.css",
+  "attributes": {
+    "linkUrl": {
+      "type": "string"
+    },
+    "linkTarget": {
+      "type": "string"
+    },
+    "linkRel": {
+      "type": "string"
+    },
+    "flipDirection": {
+      "type": "string",
+      "default": "horizontal"
+    },
+    "zoomOnHover": {
+      "type": "boolean",
+      "default": true
+    },
+    "childBorderRadius": {
+      "type": "object",
+      "default": {
+        "topLeft": "0.6em",
+        "topRight": "0.6em",
+        "bottomRight": "0.6em",
+        "bottomLeft": "0.6em"
+      }
+    }
+  },
+  "providesContext": {
+    "cumulus-flipcard/borderRadius": "childBorderRadius"
+  },
+  "supports": {
+    "_#": "Allow customizing border",
+    "anchor": true,
+    "align": true,
+    "alignWide": false,
+    "className": true,
+    "color": {
+      "background": false,
+      "__experimentalDuotone": false,
+      "gradients": false,
+      "link": false,
+      "text": false
+    },
+    "customClassName": true,
+    "defaultStylePicker": true,
+    "html": false,
+    "inserter": true,
+    "multiple": true,
+    "reusable": true,
+    "lock": true,
+    "spacing": {
+      "margin": true,
+      "padding": true,
+      "blockGap": true
+    },
+    "typography": {
+      "align": false,
+      "fontSize": false,
+      "lineHeight": false,
+      "fontWeight": false,
+      "fontStyle": false,
+      "textTransform": false,
+      "__experimentalFontWeight": false,
+      "__experimentalFontStyle": false,
+      "__experimentalTextTransform": false
+    },
+    "border": {
+      "color": false,
+      "radius": true,
+      "style": false,
+      "width": false,
+      "defaultControls": {
+        "color": false,
+        "radius": true,
+        "style": false,
+        "width": false
+      }
+    },
+    "__experimentalBorder": {
+      "color": false,
+      "radius": true,
+      "style": false,
+      "width": false,
+      "__experimentalDefaultControls": {
+        "color": false,
+        "radius": true,
+        "style": false,
+        "width": false
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+@import "./common.scss";
+
+.block-editor-block-inspector .block-editor-link-control {
+	min-width: 100%;
+
+	.block-editor-link-control__search-item,
+	.block-editor-link-control__settings,
+	.block-editor-url-input__input {
+		margin-left: 0;
+		margin-right: 0;
+		padding-left: 0;
+		padding-right: 0;
+		width: 100%;
+	}
+
+	.block-editor-link-control__search-input.block-editor-link-control__search-input
+		input[type="text"] {
+		margin: 0;
+		width: 100%;
+	}
+
+	.block-editor-link-control__search-actions {
+		top: 0;
+		right: 0;
+	}
+}
+
+.crsg-flipcard {
+	&.show-face-back {
+		.crsg-flipcard-container {
+			transform: rotateY(180deg);
+		}
+
+		&.crsg-flipcard-vertical .crsg-flipcard-container {
+			transform: rotateX(180deg);
+		}
+	}
+}

@@ -1,0 +1,153 @@
+{
+	"_#": "_# is used in this document as a comment.",
+
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "cumulus-gutenberg/imageflip",
+	"title": "Flip Card",
+	"description": "3D flipping card block.",
+	"keywords": [ "cumulus", "cmls", "image", "hover", "flip", "imageflip", "card", "flipcard" ],
+	"icon": "format-gallery",
+	"category": "cmls",
+
+	"_#": "▼▼▼ REMOVE ANY INCLUDES BELOW THAT DON'T EXIST! ▼▼▼",
+
+	"_#": "Scripts used only in editor",
+	"editorScript": "file:./assets/editor.js",
+
+	"_#": "Scripts used only on frontend",
+	"viewScript": "file:./assets/frontend.js",
+
+	"_#": "Styles used only in editor",
+	"editorStyle": "file:./assets/editor.css",
+
+	"_#": "Styles used only on frontend",
+	"viewStyle": "file:./assets/frontend.css",
+
+	"_#": "▲▲▲ REMOVE ANY INCLUDES ABOVE THAT DON'T EXIST! ▲▲▲",
+
+	"_#": "Attributes stored by block",
+	"attributes": {
+		"linkUrl": {
+			"type": "string"
+		},
+		"linkTarget": {
+			"type": "string"
+		},
+		"linkRel": {
+			"type": "string"
+		},
+		"flipDirection": {
+			"type": "string",
+			"default": "horizontal"
+		},
+		"zoomOnHover": {
+			"type": "boolean",
+			"default": true
+		},
+		"childBorderRadius": {
+			"type": "object",
+			"default": {
+				"topLeft": "0.6em",
+				"topRight": "0.6em",
+				"bottomRight": "0.6em",
+				"bottomLeft": "0.6em"
+			}
+		}
+	},
+
+	"providesContext": {
+		"cumulus-flipcard/borderRadius": "childBorderRadius"
+	},
+
+	"_#": "Wordpress features support",
+	"supports": {
+		"_#": "Allow setting a custom html tag ID on this block",
+		"anchor": true,
+
+		"_#": "Allow align left,right,center",
+		"align": true,
+
+		"_#": "Allow align wide",
+		"alignWide": false,
+
+		"_#": "Give block default wp-block-name class",
+		"className": true,
+
+		"_#": "Allow custom colors",
+		"color": {
+			"background": false,
+			"__experimentalDuotone": false,
+			"gradients": false,
+			"link": false,
+			"text": false
+		},
+
+		"_#": "Allow custom class names",
+		"customClassName": true,
+
+		"_#": "Allow setting default style for all blocks of this type",
+		"defaultStylePicker": true,
+
+		"_#": "Allow editing raw html of block",
+		"html": false,
+
+		"_#": "Show this block in the inserter",
+		"inserter": true,
+
+		"_#": "Allow multiples of this block in a single post",
+		"multiple": true,
+
+		"_#": "Allow block to be included in reusable blocks",
+		"reusable": true,
+
+		"_#": "Allow locking of this block",
+		"lock": true,
+
+		"_#": "Allow adding custom margin or padding",
+		"spacing": {
+			"margin": true,
+			"padding": true,
+			"blockGap": true
+		},
+
+		"_#": "Allow custom typography",
+		"typography": {
+			"align": false,
+			"fontSize": false,
+			"lineHeight": false,
+			"fontWeight": false,
+			"fontStyle": false,
+			"textTransform": false,
+			"__experimentalFontWeight": false,
+			"__experimentalFontStyle": false,
+			"__experimentalTextTransform": false
+		},
+
+		"_#": "Allow customizing border",
+		"border": {
+			"color": false,
+			"radius": true,
+			"style": false,
+			"width": false,
+			"defaultControls": {
+				"color": false,
+				"radius": true,
+				"style": false,
+				"width": false
+			}
+		},
+		"__experimentalBorder": {
+			"color": false,
+			"radius": true,
+			"style": false,
+			"width": false,
+			"__experimentalDefaultControls": {
+				"color": false,
+				"radius": true,
+				"style": false,
+				"width": false
+			}
+		}
+	}
+}

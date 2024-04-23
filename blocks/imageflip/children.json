@@ -1,0 +1,177 @@
+{
+	"_#": "_# is used in this document as a comment.",
+
+	"apiVersion": 2,
+	"name": "cumulus-gutenberg/imageflip-face",
+	"title": "Flip Card Face",
+	"description": "Face container for Flip Card blocks.",
+	"keywords": [ "cumulus", "cmls", "image", "hover", "flip", "imageflip", "card", "flipcard" ],
+	"icon": "format-image",
+	"category": "cmls",
+	"parent": [ "cumulus-gutenberg/imageflip" ],
+
+	"usesContext": [ "cumulus-flipcard/borderRadius" ],
+
+	"_#": "Attributes stored by block",
+	"attributes": {
+		"face": {
+			"type": "string"
+		},
+		"style": {
+			"type": "object",
+			"default": {
+				"backgroundSize": "cover",
+				"backgroundRepeat": "no-repeat",
+				"backgroundPosition": "50% 50%"
+			}
+		},
+		"padding": {
+			"type": "object",
+			"default": {
+				"top": null,
+				"right": null,
+				"bottom": null,
+				"left": null
+			}
+		},
+		"borderColor": {
+			"type": "string"
+		},
+		"borderWidth": {
+			"type": "object"
+		},
+		"backgroundImage": {
+			"type": "string"
+		},
+		"backgroundSizing": {
+			"type": "string",
+			"default": "cover"
+		},
+		"backgroundSizingPercent": {
+			"type": "number",
+			"default": 100
+		},
+		"backgroundPosition": {
+			"type": "object",
+			"default": { "x": 0.5, "y": 0.5 }
+		},
+		"contentPosition": {
+			"type": "string",
+			"default": "center center"
+		},
+		"borderRadius": {
+			"type": "object",
+			"default": {
+				"top": "0.6em",
+				"right": "0.6em",
+				"bottom": "0.6em",
+				"left": "0.6em"
+			}
+		},
+		"shadowOffsetX": {
+			"type": "string"
+		},
+		"shadowOffsetY": {
+			"type": "string"
+		},
+		"shadowRadius": {
+			"type": "string",
+			"default": "0.6em"
+		},
+		"shadowColor": {
+			"type": "string",
+			"default": "rgba(0, 0, 0, 0.25)"
+		}
+	},
+
+	"_#": "Wordpress features support",
+	"supports": {
+		"_#": "Allow setting a custom html tag ID on this block",
+		"anchor": false,
+
+		"_#": "Allow align left,right,center",
+		"align": false,
+
+		"_#": "Allow align wide",
+		"alignWide": false,
+
+		"_#": "Give block default wp-block-name class",
+		"className": true,
+
+		"_#": "Allow custom colors",
+		"color": {
+			"background": true,
+			"__experimentalDuotone": true,
+			"gradients": true,
+			"link": false,
+			"text": true
+		},
+
+		"_#": "Allow custom class names",
+		"customClassName": false,
+
+		"_#": "Allow setting default style for all blocks of this type",
+		"defaultStylePicker": false,
+
+		"_#": "Allow editing raw html of block",
+		"html": false,
+
+		"_#": "Show this block in the inserter",
+		"inserter": false,
+
+		"_#": "Allow multiples of this block in a single post",
+		"multiple": true,
+
+		"_#": "Allow block to be included in reusable blocks",
+		"reusable": true,
+
+		"_#": "Allow locking of this block",
+		"lock": true,
+
+		"_#": "Allow adding custom margin or padding",
+		"spacing": {
+			"margin": false,
+			"padding": false,
+			"blockGap": false
+		},
+
+		"_#": "Allow custom typography",
+		"typography": {
+			"align": true,
+			"fontSize": true,
+			"lineHeight": true,
+			"fontWeight": true,
+			"fontStyle": true,
+			"textTransform": true,
+			"__experimentalFontWeight": true,
+			"__experimentalFontStyle": true,
+			"__experimentalTextTransform": true
+		},
+
+		"_#": "Allow customizing border",
+		"border": {
+			"color": false,
+			"radius": false,
+			"style": false,
+			"width": false,
+			"defaultControls": {
+				"color": false,
+				"radius": false,
+				"style": false,
+				"width": false
+			}
+		},
+		"__experimentalBorder": {
+			"color": false,
+			"radius": false,
+			"style": false,
+			"width": false,
+			"__experimentalDefaultControls": {
+				"color": false,
+				"radius": false,
+				"style": false,
+				"width": false
+			}
+		}
+	}
+}
