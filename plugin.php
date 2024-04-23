@@ -8,7 +8,7 @@ namespace CUMULUS\Gutenberg\Tools;
  * GitHub Plugin URI: https://github.com/cumulus-digital/00-wp-cumulus-tools/
  * Primary Branch: main
  * Description: Collection of Wordpress tools, blocks, block filters, and CPTs for Cumulus Media
- * Version: 1.5.0
+ * Version: 1.5.1
  * Author: vena
  * License: UNLICENSED
  * Requires at least: 6.3
@@ -120,6 +120,9 @@ require BASEDIR . '/settings.php';
 
 // Run all utilities installers
 require \CUMULUS\Gutenberg\Tools\BASEDIR . '/utilities/index.php';
+
+// Run all shortcode installers
+require \CUMULUS\Gutenberg\Tools\BASEDIR . '/shortcodes/index.php';
 
 // Register activation hooks
 \register_activation_hook( \CUMULUS\Gutenberg\Tools\PLUGIN, function () {

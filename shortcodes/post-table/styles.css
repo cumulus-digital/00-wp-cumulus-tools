@@ -1,0 +1,7 @@
+.wp-tools-post-table-shortcode td {
+	word-break: break-word;
+}
+
+.wp-tools-post-table-shortcode td.post-table-date {
+	white-space: nowrap;
+}

@@ -11,6 +11,7 @@ Structure is fairly self-explanatory...
 * block-filters - Filters for core and 3rd party blocks
 * blocks - Custom blocks
 * cpts - Custom post types
+* shortcodes - Custom shortcodes
 * utilities - Custom utility plugins
 * global - Helpers, custom components, icon SVGs
 * phpcs-tokens - Used by PHPCS for automatically root-namespacing WP functions/classes
@@ -70,7 +71,6 @@ npm run full-upgrade
 
 	Provides a frontend UI for searching the CSRG station database.
 
-
 ## Block Filters
 
 Filters extending blocks include:
@@ -79,6 +79,10 @@ Filters extending blocks include:
 * core/post-terms: Adds support for custom taxonomies.
 * core/query: Adds ajax pagination for query loop blocks.
 * core/search: Adds post-type and taxonomy filters for search fields.
+
+## Shortcodes
+
+* post-table: Inserts a simple table of posts with their pubdate.
 
 ## Utilities
 
