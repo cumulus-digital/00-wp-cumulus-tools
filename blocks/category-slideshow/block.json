@@ -1,0 +1,48 @@
+{
+	"_#": "_# is used in this document as a comment.",
+
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "cumulus-gutenberg/category-slideshow",
+	"title": "Category Slideshow",
+	"description": "Displays a simple slideshow of media in a category.",
+	"keywords": [ "cumulus", "cmls", "slideshow", "image" ],
+	"icon": "images-alt2",
+	"category": "cmls",
+
+	"_#": "▼▼▼ REMOVE ANY INCLUDES BELOW THAT DON'T EXIST! ▼▼▼",
+
+	"_#": "Global script used for front and back end",
+	"script": "file:./assets/global.js",
+
+	"_#": "Scripts used only in editor",
+	"editorScript": "file:./assets/editor.js",
+
+	"_#": "Scripts used only on frontend",
+	"viewScript": "file:./assets/frontend.js",
+
+	"_#": "Global styles",
+	"style": "file:./assets/frontend.css",
+
+	"_#": "▲▲▲ REMOVE ANY INCLUDES ABOVE THAT DON'T EXIST! ▲▲▲",
+
+	"_#": "Attributes stored by block",
+	"attributes": {
+		"category": {
+			"type": "string"
+		},
+		"timeout": {
+			"type": "number",
+			"default": 2
+		}
+	},
+
+	"_#": "Wordpress features support",
+	"supports": {
+		"_#": "Allow setting a custom html tag ID on this block",
+		"anchor": true,
+
+		"_#": "Allow editing raw html of block",
+		"html": false
+	}
+}

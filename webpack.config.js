@@ -84,7 +84,8 @@ const blockModuleRules = defaultConfig.module.rules.map( ( rule ) => {
 // Allow direct importing from node_modules
 const allowNodeModulesRule = defaultConfig.module.rules.filter( ( rule ) => {
 	if (
-		rule?.test.toString() === '/\\.(j|t)sx?$/' &&
+		//rule?.test.toString() === '/\\.(j|t)sx?$/' &&
+		rule?.test.toString() === '/\\.m?(j|t)sx?$/' &&
 		rule?.exclude.toString().includes( 'node_modules' )
 	) {
 		delete rule.exclude;

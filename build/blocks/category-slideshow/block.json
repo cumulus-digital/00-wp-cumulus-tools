@@ -1,0 +1,34 @@
+{
+  "_#": "Wordpress features support",
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "cumulus-gutenberg/category-slideshow",
+  "title": "Category Slideshow",
+  "description": "Displays a simple slideshow of media in a category.",
+  "keywords": [
+    "cumulus",
+    "cmls",
+    "slideshow",
+    "image"
+  ],
+  "icon": "images-alt2",
+  "category": "cmls",
+  "script": "file:./assets/global.js",
+  "editorScript": "file:./assets/editor.js",
+  "viewScript": "file:./assets/frontend.js",
+  "style": "file:./assets/frontend.css",
+  "attributes": {
+    "category": {
+      "type": "string"
+    },
+    "timeout": {
+      "type": "number",
+      "default": 2
+    }
+  },
+  "supports": {
+    "_#": "Allow editing raw html of block",
+    "anchor": true,
+    "html": false
+  }
+}
