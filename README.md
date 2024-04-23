@@ -66,6 +66,10 @@ npm run full-upgrade
 
 	List children of a hierarchical post type (e.g. Pages) as a menu.
 
+* ### Station Finder
+
+	Provides a frontend UI for searching the CSRG station database.
+
 
 ## Block Filters
 
