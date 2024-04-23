@@ -15,6 +15,16 @@ if ( \CUMULUS\Gutenberg\Tools\Settings::isBlockActivated( 'category-slideshow' )
 	function frontend_block_assets() {
 		if ( ! \is_admin() && ! contains_block( 'cumulus-gutenberg/category-slideshow' ) ) {
 			\wp_dequeue_style( 'cumulus-gutenberg-category-slideshow-style' );
+		} elseif ( ! \is_admin() ) {
+			\wp_add_inline_script(
+				'cumulus-gutenberg-category-slideshow-view-script',
+				'var crsg_category_slideshow = ' . \json_encode( array(
+					// 'pluginDirPath' => \plugin_dir_path( __DIR__ ),
+					// 'pluginDirUrl'  => \plugin_dir_url( __DIR__ ),
+					'ajaxUrl' => \admin_url( 'admin-ajax.php' ),
+				) ),
+				'before'
+			);
 		}
 	}
 	\add_action( 'wp_head', __NAMESPACE__ . '\\frontend_block_assets', 1 );

@@ -4,6 +4,7 @@ const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 const MiniCSSExtractPlugin = require( 'mini-css-extract-plugin' );
 const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
 const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
+const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
 
 // Ensure CleanWebpackPlugin doesn't remove composer build dir from php-scoper
 let plugins = defaultConfig.plugins;
@@ -23,33 +24,28 @@ for ( let i in plugins ) {
 defaultConfig.plugins = plugins;
 
 // Our own personal resolves
-const resolves = {
-	resolve: {
-		...defaultConfig?.resolve,
-		alias: {
-			...defaultConfig?.resolve?.alias,
-			Icons: path.resolve( __dirname, 'global/icons' ),
-			Utilities: path.resolve( __dirname, 'global/utilities' ),
-			Components: path.resolve( __dirname, 'global/components' ),
-			wpBlockLibrary: path.resolve(
-				__dirname,
-				'node_modules/@wordpress/block-library'
-			),
-			wpEditor: path.resolve(
-				__dirname,
-				'node_modules/@wordpress/editor'
-			),
-			wpBlockEditor: path.resolve(
-				__dirname,
-				'node_modules/@wordpress/block-editor'
-			),
-		},
+defaultConfig.resolve = {
+	...defaultConfig?.resolve,
+	alias: {
+		...defaultConfig?.resolve?.alias,
+		Icons: path.resolve( __dirname, 'global/icons' ),
+		Utilities: path.resolve( __dirname, 'global/utilities' ),
+		Components: path.resolve( __dirname, 'global/components' ),
+		wpBlockLibrary: path.resolve(
+			__dirname,
+			'node_modules/@wordpress/block-library'
+		),
+		wpEditor: path.resolve( __dirname, 'node_modules/@wordpress/editor' ),
+		wpBlockEditor: path.resolve(
+			__dirname,
+			'node_modules/@wordpress/block-editor'
+		),
 	},
 };
 
 // Force block.json matches to copy to the build/blocks block folder
 defaultConfig.plugins = defaultConfig.plugins.map( ( plugin ) => {
-	if ( plugin.patterns ) {
+	if ( plugin instanceof CopyWebpackPlugin && plugin.patterns ) {
 		plugin.patterns = plugin.patterns.map( ( pattern ) => {
 			if ( pattern.from.includes( 'block.json' ) ) {
 				return {
@@ -57,6 +53,7 @@ defaultConfig.plugins = defaultConfig.plugins.map( ( plugin ) => {
 					to: path.resolve( process.cwd(), 'build/blocks' ),
 				};
 			}
+			return pattern;
 		} );
 	}
 	return plugin;
@@ -67,16 +64,16 @@ const blockModuleRules = defaultConfig.module.rules.map( ( rule ) => {
 	if ( rule.type === 'asset/resource' ) {
 		const filename = ( pathData ) => {
 			if ( pathData.filename.match( /^blocks\// ) ) {
-				const filename = pathData.filename.replace(
+				const blockname = pathData.filename.replace(
 					/^[.\/]?blocks\/(.*\/).*$/,
 					'$1'
 				);
-				return `${ filename }[name].[hash:8][ext]`;
+				const newPattern = `${ blockname }[name].[hash:8][ext]`;
+				return newPattern;
 			}
+			return rule.generator.filename;
 		};
-		if ( filename ) {
-			rule.generator.filename = filename;
-		}
+		rule.generator.filename = filename;
 	}
 	return rule;
 } );
@@ -94,6 +91,34 @@ const allowNodeModulesRule = defaultConfig.module.rules.filter( ( rule ) => {
 } );
 
 module.exports = [
+	// Plugin core, cleans entire build dir
+	{
+		...defaultConfig,
+		entry: {
+			editor: './global/editor.js',
+		},
+		output: {
+			...defaultConfig.output,
+			clean: true,
+		},
+		stats:
+			defaultConfig.mode == 'production' ? 'normal' : 'errors-warnings',
+	},
+
+	// Block filters get a special entry since they may directly include node_modules stuff...
+	{
+		...defaultConfig,
+		module: {
+			...defaultConfig.module,
+			rules: [ ...allowNodeModulesRule ],
+		},
+		entry: {
+			'block-filters': './global/block-filters.js',
+		},
+		stats:
+			defaultConfig.mode == 'production' ? 'normal' : 'errors-warnings',
+	},
+
 	// Blocks
 	{
 		...defaultConfig,
@@ -125,46 +150,20 @@ module.exports = [
 				},
 			],
 		},
-		...resolves,
 		stats:
 			defaultConfig.mode == 'production' ? 'normal' : 'errors-warnings',
 		output: {
 			filename: '[name].js',
 			path: path.resolve( process.cwd(), 'build/blocks' ),
+			clean: true,
 		},
 	},
+
 	// CPTs
-
-	// Block filters get a special entry since they may directly include node_modules stuff...
-	{
-		...defaultConfig,
-		module: {
-			...defaultConfig.module,
-			rules: [ ...allowNodeModulesRule ],
-		},
-		...resolves,
-		entry: {
-			'block-filters': './global/block-filters.js',
-		},
-		stats:
-			defaultConfig.mode == 'production' ? 'normal' : 'errors-warnings',
-	},
-
-	// Plugin core
-	{
-		...defaultConfig,
-		...resolves,
-		entry: {
-			editor: './global/editor.js',
-		},
-		stats:
-			defaultConfig.mode == 'production' ? 'normal' : 'errors-warnings',
-	},
 
 	// Utilities
 	{
 		...defaultConfig,
-		...resolves,
 		plugins: [
 			new MiniCSSExtractPlugin( { filename: '[name]/index.css' } ),
 			! process.env.WP_NO_EXTERNALS &&
@@ -180,8 +179,9 @@ module.exports = [
 				return acc;
 			}, {} ),
 		output: {
-			path: path.join( __dirname, '/build/utilities' ),
+			path: path.resolve( process.cwd(), 'build/utilities' ),
 			filename: './[name]/index.js',
+			clean: true,
 		},
 	},
 ];
