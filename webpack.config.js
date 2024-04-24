@@ -6,24 +6,7 @@ const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extrac
 const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
 
-// Ensure CleanWebpackPlugin doesn't remove composer build dir from php-scoper
-let plugins = defaultConfig.plugins;
-for ( let i in plugins ) {
-	if ( plugins[ i ] instanceof CleanWebpackPlugin ) {
-		plugins[ i ] = new CleanWebpackPlugin( {
-			cleanAfterEveryBuildPatterns: [
-				'!fonts/**',
-				'!images/**',
-				'!composer/**',
-			],
-			cleanStaleWebpackAssets: false,
-			cleanOnceBeforeBuildPatterns: [ '*/', '!composer/**' ],
-		} );
-	}
-}
-defaultConfig.plugins = plugins;
-
-// Our own personal resolves
+// Our own personal resolves aliases
 defaultConfig.resolve = {
 	...defaultConfig?.resolve,
 	alias: {
@@ -43,53 +26,6 @@ defaultConfig.resolve = {
 	},
 };
 
-// Force block.json matches to copy to the build/blocks block folder
-defaultConfig.plugins = defaultConfig.plugins.map( ( plugin ) => {
-	if ( plugin instanceof CopyWebpackPlugin && plugin.patterns ) {
-		plugin.patterns = plugin.patterns.map( ( pattern ) => {
-			if ( pattern.from.includes( 'block.json' ) ) {
-				return {
-					...pattern,
-					to: path.resolve( process.cwd(), 'build/blocks' ),
-				};
-			}
-			return pattern;
-		} );
-	}
-	return plugin;
-} );
-
-// Make block asset resources go in their block's folder
-const blockModuleRules = defaultConfig.module.rules.map( ( rule ) => {
-	if ( rule.type === 'asset/resource' ) {
-		const filename = ( pathData ) => {
-			if ( pathData.filename.match( /^blocks\// ) ) {
-				const blockname = pathData.filename.replace(
-					/^[.\/]?blocks\/(.*\/).*$/,
-					'$1'
-				);
-				const newPattern = `${ blockname }[name].[hash:8][ext]`;
-				return newPattern;
-			}
-			return rule.generator.filename;
-		};
-		rule.generator.filename = filename;
-	}
-	return rule;
-} );
-
-// Allow direct importing from node_modules
-const allowNodeModulesRule = defaultConfig.module.rules.filter( ( rule ) => {
-	if (
-		//rule?.test.toString() === '/\\.(j|t)sx?$/' &&
-		rule?.test.toString() === '/\\.m?(j|t)sx?$/' &&
-		rule?.exclude.toString().includes( 'node_modules' )
-	) {
-		delete rule.exclude;
-	}
-	return rule;
-} );
-
 module.exports = [
 	// Plugin core, cleans entire build dir
 	{
@@ -105,12 +41,21 @@ module.exports = [
 			defaultConfig.mode == 'production' ? 'normal' : 'errors-warnings',
 	},
 
-	// Block filters get a special entry since they may directly include node_modules stuff...
+	// Block filters
 	{
 		...defaultConfig,
 		module: {
 			...defaultConfig.module,
-			rules: [ ...allowNodeModulesRule ],
+			// Allow directly importing from node_modules
+			rules: defaultConfig.module.rules.filter( ( rule ) => {
+				if (
+					rule?.test.toString().includes( '(j|t)sx' ) &&
+					rule?.exclude.toString().includes( 'node_modules' )
+				) {
+					delete rule.exclude;
+				}
+				return rule;
+			} ),
 		},
 		entry: {
 			'block-filters': './global/block-filters.js',
@@ -122,10 +67,43 @@ module.exports = [
 	// Blocks
 	{
 		...defaultConfig,
+		// Copy block.json to the blocks' build folders
+		plugins: defaultConfig.plugins.map( ( plugin ) => {
+			if ( plugin instanceof CopyWebpackPlugin && plugin.patterns ) {
+				plugin.patterns = plugin.patterns.map( ( pattern ) => {
+					if ( pattern.from.includes( 'block.json' ) ) {
+						return {
+							...pattern,
+							to: path.resolve( process.cwd(), 'build/blocks' ),
+						};
+					}
+					return pattern;
+				} );
+			}
+			return plugin;
+		} ),
 		module: {
 			...defaultConfig.module,
 			rules: [
-				...blockModuleRules,
+				// Copy assets to the blocks' build folders
+				...defaultConfig.module.rules.map( ( rule ) => {
+					if ( rule.type === 'asset/resource' ) {
+						const filename = ( pathData ) => {
+							if ( pathData.filename.match( /^blocks\// ) ) {
+								const blockname = pathData.filename.replace(
+									/^[.\/]?blocks\/(.*\/).*$/,
+									'$1'
+								);
+								const newPattern = `${ blockname }[name].[hash:8][ext]`;
+								return newPattern;
+							}
+							return rule.generator.filename;
+						};
+						rule.generator.filename = filename;
+					}
+					return rule;
+				} ),
+				// Handle preact assets
 				{
 					test: /\.psx$/,
 					use: {
