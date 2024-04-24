@@ -50,7 +50,7 @@
 		"resize-observer-polyfill": "^1.5.1"
 	},
 	"browserslist": [
-		"last 3 versions or > 1%"
+		"last 2 versions, not dead, > 1%"
 	],
 	"dependencies": {
 		"lodash": "^4.17.21"

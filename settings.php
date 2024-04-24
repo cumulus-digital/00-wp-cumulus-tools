@@ -22,8 +22,14 @@ class Settings {
 				'title'   => 'Collapse Hierarchical Types',
 				'default' => '1',
 			),
+			/*
 			'remote-ads-txt' => array(
 				'title'   => 'Remote ads.txt Mirror',
+				'default' => '1',
+			),
+			 */
+			'jetpack-extras' => array(
+				'title'   => 'Jetpack Extra Options',
 				'default' => '1',
 			),
 		),
@@ -184,6 +190,13 @@ foreach ( Settings::$basics['tools'] as $tool => $opts ) {
 $general->addField( array(
 	'type' => 'html',
 	'args' => array(
+		'content' => '<p><strong>WARNING:</strong> Deactivating a previously activated tool may reset its settings!</p>',
+	),
+) );
+
+$general->addField( array(
+	'type' => 'html',
+	'args' => array(
 		'content' => '<hr style="width: 100%; margin: .75em auto;">',
 	),
 ) );
@@ -224,3 +237,5 @@ $general->addField( array(
 	),
 	'orientation' => 'column',
 ) );
+
+\do_action( 'wp-cumulus-tools--settings--add_section', $settings );

@@ -8,3 +8,4 @@ namespace CUMULUS\Gutenberg\Tools\Utilities;
 require __DIR__ . '/wp-optimize.php';
 
 require __DIR__ . '/collapse-hierarchical/index.php';
+require __DIR__ . '/jetpack-extras/index.php';

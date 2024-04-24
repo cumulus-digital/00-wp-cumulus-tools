@@ -1,8 +1,8 @@
 # Cumulus Wordpress Blocks
 
-A collection of custom Wordpress blocks, filters, and utilities for use with Cumulus Media websites.
+A collection of custom WordPress blocks, filters, and utilities for use with Cumulus Media websites.
 
-*This plugin is not licensed or for use outside of Cumulus Media, and no warranty or support is offered.*
+**This plugin is not licensed for use outside of Cumulus Media, and no warranty or support is offered.**
 
 ## Project Structure
 
@@ -20,7 +20,7 @@ This project uses [@wordpress/scripts](https://github.com/WordPress/gutenberg/tr
 
 ## Installation
 
-Download the a zip file and install plugin manually. This plugin uses [Git Updater](https://github.com/afragen/git-updater) for updates.
+Download the a zip file and install plugin manually. [Git Updater](https://github.com/afragen/git-updater) headers are includes for updating.
 
 ## Development
 
@@ -35,12 +35,12 @@ composer install
 
 Building:
 ```
-npm run format:js
+npm run format:js # Optional
 npm run build
 ```
 
 Update packages:
-Upgrades npm, composer, and phpcs-tokens, runs strauss
+Upgrades npm packages, composer packages, and phpcs-tokens, runs strauss
 ```
 npm run full-upgrade
 ```
@@ -85,7 +85,7 @@ Filters extending blocks include:
 
 * core/*: Adds margin support to several core blocks.
 * core/post-terms: Adds support for custom taxonomies.
-* core/query: Adds ajax pagination for query loop blocks.
+* core/query: Adds ajax pagination and the ability to exclude post IDs for query loop blocks.
 * core/search: Adds post-type and taxonomy filters for search fields.
 
 ## Shortcodes
@@ -96,8 +96,8 @@ Filters extending blocks include:
 
 Custom utilities for Wordpress include:
 
-* extra-jetpack: Adds options to expose jetpack's modules menu and disable jetpack's backup menu, video and image sitemaps.
 * collapse-hierarchical: Adds a collapsing tree UI to hierarchical posts and terms.
+* jetpack-extras: Adds options to expose jetpack's modules menu, and toggles to disable its video and image sitemaps.
 
 ## What's with the weird repo name?
 

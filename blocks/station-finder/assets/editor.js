@@ -1,16 +1,14 @@
 import './editor.scss';
 
 import metadata from '../block.json';
+import StationFinderIcon from './icon.jsx';
 
 const { registerBlockType } = wp.blocks;
 const { useBlockProps, BlockControls, InspectorControls } = wp.blockEditor;
 
 registerBlockType( metadata.name, {
 	...metadata,
-	icon: {
-		foreground: '#00588d',
-		src: 'format-audio',
-	},
+	icon: StationFinderIcon,
 	edit: ( props ) => {
 		const blockProps = useBlockProps();
 
