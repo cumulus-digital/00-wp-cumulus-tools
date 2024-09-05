@@ -26,7 +26,6 @@ $.fn.crsgCategorySlideshow = function () {
 			const now = Date.now(),
 				runtime = now - data( 'lastswap' );
 			if (runtime >= timeout) {
-				console.log('SWAPPING');
 				const $current = $this.find( '.current' );
 				let $next = $current.next( 'img' );
 				if ( ! $next.length ) {
