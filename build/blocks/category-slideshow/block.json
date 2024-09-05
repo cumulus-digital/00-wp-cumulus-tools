@@ -30,5 +30,6 @@
     "_#": "Allow editing raw html of block",
     "anchor": true,
     "html": false
-  }
+  },
+  "render": "file:./render.php"
 }

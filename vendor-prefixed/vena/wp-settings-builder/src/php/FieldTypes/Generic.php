@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by __root__ on 23-April-2024 using Strauss.
+ * Modified by __root__ on 05-September-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 // Base class which all field types should extend.

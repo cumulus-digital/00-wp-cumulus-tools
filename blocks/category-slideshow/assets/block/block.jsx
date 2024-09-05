@@ -18,6 +18,7 @@ const {
 	__experimentalUnitControl: UnitControl,
 	Flex,
 } = wp.components;
+const ServerSideRender = wp.serverSideRender;
 const { useState, useEffect } = wp.element;
 const { useSelect } = wp.data;
 
@@ -40,14 +41,14 @@ registerBlockType( metadata.name, {
 			};
 		} );
 
-		useEffect( () => {
+		useEffect(() => {
 			if (
 				window?.jQuery?.fn.crsgCategorySlideshow &&
 				attributes.category
 			) {
 				window
 					.jQuery( `#block-${ props.clientId }` )
-					.crsgCategorySlideshow( window.ajaxurl );
+					.crsgCategorySlideshow();
 			}
 		}, [ attributes ] );
 
@@ -87,10 +88,11 @@ registerBlockType( metadata.name, {
 						/>
 					</PanelBody>
 				</InspectorControls>
-				<div class="crsg-category_slideshow-loading"></div>
+				<ServerSideRender block={metadata.name} attributes={attributes} />
 			</div>
 		);
 	},
+	/*
 	save: ( props ) => {
 		const blockProps = useBlockProps.save();
 		const { attributes } = props;
@@ -102,4 +104,5 @@ registerBlockType( metadata.name, {
 			></div>
 		);
 	},
+	*/
 } );

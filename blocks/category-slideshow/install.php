@@ -16,6 +16,7 @@ if ( \CUMULUS\Gutenberg\Tools\Settings::isBlockActivated( 'category-slideshow' )
 		if ( ! \is_admin() && ! contains_block( 'cumulus-gutenberg/category-slideshow' ) ) {
 			\wp_dequeue_style( 'cumulus-gutenberg-category-slideshow-style' );
 		} elseif ( ! \is_admin() ) {
+			/*
 			\wp_add_inline_script(
 				'cumulus-gutenberg-category-slideshow-view-script',
 				'var crsg_category_slideshow = ' . \json_encode( array(
@@ -25,10 +26,12 @@ if ( \CUMULUS\Gutenberg\Tools\Settings::isBlockActivated( 'category-slideshow' )
 				) ),
 				'before'
 			);
+			 */
 		}
 	}
 	\add_action( 'wp_head', __NAMESPACE__ . '\\frontend_block_assets', 1 );
 
+	/*
 	// Ajax handler for retrieving images
 	function ajax_handler() {
 		$category = \json_decode( $_GET['category'], true );
@@ -56,5 +59,6 @@ if ( \CUMULUS\Gutenberg\Tools\Settings::isBlockActivated( 'category-slideshow' )
 	}
 	\add_action( 'wp_ajax_get_media_by_category', __NAMESPACE__ . '\\ajax_handler' );
 	\add_action( 'wp_ajax_nopriv_get_media_by_category', __NAMESPACE__ . '\\ajax_handler' );
+	 */
 
 }

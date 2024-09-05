@@ -44,5 +44,7 @@
 
 		"_#": "Allow editing raw html of block",
 		"html": false
-	}
+	},
+
+	"render": "file:./render.php"
 }

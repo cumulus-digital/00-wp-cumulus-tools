@@ -1,7 +1,56 @@
 import jQuery from 'jquery';
 const $ = jQuery.noConflict();
 
-$.fn.crsgCategorySlideshow = function ( ajaxurl ) {
+$.fn.crsgCategorySlideshow = function () {
+	return this.each(function () {
+		const that = this;
+		const $this = $(this);
+		const timeout = attr( 'data-timeout' ) * 1000;
+
+		function attr(id, val) {
+			if ( val === undefined ) {
+				return $this.attr( id );
+			}
+			return $this.attr( id, val );
+		}
+		function data( id, val ) {
+			if ( val === undefined ) {
+				return $.data( that, id );
+			}
+			return $.data( that, id, val );
+		}
+		function nextImage() {
+			if ( ! data( 'lastswap' ) ) {
+				data( 'lastswap', Date.now() - timeout );
+			}
+			const now = Date.now(),
+				runtime = now - data( 'lastswap' );
+			if (runtime >= timeout) {
+				console.log('SWAPPING');
+				const $current = $this.find( '.current' );
+				let $next = $current.next( 'img' );
+				if ( ! $next.length ) {
+					$next = $this.find( 'img' ).eq( 0 );
+				}
+				$next.attr( 'src', $next.attr( 'data-src' ) );
+				$current.removeClass( 'current' );
+				$next.addClass( 'current' );
+				data( 'lastswap', Date.now() );
+			}
+			data( 'anim', window.requestAnimationFrame( nextImage ) );
+		}
+
+		data('lastswap', Date.now() - timeout);
+		window.cancelAnimationFrame( data( 'anim' ) );
+
+		data(
+			'anim',
+			window.requestAnimationFrame( nextImage )
+		);
+	});
+}
+/*
+$.fn.crsgCategorySlideshow2 = function ( ajaxurl ) {
 	return this.each( function () {
 		const that = this,
 			$this = $( this );
@@ -122,3 +171,4 @@ $.fn.crsgCategorySlideshow = function ( ajaxurl ) {
 		return this;
 	} );
 };
+*/
