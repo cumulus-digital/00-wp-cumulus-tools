@@ -28,9 +28,17 @@ function render( $attributes ) {
 		return;
 	}
 
+	\do_action( 'qm/debug', $media );
+
 	foreach( $media as $image ) {
+		$url = \esc_url( \wp_get_attachment_url( $image->ID ) );
+		$alt = \get_post_meta( $image->ID, '_wp_attachment_image_alt', true );
 		?>
-		<img src="<?php echo \esc_url( \wp_get_attachment_url( $image->ID ) ); ?>" alt="<?php echo \esc_attr( $image->post_title ); ?>" />
+		<img
+			src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+			data-src="<?php echo $url; ?>"
+			alt="<?php echo \esc_attr( $alt ? $alt : $image->post_title ); ?>"
+		/>
 		<?php
 	}
 }

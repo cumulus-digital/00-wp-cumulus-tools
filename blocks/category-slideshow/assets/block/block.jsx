@@ -55,7 +55,6 @@ registerBlockType( metadata.name, {
 		return (
 			<div
 				{ ...blockProps }
-				data-category={ attributes.category }
 				data-timeout={ attributes.timeout }
 			>
 				<InspectorControls>
