@@ -28,8 +28,6 @@ function render( $attributes ) {
 		return;
 	}
 
-	\do_action( 'qm/debug', $media );
-
 	foreach( $media as $image ) {
 		$url = \esc_url( \wp_get_attachment_url( $image->ID ) );
 		$alt = \get_post_meta( $image->ID, '_wp_attachment_image_alt', true );
