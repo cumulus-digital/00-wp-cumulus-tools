@@ -1,8 +1,8 @@
 import { h, render, Fragment } from 'preact';
-import { useLayoutEffect } from 'preact/hooks';
+import { useCallback, useLayoutEffect, useMemo } from 'preact/hooks';
 
-import config from './config';
-import { store } from './store';
+import config from './config.js';
+import { store } from './store.js';
 import Filters from './Filters.psx';
 import StationList from './StationList.psx';
 import Loading from './Loading.psx';
@@ -64,7 +64,7 @@ function StationFinder( props ) {
 		? config.error_message
 		: 'Failed to load stations! Please try again later.';
 
-	const fetchStations = () => {
+	const fetchStations = useCallback( () => {
 		fetch( config.baseURL, { method: 'GET', headers: config.headers } )
 			.then( ( resp ) => {
 				if ( resp.status !== 200 ) {
@@ -86,17 +86,20 @@ function StationFinder( props ) {
 				store.status = error_msg;
 				console.error( 'StationFinder', err );
 			} );
-	};
+	}, [] );
 
-	const doFetchTime = () => {
+	const doFetchTime = useCallback( () => {
 		if ( refreshTimer ) clearTimeout( refreshTimer );
 
 		fetchStations();
 
-		refreshTimer = setTimeout( () => {
-			doFetchTime();
-		}, Math.random( refreshTime ) + refreshTime );
-	};
+		refreshTimer = setTimeout(
+			() => {
+				doFetchTime();
+			},
+			Math.random( refreshTime ) + refreshTime
+		);
+	}, [] );
 
 	useLayoutEffect( () => {
 		doFetchTime();

@@ -1,7 +1,7 @@
-import { deepSignal, peek } from 'deepsignal';
+import { deepSignal } from 'deepsignal';
 import { sortBy } from 'lodash';
 import stateNames from './statenames';
-import { batch, computed, effect, signal } from '@preact/signals';
+import { effect } from '@preact/signals';
 
 const isFiltered = ( type ) => store[ type ] !== 'all';
 

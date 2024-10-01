@@ -1,17 +1,19 @@
 import { h, Fragment } from 'preact';
+import { useCallback } from 'preact/hooks';
+
 import { debounce } from 'lodash';
 
 import { store, initialState } from './store';
 import FilterSelector from './FilterSelector.psx';
 
 export default function Filters( props ) {
-	const handleStateFilterChange = ( e ) => {
+	const handleStateFilterChange = useCallback( ( e ) => {
 		const newState = e.target.value;
 		store.state = newState;
 		store.city = initialState.city;
-	};
+	}, [] );
 
-	const handleCityFilterChange = ( e ) => {
+	const handleCityFilterChange = useCallback( ( e ) => {
 		const newCity = e.target.value;
 		if ( newCity === initialState.city ) {
 			store.city = initialState.city;
@@ -23,16 +25,19 @@ export default function Filters( props ) {
 			store.state = newState;
 		}
 		store.city = newCity;
-	};
+	}, [] );
 
-	const handleFormatFilterChange = ( e ) => {
+	const handleFormatFilterChange = useCallback( ( e ) => {
 		const newFormat = e.target.value;
 		store.format = newFormat;
-	};
+	}, [] );
 
-	const debounceQuery = debounce( ( e ) => {
-		store.query = e.target.value;
-	}, 250 );
+	const debounceQuery = useCallback(
+		debounce( ( e ) => {
+			store.query = e.target.value;
+		}, 250 ),
+		[]
+	);
 
 	return (
 		<ul class="crsg-sf-filters">
