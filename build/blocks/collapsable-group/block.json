@@ -105,13 +105,15 @@
     "className": true,
     "color": {
       "background": true,
-      "__experimentalDuotone": false,
       "gradients": true,
       "link": true,
       "text": true
     },
     "customClassName": true,
     "defaultStylePicker": true,
+    "filter": {
+      "duotone": false
+    },
     "html": false,
     "inserter": true,
     "multiple": true,

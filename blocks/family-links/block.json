@@ -154,7 +154,6 @@
 		"_#": "Allow custom colors",
 		"color": {
 			"background": true,
-			"__experimentalDuotone": false,
 			"gradients": true,
 			"link": false,
 			"text": false
@@ -165,6 +164,11 @@
 
 		"_#": "Allow setting default style for all blocks of this type",
 		"defaultStylePicker": true,
+
+		"_#": "Allow filters",
+		"filter": {
+			"duotone": false
+		},
 
 		"_#": "Allow editing raw html of block",
 		"html": false,

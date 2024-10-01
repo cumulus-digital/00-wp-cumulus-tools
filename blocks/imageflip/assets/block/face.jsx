@@ -88,7 +88,7 @@ registerBlockType( metadata.name, {
 		}
 
 		const blockProps = useBlockProps( {
-			className: customClasses,
+			className: customClasses.join( ' ' ),
 			style: processStyles( attributes ),
 		} );
 

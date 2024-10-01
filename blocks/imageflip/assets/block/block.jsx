@@ -43,7 +43,9 @@ registerBlockType( metadata.name, {
 			`crsg-flipcard-${ attributes.flipDirection }`,
 			`show-face-${ showFront ? 'front' : 'back' }`,
 		];
-		const blockProps = useBlockProps( { className: customClasses } );
+		const blockProps = useBlockProps( {
+			className: customClasses.join( ' ' ),
+		} );
 
 		const innerBlockProps = useInnerBlocksProps(
 			{
