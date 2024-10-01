@@ -7,27 +7,33 @@ import { PanelBody, ToggleControl } from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
 import { FormTokenField } from '@wordpress/components';
 
-const addContextToCoreQuery = ( settings, name ) => {
+const updateCoreQuerySettings = ( settings, name ) => {
 	if ( name !== 'core/query' ) {
 		return settings;
 	}
 
-	return Object.assign( {}, settings, {
-		usesContext: Array.isArray( settings?.usesContext )
-			? [ ...settings.usesContext, 'postId' ]
-			: [ 'postId' ],
-	} );
+	const newSettings = settings;
+
+	// Add postId to context
+	if (
+		! newSettings?.usesContext?.length ||
+		! newSettings.usesContext.includes( 'postId' )
+	) {
+		newSettings.usesContext = [ ...newSettings?.usesContext, 'postId' ];
+	}
+
+	return newSettings;
 };
 addFilter(
 	'blocks.registerBlockType',
 	'cmls/block-filters/query/filters/exclude-ids',
-	addContextToCoreQuery
+	updateCoreQuerySettings
 );
 
 /**
  * Inspector controls
  */
-const withExcludeIds = createHigherOrderComponent( ( BlockEdit ) => {
+const coreQueryExcludeInspector = createHigherOrderComponent( ( BlockEdit ) => {
 	return ( props ) => {
 		// Do nothing if it's not our block
 		if ( props.name !== 'core/query' ) {
@@ -35,10 +41,6 @@ const withExcludeIds = createHigherOrderComponent( ( BlockEdit ) => {
 		}
 
 		const { attributes, setAttributes, isSelected } = props;
-
-		if ( ! props?.context?.postId ) {
-			return <BlockEdit { ...props } />;
-		}
 
 		return (
 			<>
@@ -49,33 +51,37 @@ const withExcludeIds = createHigherOrderComponent( ( BlockEdit ) => {
 							title="Exclude IDs"
 							initialOpen={ !! attributes.query.exclude?.length }
 						>
-							<ToggleControl
-								label="Exclude This Page"
-								help="Adds the current post ID to excluded IDs."
-								checked={
-									attributes.query.exclude?.length
-										? attributes.query.exclude.includes(
-												props.context.postId
-										  )
-										: false
-								}
-								onChange={ ( val ) => {
-									const newQ = attributes.query;
-									const pId = props.context.postId;
-									newQ.exclude = newQ.exclude.filter(
-										( i ) => i !== pId
-									);
-									if ( val ) {
-										newQ.exclude.push( pId );
+							{ props.context?.postId && (
+								<ToggleControl
+									label="Exclude This Page"
+									help="Adds the current post ID to excluded IDs."
+									checked={
+										attributes.query.exclude?.length
+											? attributes.query.exclude.includes(
+													props.context.postId
+											  )
+											: false
 									}
-									setAttributes( {
-										query: {
-											...attributes.query,
-											...newQ,
-										},
-									} );
-								} }
-							/>
+									onChange={ ( val ) => {
+										const newQ = attributes.query;
+										const pId = props.context.postId;
+										if ( isNumber( pId ) ) {
+											newQ.exclude = [
+												...new Set( [
+													...newQ.exclude,
+													pId,
+												] ),
+											];
+										}
+										setAttributes( {
+											query: {
+												...attributes.query,
+												...newQ,
+											},
+										} );
+									} }
+								/>
+							) }
 							<FormTokenField
 								label="Excluded IDs"
 								value={ attributes.query.exclude }
@@ -83,11 +89,13 @@ const withExcludeIds = createHigherOrderComponent( ( BlockEdit ) => {
 									setAttributes( {
 										query: {
 											...attributes.query,
-											...{
-												exclude: tokens.filter( ( t ) =>
-													isNumber( t )
+											exclude: [
+												...new Set(
+													tokens.filter( ( t ) =>
+														isNumber( t )
+													)
 												),
-											},
+											],
 										},
 									} )
 								}
@@ -102,5 +110,5 @@ const withExcludeIds = createHigherOrderComponent( ( BlockEdit ) => {
 addFilter(
 	'editor.BlockEdit',
 	'cmls/block-filters/query/filters/exclude-ids',
-	withExcludeIds
+	coreQueryExcludeInspector
 );
