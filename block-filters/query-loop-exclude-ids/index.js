@@ -52,9 +52,13 @@ const withExcludeIds = createHigherOrderComponent( ( BlockEdit ) => {
 							<ToggleControl
 								label="Exclude This Page"
 								help="Adds the current post ID to excluded IDs."
-								checked={ attributes.query.exclude.includes(
-									props.context.postId
-								) }
+								checked={
+									attributes.query.exclude?.length
+										? attributes.query.exclude.includes(
+												props.context.postId
+										  )
+										: false
+								}
 								onChange={ ( val ) => {
 									const newQ = attributes.query;
 									const pId = props.context.postId;
