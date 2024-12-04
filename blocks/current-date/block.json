@@ -1,21 +1,19 @@
 {
 	"_#": "_# is used in this document as a comment.",
 
-	"apiVersion": 2,
-	"name": "cumulus-gutenberg/big-feature",
-	"title": "Big Feature",
-	"description": "A special grid of linked images for featuring content",
-	"keywords": [ "cumulus", "cmls", "feature", "panel", "hero" ],
-	"icon": "star-filled",
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "cumulus-gutenberg/current-date",
+	"title": "Current Date",
+	"description": "Outputs the current date in a custom format.",
+	"keywords": [ "cumulus", "cmls", "date", "today", "current" ],
+	"icon": "calendar-alt",
 	"category": "cmls",
 
 	"_#": "▼▼▼ REMOVE ANY INCLUDES BELOW THAT DON'T EXIST! ▼▼▼",
 
 	"_#": "Scripts used only in editor",
 	"editorScript": "file:./assets/editor.js",
-
-	"_#": "Scripts used only on frontend",
-	"viewScript": "file:./assets/frontend.js",
 
 	"_#": "Global styles",
 	"style": "file:./assets/frontend.css",
@@ -27,15 +25,10 @@
 
 	"_#": "Attributes stored by block",
 	"attributes": {
-		"lazyLoad": {
-			"type": "boolean",
-			"default": true
+		"format": {
+			"type": "string",
+			"default": "n/j/y"
 		}
-	},
-
-	"_#": "Context store",
-	"providesContext": {
-		"cmlsBigFeature/lazyLoad": "lazyLoad"
 	},
 
 	"_#": "Wordpress features support",
@@ -50,18 +43,18 @@
 		"alignWide": false,
 
 		"_#": "Give block default wp-block-name class",
-		"className": true,
+		"className": false,
 
 		"_#": "Allow custom colors",
 		"color": {
 			"background": true,
 			"gradients": true,
-			"link": true,
+			"link": false,
 			"text": true
 		},
 
 		"_#": "Allow custom class names",
-		"customClassName": false,
+		"customClassName": true,
 
 		"_#": "Allow setting default style for all blocks of this type",
 		"defaultStylePicker": true,
@@ -90,7 +83,7 @@
 		"spacing": {
 			"margin": true,
 			"padding": true,
-			"blockGap": true
+			"blockGap": false
 		},
 
 		"_#": "Allow custom typography",
@@ -98,7 +91,7 @@
 			"align": true,
 			"textAlign": true,
 			"fontSize": true,
-			"lineHeight": false,
+			"lineHeight": true,
 			"fontWeight": true,
 			"fontStyle": true,
 			"textTransform": true,

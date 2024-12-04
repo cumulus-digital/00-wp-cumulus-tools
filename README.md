@@ -1,4 +1,4 @@
-# Cumulus Wordpress Blocks
+# Cumulus Wordpress Tools
 
 A collection of custom WordPress blocks, filters, and utilities for use with Cumulus Media websites.
 
@@ -79,6 +79,10 @@ npm run full-upgrade
 
 	A card that flips in 3d when hovered/tapped.
 
+* ### Current Date
+
+	Displays the current date using a PHP date format string.
+
 ## Block Filters
 
 Filters extending blocks include:
@@ -91,6 +95,8 @@ Filters extending blocks include:
 ## Shortcodes
 
 * post-table: Inserts a simple table of posts with their pubdate.
+
+* current-date: Inserts the current date using a PHP date format string.
 
 ## Utilities
 

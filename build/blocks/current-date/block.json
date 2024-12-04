@@ -1,44 +1,41 @@
 {
   "_#": "Wordpress features support",
-  "apiVersion": 2,
-  "name": "cumulus-gutenberg/big-feature",
-  "title": "Big Feature",
-  "description": "A special grid of linked images for featuring content",
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "cumulus-gutenberg/current-date",
+  "title": "Current Date",
+  "description": "Outputs the current date in a custom format.",
   "keywords": [
     "cumulus",
     "cmls",
-    "feature",
-    "panel",
-    "hero"
+    "date",
+    "today",
+    "current"
   ],
-  "icon": "star-filled",
+  "icon": "calendar-alt",
   "category": "cmls",
   "editorScript": "file:./assets/editor.js",
-  "viewScript": "file:./assets/frontend.js",
   "style": "file:./assets/frontend.css",
   "editorStyle": "file:./assets/editor.css",
   "attributes": {
-    "lazyLoad": {
-      "type": "boolean",
-      "default": true
+    "format": {
+      "type": "string",
+      "default": "n/j/y"
     }
-  },
-  "providesContext": {
-    "cmlsBigFeature/lazyLoad": "lazyLoad"
   },
   "supports": {
     "_#": "Allow customizing border",
     "anchor": true,
     "align": true,
     "alignWide": false,
-    "className": true,
+    "className": false,
     "color": {
       "background": true,
       "gradients": true,
-      "link": true,
+      "link": false,
       "text": true
     },
-    "customClassName": false,
+    "customClassName": true,
     "defaultStylePicker": true,
     "filter": {
       "duotone": false
@@ -51,13 +48,13 @@
     "spacing": {
       "margin": true,
       "padding": true,
-      "blockGap": true
+      "blockGap": false
     },
     "typography": {
       "align": true,
       "textAlign": true,
       "fontSize": true,
-      "lineHeight": false,
+      "lineHeight": true,
       "fontWeight": true,
       "fontStyle": true,
       "textTransform": true,

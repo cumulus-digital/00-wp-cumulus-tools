@@ -46,6 +46,10 @@ class Settings {
 				'title'   => 'Collapsable Group',
 				'default' => '1',
 			),
+			'current-date' => array(
+				'title'   => 'Current Date',
+				'default' => '1',
+			),
 			'donut-graph' => array(
 				'title'   => 'Donut Graph',
 				'default' => '1',

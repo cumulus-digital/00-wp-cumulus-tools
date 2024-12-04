@@ -90,6 +90,7 @@
 		"_#": "Allow custom typography",
 		"typography": {
 			"align": true,
+			"textAlign": true,
 			"fontSize": true,
 			"lineHeight": false,
 			"fontWeight": true,
