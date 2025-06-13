@@ -33,7 +33,7 @@ class ObscureFeedAuthors {
 		$users      = \get_users();
 		$publishers = array();
 		foreach ( $users as $user ) {
-			if ( $user->has_cap( 'publish_posts' ) ) {
+			if ( $user->has_cap( 'publish_posts' ) || $user->has_cap( 'edit_posts' ) ) {
 				$publishers[] = array(
 					'title' => $user->display_name,
 					'value' => $user->ID,
