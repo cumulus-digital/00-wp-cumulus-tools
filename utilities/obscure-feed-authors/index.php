@@ -6,8 +6,10 @@ namespace CUMULUS\Gutenberg\Tools\Utilities\ObscureFeedAuthors;
 
 class ObscureFeedAuthors {
 	public static function init() {
-		\add_action( 'the_author', array( __NAMESPACE__ . '\\ObscureFeedAuthors', 'the_author' ), \PHP_INT_MAX, 1 );
-		\add_action( 'init', array( __NAMESPACE__ . '\\ObscureFeedAuthors', 'build_settings' ), 1 );
+		if ( \CUMULUS\Gutenberg\Tools\Settings::isToolActivated( 'obscure-feed-authors' ) ) {
+			\add_action( 'the_author', array( __NAMESPACE__ . '\\ObscureFeedAuthors', 'the_author' ), \PHP_INT_MAX, 1 );
+			\add_action( 'init', array( __NAMESPACE__ . '\\ObscureFeedAuthors', 'build_settings' ), 1 );
+		}
 	}
 
 	public static function build_settings() {
@@ -19,7 +21,9 @@ class ObscureFeedAuthors {
 				?>
 				<p>
 					When replacing author names in feed items, the following checked users will
-					be <strong>excluded</strong> and NOT be replaced:
+					be <strong>excluded</strong> and NOT be replaced. NOTE: This applies to all
+					posts <em>created</em> by the user, including their posts using alternate
+					author display names.
 				</p>
 				<?php
 			}
@@ -100,3 +104,6 @@ class ObscureFeedAuthors {
 if ( \CUMULUS\Gutenberg\Tools\Settings::isToolActivated( 'obscure-feed-authors' ) ) {
 	ObscureFeedAuthors::init();
 }
+\add_action( 'init', function () {
+	\do_action( 'qm/debug', array( 'excluded', \get_option( \CUMULUS\Gutenberg\Tools\BASE_OPTION_KEY ) ) );
+} );
