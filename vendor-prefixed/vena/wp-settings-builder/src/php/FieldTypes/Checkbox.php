@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by __root__ on 04-December-2024 using Strauss.
+ * Modified by __root__ on 13-June-2025 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 // Basic checkbox field
@@ -33,25 +33,62 @@ class Checkbox {
 
 		if ( $this->option_name !== null ) {
 			$value = $this->getValue();
-		} ?>
-		<label for="<?php echo \esc_attr( $args['label_for'] ); ?>">
-			<input
-				type="hidden"
-				name="<?php echo \esc_attr( $this->option_name ); ?>"
-				value="0"
-			/>
-			<input
-				type="<?php echo \esc_attr( $this->type ); ?>"
-				id="<?php echo \esc_attr( $args['label_for'] ); ?>"
-				name="<?php echo \esc_attr( $this->option_name ); ?>"
-				value="1"
-				<?php if ( $value === '1' || ( $value !== '0' && $this->default ) ): ?>
-					checked
-				<?php endif; ?>
-				<?php $this->outputFieldAttributes( $args ); ?>
-			/>
-			<?php echo empty( $args['title'] ) ? '' : \esc_html( $args['title'] ); ?>
-		</label>
+		}
+		?>
+
+		<?php if ( !array_key_exists('value', $args) ): ?>
+		<input
+			type="hidden"
+			name="<?php echo \esc_attr( $this->option_name ); ?>"
+			value="0"
+		/>
+		<?php endif; ?>
+
+		<?php if (!empty($args['options'])): ?>
+
+			<?php foreach ( $args['options'] as $option ): ?>
+				<?php
+					$label_for = \esc_attr( $args['label_for'] . '-' . sanitize_title($option['value']) );
+				?>
+				<p>
+					<label for="<?php echo $label_for ?>">
+						<input
+							type="<?php echo \esc_attr( $this->type ); ?>"
+							id="<?php echo $label_for ?>"
+							name="<?php echo \esc_attr( $this->option_name ); ?>"
+							value="<?php echo \esc_attr( $option['value'] ); ?>"
+							<?php if ( \substr( $this->option_name, -2 ) === '[]' && is_array($value) ): ?>
+								<?php if ( \in_array( $option['value'], $value ) ): ?>
+									checked
+								<?php endif; ?>
+							<?php elseif ( $value === $option['value'] ): ?>
+								checked
+							<?php endif; ?>
+							<?php $this->outputFieldAttributes( $args ); ?>
+						/>
+						<?php echo empty( $option['title'] ) ? '' : \esc_html( $option['title'] ); ?>
+					</label>
+				</p>
+			<?php endforeach; ?>
+
+		<?php else: ?>
+
+			<label for="<?php echo \esc_attr( $args['label_for'] ); ?>">
+				<input
+					type="<?php echo \esc_attr( $this->type ); ?>"
+					id="<?php echo \esc_attr( $args['label_for'] ); ?>"
+					name="<?php echo \esc_attr( $this->option_name ); ?>"
+					value="<?php if ( array_key_exists( 'value', $args ) ) { echo \esc_attr( $args['value'] ); } else { echo '1'; } ?>"
+					<?php if ( $value === '1' || ( $value !== '0' && $this->default ) ): ?>
+						checked
+					<?php endif; ?>
+					<?php $this->outputFieldAttributes( $args ); ?>
+				/>
+				<?php echo empty( $args['title'] ) ? '' : \esc_html( $args['title'] ); ?>
+			</label>
+
+		<?php endif; ?>
+
 		<?php
 	}
 
@@ -60,6 +97,6 @@ class Checkbox {
 	 * considering attributes for the field's html element.
 	 */
 	private function getFieldAttributeIgnores() {
-		return array( 'label_for', 'title' );
+		return array( 'label_for', 'title', 'options', 'inline' );
 	}
 }

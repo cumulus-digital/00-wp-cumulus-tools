@@ -32,6 +32,10 @@ class Settings {
 				'title'   => 'Jetpack Extra Options',
 				'default' => '1',
 			),
+			'obscure-feed-authors' => array(
+				'title'   => 'Replace authors in RSS feeds with site name',
+				'default' => '1',
+			),
 		),
 		'blocks' => array(
 			'anchor' => array(
@@ -194,7 +198,7 @@ foreach ( Settings::$basics['tools'] as $tool => $opts ) {
 $general->addField( array(
 	'type' => 'html',
 	'args' => array(
-		'content' => '<p><strong>WARNING:</strong> Deactivating a previously activated tool may reset its settings!</p>',
+		'content' => '<p style="margin-top: .5em"><strong>WARNING:</strong> Deactivating a previously activated tool may reset its settings!</p>',
 	),
 ) );
 

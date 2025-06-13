@@ -3,7 +3,7 @@
  * Helper for constructing Wordpress settings sections.
  *
  * @license MIT
- * Modified by __root__ on 04-December-2024 using Strauss.
+ * Modified by __root__ on 13-June-2025 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 

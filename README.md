@@ -104,6 +104,7 @@ Custom utilities for Wordpress include:
 
 * collapse-hierarchical: Adds a collapsing tree UI to hierarchical posts and terms.
 * jetpack-extras: Adds options to expose jetpack's modules menu, and toggles to disable its video and image sitemaps.
+* obscure-feed-authors: Replace all feed items' "creator" with site name.
 
 ## What's with the weird repo name?
 

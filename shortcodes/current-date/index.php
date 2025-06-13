@@ -4,8 +4,6 @@ namespace CUMULUS\Gutenberg\Tools\Shortcodes\CurrentDate;
 
 \defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
 
-const PREFIX = 'wp-tools-current-date-shortcode';
-
 function current_date_shortcode( $attr ) {
 	$attr = \shortcode_atts( array(
 		'format' => 'n/j/y',

@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by __root__ on 04-December-2024 using Strauss.
+ * Modified by __root__ on 13-June-2025 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 /**
@@ -187,6 +187,15 @@ class Builder {
 		<?php
 	}
 
+	/**
+	 * Add a new section.
+	 *
+	 * @param string $id    Section ID
+	 * @param string $title Section title
+	 * @param function $callback Render callback (optional)
+	 *
+	 * @return Section
+	 */
 	public function addSection(
 		$id = false,
 		$title = 'Section',
