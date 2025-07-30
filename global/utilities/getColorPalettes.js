@@ -5,23 +5,40 @@
 import { useMemo } from '@wordpress/element';
 import { _x } from '@wordpress/i18n';
 import {
-	useSetting,
+	useSettings,
 	__experimentalColorGradientControl as ColorGradientControl,
 } from '@wordpress/block-editor';
 
 const useCommonSingleMultipleSelects = () => {
+	const [ hasCustomColors, hasCustomGradients ] = useSettings(
+		'color.custom',
+		'color.customGradient'
+	);
 	return {
-		disableCustomColors: ! useSetting( 'color.custom' ),
-		disableCustomGradients: ! useSetting( 'color.customGradient' ),
+		disableCustomColors: ! hasCustomColors,
+		disableCustomGradients: ! hasCustomGradients,
 	};
 };
 
 export default () => {
 	const colorSettings = useCommonSingleMultipleSelects();
-	const customColors = useSetting( 'color.palette.custom' );
-	const themeColors = useSetting( 'color.palette.theme' );
-	const defaultColors = useSetting( 'color.palette.default' );
-	const shouldDisplayDefaultColors = useSetting( 'color.defaultPalette' );
+	const [
+		customColors,
+		themeColors,
+		defaultColors,
+		shouldDisplayDefaultColors,
+	] = useSettings(
+		'color.palette.custom',
+		'color.palette.theme',
+		'color.palette.default',
+		'color.defaultPalette'
+	);
+	console.log( {
+		customColors,
+		themeColors,
+		defaultColors,
+		shouldDisplayDefaultColors,
+	} );
 
 	colorSettings.__experimentalHasMultipleOrigins = true;
 	colorSettings.colors = useMemo( () => {

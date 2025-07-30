@@ -35,7 +35,6 @@ const ColorControl = ( props ) => {
 					setting && (
 						<Dropdown
 							key={ index }
-							position={ dropdownPosition }
 							className="block-editor-panel-color-gradient-settings__dropdown"
 							contentClassName="block-editor-panel-color-gradient-settings__dropdown-content"
 							renderToggle={ ( { isOpen, onToggle } ) => {
