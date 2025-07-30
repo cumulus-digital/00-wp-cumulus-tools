@@ -35,21 +35,24 @@
 	},
 	"homepage": "https://github.com/cumulus-digital/wp-cumulus-tools/#readme",
 	"devDependencies": {
-		"@preact/signals": "^2.2.0",
-		"@wordpress/block-editor": "^14.20.0",
-		"@wordpress/block-library": "^9.25.0",
-		"@wordpress/editor": "^14.25.0",
-		"@wordpress/icons": "^10.25.0",
-		"@wordpress/scripts": "^30.18.0",
+		"@preact/signals": "^2.2.1",
+		"@wordpress/block-editor": "^15.0.0",
+		"@wordpress/block-library": "^9.27.0",
+		"@wordpress/editor": "^14.27.0",
+		"@wordpress/icons": "^10.27.0",
+		"@wordpress/scripts": "^30.20.0",
 		"deepsignal": "^1.6.0",
 		"intersection-observer": "^0.12.2",
 		"jquery": "^3.7.1",
-		"preact": "^10.26.9",
+		"preact": "^10.27.0",
 		"preact-intersection-observer": "^2.3.6",
 		"prettier": "npm:wp-prettier@^3.0.3",
 		"resize-observer-polyfill": "^1.5.1",
 		"sass": "^1.83.4",
 		"sass-loader": "^16.0.5"
+	},
+	"overrides": {
+		"@babel/runtime": "^7.27.6"
 	},
 	"browserslist": [
 		"last 2 versions, not dead, > 1%"
