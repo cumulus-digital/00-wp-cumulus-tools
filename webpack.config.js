@@ -3,7 +3,7 @@ const path = require( 'path' );
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 const MiniCSSExtractPlugin = require( 'mini-css-extract-plugin' );
 const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
-const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
+//const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
 
 // Our own personal resolves aliases
@@ -30,20 +30,6 @@ module.exports = [
 	// Plugin core, cleans entire build dir
 	{
 		...defaultConfig,
-		entry: {
-			editor: './global/editor.js',
-		},
-		output: {
-			...defaultConfig.output,
-			clean: true,
-		},
-		stats:
-			defaultConfig.mode == 'production' ? 'normal' : 'errors-warnings',
-	},
-
-	// Block filters
-	{
-		...defaultConfig,
 		module: {
 			...defaultConfig.module,
 			// Allow directly importing from node_modules
@@ -58,11 +44,39 @@ module.exports = [
 			} ),
 		},
 		entry: {
+			editor: './global/editor.js',
 			'block-filters': './global/block-filters.js',
+		},
+		output: {
+			...defaultConfig.output,
+			clean: true,
 		},
 		stats:
 			defaultConfig.mode == 'production' ? 'normal' : 'errors-warnings',
 	},
+
+	// // Block filters
+	// {
+	// 	...defaultConfig,
+	// 	module: {
+	// 		...defaultConfig.module,
+	// 		// Allow directly importing from node_modules
+	// 		rules: defaultConfig.module.rules.filter( ( rule ) => {
+	// 			if (
+	// 				rule?.test.toString().includes( '(j|t)sx' ) &&
+	// 				rule?.exclude.toString().includes( 'node_modules' )
+	// 			) {
+	// 				delete rule.exclude;
+	// 			}
+	// 			return rule;
+	// 		} ),
+	// 	},
+	// 	entry: {
+	// 		'block-filters': './global/block-filters.js',
+	// 	},
+	// 	stats:
+	// 		defaultConfig.mode == 'production' ? 'normal' : 'errors-warnings',
+	// },
 
 	// Blocks
 	{
@@ -133,7 +147,6 @@ module.exports = [
 		output: {
 			filename: '[name].js',
 			path: path.resolve( process.cwd(), 'build/blocks' ),
-			clean: true,
 		},
 	},
 

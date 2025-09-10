@@ -1,6 +1,5 @@
 {
 	"name": "wp-cumulus-tools",
-	"version": "1.9.5",
 	"description": "Cumulus Media custom Wordpress blocks, cpts, and tools collection",
 	"scripts": {
 		"start": "wp-scripts start --webpack-src-dir=blocks",
@@ -35,16 +34,16 @@
 	},
 	"homepage": "https://github.com/cumulus-digital/wp-cumulus-tools/#readme",
 	"devDependencies": {
-		"@preact/signals": "^2.2.1",
-		"@wordpress/block-editor": "^15.0.0",
-		"@wordpress/block-library": "^9.27.0",
-		"@wordpress/editor": "^14.27.0",
-		"@wordpress/icons": "^10.27.0",
-		"@wordpress/scripts": "^30.20.0",
+		"@preact/signals": "^2.3.1",
+		"@wordpress/block-editor": "^15.3.0",
+		"@wordpress/block-library": "^9.30.0",
+		"@wordpress/editor": "^14.30.0",
+		"@wordpress/icons": "^10.30.0",
+		"@wordpress/scripts": "^30.23.0",
 		"deepsignal": "^1.6.0",
 		"intersection-observer": "^0.12.2",
 		"jquery": "^3.7.1",
-		"preact": "^10.27.0",
+		"preact": "^10.27.1",
 		"preact-intersection-observer": "^2.3.6",
 		"prettier": "npm:wp-prettier@^3.0.3",
 		"resize-observer-polyfill": "^1.5.1",
@@ -58,6 +57,7 @@
 		"last 2 versions, not dead, > 1%"
 	],
 	"dependencies": {
+		"clean-webpack-plugin": "^4.0.0",
 		"lodash": "^4.17.21"
 	}
 }

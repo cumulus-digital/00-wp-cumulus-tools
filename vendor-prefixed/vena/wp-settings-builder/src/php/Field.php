@@ -3,7 +3,7 @@
  * Helper for constructing Wordpress settings fields.
  *
  * @license MIT
- * Modified by __root__ on 13-June-2025 using Strauss.
+ * Modified by __root__ on 10-September-2025 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
