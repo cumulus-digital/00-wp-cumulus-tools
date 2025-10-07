@@ -2,12 +2,14 @@ import { deepSignal } from 'deepsignal';
 import { sortBy } from 'lodash';
 import stateNames from './statenames';
 import { effect } from '@preact/signals';
+import Loading from './Loading.psx';
 
 const isFiltered = ( type ) => store[ type ] !== 'all';
 
 export const initialState = {
 	loading: false,
-	status: 'Loading…',
+	error: false,
+	status: <Loading />,
 
 	_stations: [],
 

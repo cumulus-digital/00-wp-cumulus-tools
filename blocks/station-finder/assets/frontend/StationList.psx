@@ -3,31 +3,33 @@ import { h, Fragment } from 'preact';
 import { store } from './store';
 import Station from './Station.psx';
 import { useMemo } from 'preact/hooks';
+import { useSignal, useSignalEffect } from '@preact/signals';
 
 export default function StationList( props ) {
-	const content = useMemo( () => {
-		if ( store.loading.value ) {
-			return <li>{ store.status }</li>;
-		}
+	const Content = useSignal( <li></li> );
+	useSignalEffect( () => {
+		store.city;
+		store.state;
+		store.format;
+		store.query;
+		store._stations;
 
 		const stations = store.stations;
-		if ( stations.length ) {
-			return stations.map( ( station ) => (
+
+		if ( store.loading || store.error ) {
+			Content.value = <li>{ store.status }</li>;
+		} else if ( stations.length ) {
+			Content.value = stations.map( ( station ) => (
 				<li>
 					<Station { ...station } />
 				</li>
 			) );
 		} else {
-			return <li>No stations found, please try other filter options.</li>;
+			Content.value = (
+				<li>No stations found, please try other filter options.</li>
+			);
 		}
-	}, [
-		store.loading,
-		store.city,
-		store.state,
-		store.format,
-		store.query,
-		store._stations,
-	] );
+	} );
 
 	return (
 		<ul
@@ -35,7 +37,7 @@ export default function StationList( props ) {
 				store.stations.length || 'crsg-sf-none'
 			}` }
 		>
-			{ content }
+			{ Content }
 		</ul>
 	);
 }

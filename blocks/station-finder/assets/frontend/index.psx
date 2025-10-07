@@ -1,11 +1,25 @@
 import { h, render, Fragment } from 'preact';
 import { useCallback, useLayoutEffect, useMemo } from 'preact/hooks';
+import { useSignal, useSignalEffect } from '@preact/signals';
 
 import config from './config.js';
 import { store } from './store.js';
 import Filters from './Filters.psx';
 import StationList from './StationList.psx';
 import Loading from './Loading.psx';
+
+class FetchError extends Error {
+	constructor( message ) {
+		super( message );
+		this.name = 'FetchError';
+	}
+}
+class JsonError extends Error {
+	constructor( message ) {
+		super( message );
+		this.name = 'JsonError';
+	}
+}
 
 const place = document.querySelectorAll(
 	'.wp-block-cumulus-gutenberg-station-finder'
@@ -47,10 +61,14 @@ polyfillIntersectionObserver( ( success ) => {
 				render( <StationFinder />, p );
 			} );
 		} else {
-			console.warn(
+			console.error(
 				'Station finder FE included, but no placements were found.'
 			);
 		}
+	} else {
+		console.error(
+			'Station finder FE included, but IntersectionObserver polyfill failed to load.'
+		);
 	}
 }, window.self );
 
@@ -58,35 +76,49 @@ function StationFinder( props ) {
 	const refreshTime = config.refreshTime ? config.refreshTime : 14400000;
 	let refreshTimer;
 
-	store.loading = true;
-	store.status = <Loading />;
-	const error_msg = config?.error_message
-		? config.error_message
-		: 'Failed to load stations! Please try again later.';
+	const Content = useSignal( <Loading /> );
+	useSignalEffect( () => {
+		if ( store.error ) {
+			Content.value = <p class="error">{ store.status }</p>;
+		} else if ( ! store._stations.length ) {
+			Content.value = <Loading />;
+		} else {
+			Content.value = (
+				<div class="crsg-stationfinder">
+					<Filters />
+					<StationList />
+				</div>
+			);
+		}
+	} );
 
 	const fetchStations = useCallback( () => {
+		store.error = false;
+		store.loading = true;
+		console.debug( 'StationFinder', 'Fetching stations' );
 		fetch( config.baseURL, { method: 'GET', headers: config.headers } )
 			.then( ( resp ) => {
 				if ( resp.status !== 200 ) {
-					store.status = error_msg;
-					console.error( 'StationFinder', resp );
-					return;
+					throw new FetchError( resp.statusText );
 				}
+
 				resp.json()
 					.then( ( data ) => {
-						store._stations = data;
 						store.loading = false;
+						store._stations = data;
+						console.debug( 'StationFinder', 'Fetch complete.' );
 					} )
 					.catch( ( err ) => {
-						store.status = error_msg;
-						console.error( 'StationFinder', err );
+						throw new JsonError( err.message );
 					} );
 			} )
 			.catch( ( err ) => {
-				store.status = error_msg;
-				console.error( 'StationFinder', err );
+				store.error = true;
+				store.loading = false;
+				store.status = config.error_message;
+				console.error( 'StationFinder', err.name, err.message );
 			} );
-	}, [] );
+	} );
 
 	const doFetchTime = useCallback( () => {
 		if ( refreshTimer ) clearTimeout( refreshTimer );
@@ -110,10 +142,7 @@ function StationFinder( props ) {
 		};
 	}, [] );
 
-	return (
-		<div class="crsg-stationfinder">
-			<Filters />
-			<StationList />
-		</div>
-	);
+	return Content;
 }
+
+export default StationFinder;

@@ -1,6 +1,6 @@
 export default {
 	loading_message: 'Loading…',
-	error_message: 'Failed to load stations! Please try again later.',
+	error_message: `We're sorry, this service is currently unavailable. Please try again later.`,
 
 	headers: new Headers( {
 		Accept: 'application/json',

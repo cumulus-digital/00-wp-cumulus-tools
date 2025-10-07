@@ -21,14 +21,21 @@
 	.wp-block-cumulus-gutenberg-station-finder {
 		min-height: 100vh;
 	}
-	.crsg-sf-loading,
-	.crsg-sf-loading:after {
+	.crsg-sf-loading {
+		margin: 60px auto;
+		position: relative;
+		text-align: center;
+		font-size: 0.75em;
+		color: rgba(0, 0, 0, 0.4);
+	}
+	.crsg-sf-loading-spinner,
+	.crsg-sf-loading-spinner:after {
 		border-radius: 50%;
 		width: 3em;
 		height: 3em;
 	}
-	.crsg-sf-loading {
-		margin: 60px auto;
+	.crsg-sf-loading-spinner {
+		margin: 0 auto;
 		position: relative;
 		text-indent: -9999em;
 		border-top: 0.5em solid rgba(0, 0, 0, 0.1);

@@ -4,7 +4,16 @@ import config from './config';
 export default function Loading( props ) {
 	return (
 		<div class="crsg-sf-loading">
-			{ config?.loading_message ? config.loading_message : 'Loading…' }
+			<div class="crsg-sf-loading-spinner">
+				{ config?.loading_message
+					? config.loading_message
+					: 'Loading…' }
+			</div>
+			<div>
+				{ config?.loading_message
+					? config.loading_message
+					: 'Loading…' }
+			</div>
 		</div>
 	);
 }
