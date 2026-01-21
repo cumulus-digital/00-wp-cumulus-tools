@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by __root__ on 07-October-2025 using Strauss.
+ * Modified by __root__ on 21-January-2026 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 // Basic checkbox field
