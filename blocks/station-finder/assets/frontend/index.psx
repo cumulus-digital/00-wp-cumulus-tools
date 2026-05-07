@@ -79,7 +79,19 @@ function StationFinder( props ) {
 	const Content = useSignal( <Loading /> );
 	useSignalEffect( () => {
 		if ( store.error ) {
-			Content.value = <p class="error">{ store.status }</p>;
+			Content.value = (
+				<>
+					<p>Search stations by Market (City, State) or Format.</p>
+					<p>Popular formats:</p>
+					<ul>
+						<li>News / Talk</li>
+						<li>Sports</li>
+						<li>Country</li>
+						<li>Classic Rock</li>
+					</ul>
+					<p class="api-status">{ store.status }</p>
+				</>
+			);
 		} else if ( ! store._stations.length ) {
 			Content.value = <Loading />;
 		} else {

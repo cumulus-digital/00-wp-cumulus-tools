@@ -1,6 +1,6 @@
 export default {
 	loading_message: 'Loading…',
-	error_message: `Our station directory is temporarily unavailable. Please try searching again in a few moments.`,
+	error_message: `We're having trouble loading live station listings right now. Try refreshing the page or searching again in a few minutes.`,
 
 	headers: new Headers( {
 		Accept: 'application/json',
