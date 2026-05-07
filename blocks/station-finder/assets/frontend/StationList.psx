@@ -19,9 +19,9 @@ export default function StationList( props ) {
 		if ( store.loading || store.error ) {
 			Content.value = <li>{ store.status }</li>;
 		} else if ( stations.length ) {
-			Content.value = stations.map( ( station ) => (
+			Content.value = stations.map( ( station, i ) => (
 				<li>
-					<Station { ...station } />
+					<Station sindex={ i } { ...station } />
 				</li>
 			) );
 		} else {

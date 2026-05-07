@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { ViewportObserver } from 'preact-intersection-observer';
+//import { ViewportObserver } from 'preact-intersection-observer';
 import { useMemo } from 'preact/hooks';
 
 export default function Station( props ) {
@@ -16,25 +16,39 @@ export default function Station( props ) {
 	return (
 		<Tag { ...attribs }>
 			{ props?.image && (
+				<figure>
+					<img
+						src={ props.image.replace( 'http://', 'https://' ) }
+						alt={ `Logo for ${ props.id }` }
+						width="100%"
+						loading={ props.sindex < 16 ? 'eager' : 'lazy' }
+						fetchPriority={ props.index < 12 ? 'high' : 'auto' }
+						decoding="async"
+					/>
+				</figure>
+				/*
 				<ViewportObserver
 					as="figure"
 					render={ ( { inView, entry } ) => {
+						let loading = 'lazy';
 						if ( inView ) {
-							return (
-								<img
-									src={ props.image.replace(
-										'http://',
-										'https://'
-									) }
-									alt={ `Logo for ${ props.id }` }
-									width="300px"
-									height="300px"
-								/>
-							);
+							loading = 'eager';
 						}
-						return null;
+						return (
+							<img
+								src={ props.image.replace(
+									'http://',
+									'https://'
+								) }
+								alt={ `Logo for ${ props.id }` }
+								width="100%"
+								loading={ loading }
+							/>
+						);
+						//return null;
 					} }
 				/>
+				*/
 			) }
 			<div className="crsg-sf-locale">
 				{ props?.city }, { props?.state }
