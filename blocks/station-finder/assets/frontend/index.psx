@@ -84,7 +84,7 @@ function StationFinder( props ) {
 			Content.value = <Loading />;
 		} else {
 			Content.value = (
-				<div class="crsg-stationfinder">
+				<div class="crsg-stationfinder loaded">
 					<Filters />
 					<StationList />
 				</div>

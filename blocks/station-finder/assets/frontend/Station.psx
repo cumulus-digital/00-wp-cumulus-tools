@@ -27,6 +27,8 @@ export default function Station( props ) {
 										'https://'
 									) }
 									alt={ `Logo for ${ props.id }` }
+									width="300px"
+									height="300px"
 								/>
 							);
 						}
