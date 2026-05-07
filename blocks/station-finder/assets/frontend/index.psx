@@ -81,14 +81,6 @@ function StationFinder( props ) {
 		if ( store.error ) {
 			Content.value = (
 				<>
-					<p>Search stations by Market (City, State) or Format.</p>
-					<p>Popular formats:</p>
-					<ul>
-						<li>News / Talk</li>
-						<li>Sports</li>
-						<li>Country</li>
-						<li>Classic Rock</li>
-					</ul>
 					<p class="api-status">{ store.status }</p>
 				</>
 			);
