@@ -36,6 +36,10 @@ class Settings {
 				'title'   => 'Replace authors in RSS feeds with site name',
 				'default' => '1',
 			),
+			'remove-invisible-chars' => array(
+				'title'   => 'Remove non-breaking spaces from new Press Releases',
+				'default' => '0',
+			),
 		),
 		'blocks' => array(
 			'anchor' => array(
