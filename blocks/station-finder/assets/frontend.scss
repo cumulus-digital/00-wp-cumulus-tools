@@ -230,7 +230,6 @@
 
 			img {
 				position: absolute;
-				image-rendering: auto;
 			}
 
 			@media (max-width: 640px) {
@@ -240,6 +239,7 @@
 		}
 
 		img {
+			image-rendering: auto;
 			align-self: center;
 			justify-self: center;
 			width: 100%;
